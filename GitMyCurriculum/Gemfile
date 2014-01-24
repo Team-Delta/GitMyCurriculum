@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 gem 'rails', '4.0.1'
-
+gem 'mysql', '~> 2.9.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -33,10 +33,9 @@ group :test, :development do
 	gem 'turn'
 	gem 'rspec-rails'
 	gem 'capybara'
-	gem 'guard'
 	gem 'guard-rspec'
-	gem 'rugged'
-	gem 'mysql', '~> 2.9.1'
+	gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
+	gem 'mysql2'
 	#comment this out if you don't have mac
 	gem 'growl_notify'
 end

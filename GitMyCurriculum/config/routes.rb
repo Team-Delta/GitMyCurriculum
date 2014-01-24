@@ -1,4 +1,8 @@
 GitMyCurriculum::Application.routes.draw do
+  get "splash/new"
+  get "splash/create"
+  get "controllername/new"
+  get "controllername/create"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
