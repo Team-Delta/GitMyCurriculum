@@ -1,14 +1,17 @@
 source 'https://rubygems.org'
+source 'http://gems.github.com'
 
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.0.2'
 
-gem 'rails', '4.0.1'
-gem 'mysql', '~> 2.9.1'
+# Use mysql as the database for Active Record
+gem 'mysql2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -32,3 +35,4 @@ group :test, :development do
 	gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
 	gem 'mysql2'
 end
+
