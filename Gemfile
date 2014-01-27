@@ -3,7 +3,7 @@ source 'http://gems.github.com'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
-
+gem 'os'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 
@@ -27,12 +27,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+require 'os'
 group :test, :development do
-	gem 'turn'
 	gem 'rspec-rails'
 	gem 'capybara'
 	gem 'guard-rspec'
 	gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
-	gem 'mysql2'
+	if OS.mac? then
+		puts 'OSX detected'
+		gem 'growl_notify'
+	end
 end
 
