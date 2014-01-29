@@ -3,7 +3,14 @@ source 'http://gems.github.com'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
+
+# Easy solution for os dependant dependancies 
 gem 'os'
+require 'os'
+
+# User authentication
+gem 'devise'
+
 # Use mysql as the database for Active Record
 gem 'mysql2'
 
@@ -27,7 +34,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-require 'os'
 group :test, :development do
 	gem 'rspec-rails'
 	gem 'capybara'
