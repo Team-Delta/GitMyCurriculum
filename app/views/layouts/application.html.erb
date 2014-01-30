@@ -5,8 +5,10 @@
 
   <%= stylesheet_link_tag "https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css", media: "all", "data-turbolinks-track" => true %>
  
-  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js", "https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js", "https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js", "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
+  <%= render :partial => "users/base" %>
 
 </head>
 <body>
