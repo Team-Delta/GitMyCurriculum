@@ -6,7 +6,7 @@ gem 'rails', '4.0.2'
 
 # Easy solution for os dependant dependancies 
 gem 'os'
-require 'os'
+#require 'os'
 
 # User authentication
 gem 'devise'
@@ -39,9 +39,9 @@ group :test, :development do
 	gem 'capybara'
 	gem 'guard-rspec'
 	gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
-	if OS.mac? then
-		puts 'OSX detected'
-		gem 'growl_notify'
-	end
+#	if OS.mac? then
+#		puts 'OSX detected'
+#		gem 'growl_notify'
+#	end
 end
 
