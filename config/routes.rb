@@ -1,4 +1,5 @@
 GitMyCurriculum::Application.routes.draw do
+  get "bootstrap/test"
   devise_for :users
   root :to => 'users#index'
   resources :users
