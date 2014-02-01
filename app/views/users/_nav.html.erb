@@ -1,4 +1,4 @@
-<div class='navbar navbar-inverse navbar-static-top'>
+<div class='navbar navbar-default navbar-static-top'>
 
  <nav>
 
@@ -18,11 +18,11 @@
     <li class=''>
 
       <% if user_signed_in? %>
-        <p> <%= link_to("Sign Out", destroy_user_session_path, :method => :delete) %> </p>
+        <%= link_to("Sign Out", destroy_user_session_path, :method => :delete) %>
       <% end %>
 
       <% unless user_signed_in? %>
-        <p> <%= link_to("Sign Up", new_user_registration_path, :method => :get) %> </p>
+        <%= link_to("Sign Up", new_user_registration_path, :method => :get) %>
       <% end %>
      
     </li>
