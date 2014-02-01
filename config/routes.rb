@@ -4,21 +4,6 @@ GitMyCurriculum::Application.routes.draw do
   get 'splash/load'
 
   devise_for :users
-
-=begin 
-  devise_for :users, :skip => [:sessions]
-  as :user do
-    get 'signin' => 'devise/sessions#new', :as => :new_user_session
-    post 'signin' => 'devise/sessions#create', :as => :user_session
-    delete 'signout' => 'devise/sessions#destroy', :as => :destroy_user_session
-  end
-=end
-
-=begin
-  devise_scope :users do
-    get "splash/load", :to => "devise/session#new"
-  end
-=end
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
