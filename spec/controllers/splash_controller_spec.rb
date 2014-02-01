@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe DashboardController do
+describe SplashController do
 
-  describe "GET 'render'" do
+  describe "GET 'load'" do
     it "returns http success" do
-      get 'render'
+      get 'load'
       response.should be_success
     end
   end
