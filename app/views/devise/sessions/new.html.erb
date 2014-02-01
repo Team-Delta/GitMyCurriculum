@@ -3,10 +3,11 @@
 
   <h4 class="form-signin-heading">Sign In</h4>
 
-  <div><!--<%= f.label :email %><br />-->
-  <%= f.email_field :email, type:"text", placeholder:"email", class:"form-control", :autofocus => true %></div>
+  <div>
+  <%= f.text_field :login, type:"text", placeholder:"email or username", class:"form-control", :autofocus => true %>
+  </div>  
 
-  <div><!--<%= f.label :password%><br />-->
+  <div>
   <%= f.password_field :password, type:"password", placeholder:"password", class:"form-control" %></div>
 
   <% if devise_mapping.rememberable? -%>
