@@ -1,0 +1,11 @@
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-signin", :method => :put }) do |f| %>
+
+   <%= f.label :description %>
+   <%= f.text_field :description %>
+
+   <%= f.label :occupation %>
+   <%= f.text_field :occupation %>
+
+   <%= f.submit "Submit", class:"btn btn-primary btn-no-padding"%>
+
+<% end %>
