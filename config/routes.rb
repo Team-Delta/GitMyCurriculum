@@ -1,10 +1,10 @@
 GitMyCurriculum::Application.routes.draw do
-  
+ 
+  root 'splash#load' 
+  get 'splash/load'
+
   devise_for :users
-  #resources :users
-  get "dashboard/render"
-  get "bootstrap/test"
-  root :to => 'users#index'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
