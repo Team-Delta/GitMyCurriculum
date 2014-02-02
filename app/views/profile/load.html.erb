@@ -1,0 +1,29 @@
+<div class="col-md-8 col-md-offset-2">
+
+   <div class="panel panel-default">
+
+      <div id="profile-panel-heading" class="panel-heading">
+
+         <div class="panel-title">
+
+            <%= current_user.username %>
+            <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-success pull-right no-link-white" %>
+           
+         </div>
+
+      </div>
+
+      <div class="panel-body">
+         <h4>Description</h4>
+         <%= current_user.description %>
+
+         <hr>
+
+         <h4>Occupation</h4>
+         <%= current_user.occupation %>
+
+      </div> 
+
+   </div>
+
+</div>

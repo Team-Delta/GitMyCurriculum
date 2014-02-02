@@ -1,11 +1,17 @@
 GitMyCurriculum::Application.routes.draw do
- 
+
+  get 'user_root' => 'profile#load'
+
   root 'splash#load' 
+
+  get "profile/edit" 
+  get "profile/load"
+   
   get 'splash/load'
-  
+
   get "dashboard/dashboard_main"
 
-  devise_for :users
+  devise_for :users 
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
