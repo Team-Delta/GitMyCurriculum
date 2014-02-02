@@ -2,6 +2,8 @@ GitMyCurriculum::Application.routes.draw do
  
   root 'splash#load' 
   get 'splash/load'
+  
+  get "dashboard/dashboard_main"
 
   devise_for :users
   
