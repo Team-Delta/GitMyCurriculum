@@ -1,5 +1,6 @@
 GitMyCurriculum::Application.routes.draw do
 
+  get "search/user_search"
   get 'user_root' => 'profile#load'
 
   root 'splash#load' 

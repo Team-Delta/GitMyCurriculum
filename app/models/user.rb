@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
          :case_sensitive => false
       }
 
+   searchable do
+     text :username, :name
+   end
+
 end
