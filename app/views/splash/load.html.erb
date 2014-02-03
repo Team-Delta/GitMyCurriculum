@@ -1,6 +1,12 @@
- <div class="container">
-
-   <%= form_for(resource, :html => {:class => "form-signin"}, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<div id="splash-top-row" class="row">
+  <div class="col-md-6 col-md-offset-1">
+    <h1 class="text-color-white">
+      Stop. Collaborate and Listen.<br>
+      GitMyCurriculum is an easy decision!
+    </h1>
+  </div>
+  <div class="col-md-4 ">
+    <%= form_for(resource, :html => {:class => "form-signin"}, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
   <h4 class="form-signin-heading">Sign In</h4>
 
@@ -17,7 +23,13 @@
 
   <div><%= f.submit "Submit", class:"btn btn-primary btn-no-padding" %></div>
 
-<% end %>
+    <% end %>
+  </div>
+</div>
 
-
-
+<div class="row">
+  <div class="container">
+    
+    
+  </div>
+</div>
