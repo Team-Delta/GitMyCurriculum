@@ -19,23 +19,38 @@
     <% end %>
 
     <div>
-        <%= f.password_field :password, type:"password", placeholder:"password", class:"form-control" %>
+        <%= f.password_field :current_password, type:"password", placeholder:"current password", class:"form-control" %>
     </div>
 
     <div>
-    <%= f.password_field :password_confirmation, type:"password", placeholder:"password confirmation", class:"form-control"%>
+        <%= f.password_field :password, type:"password", placeholder:"new password", class:"form-control" %>
     </div>
 
     <div>
-    <%= f.password_field :current_password, type:"password", placeholder:"current password", class:"form-control" %>
+        <%= f.password_field :password_confirmation, type:"password", placeholder:"new password confirmation", class:"form-control"%>
     </div>
 
     <div>
-    <%= f.text_area :description, type:"text", placeholder:current_user.description, class:"form-control" %>
+        <% if current_user.description? %>
+            <%= f.text_area :description, type:"text", placeholder:current_user.description, class:"form-control" %>
+        <% else %>
+            <%= f.text_area :description, type:"text", placeholder:"description", class:"form-control" %>
+        <% end %>
+
+    <div>
+        <% if current_user.occupation? %>
+            <%= f.text_field :occupation, type:"text", placeholder:current_user.occupation, class:"form-control" %>
+        <% else %>
+            <%= f.text_field :occupation, type:"text", placeholder:"occupation", class:"form-control" %>
+        <% end %>
     </div>
 
     <div>
-    <%= f.text_field :occupation, type:"text", placeholder:current_user.occupation, class:"form-control" %>
+        <% if current_user.name? %>
+            <%= f.text_field :name, type:"text", placeholder:current_user.name, class:"form-control" %>
+        <% else %>
+            <%= f.text_field :name, type:"text", placeholder:"name", class:"form-control" %>
+        <% end %>
     </div>
 
 

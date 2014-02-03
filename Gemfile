@@ -6,7 +6,7 @@ gem 'rails', '4.0.2'
 
 # Easy solution for os dependant dependancies 
 gem 'os'
-#require 'os'
+require 'os'
 
 # User authentication
 gem 'devise'
@@ -29,19 +29,27 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# Search with Sunspot Solr
+gem 'sunspot_solr'
+gem 'sunspot_rails'
+
+# Progress bar for prolonged activities in the terminal
+gem 'progress_bar'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
 group :test, :development do
+    gem 'seed-fu', github: 'mbleigh/seed-fu'
 	gem 'rspec-rails'
 	gem 'capybara'
 	gem 'guard-rspec'
 	gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
-#	if OS.mac? then
-#		puts 'OSX detected'
-#		gem 'growl_notify'
-#	end
+	if OS.mac? then
+		puts 'OSX detected'
+		gem 'growl_notify'
+	end
 end
 
