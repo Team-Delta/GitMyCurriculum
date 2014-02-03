@@ -2,3 +2,13 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+
+
+#splash-top-row {
+	background: url("escheresque_ste.png") repeat scroll 0% 0% transparent;
+}
+
+.text-color-white{
+	color: #FFFFFF;
+}

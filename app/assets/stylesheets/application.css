@@ -17,6 +17,9 @@
   padding: 15px;
   margin: 0 auto;
 }
+.navbar{
+  margin-bottom: 0px;
+}
 .form-signin > .form-signin-heading {
   margin-bottom: 10px;
 }
