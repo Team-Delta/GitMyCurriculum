@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 1.2'
 # Search with Sunspot Solr
 gem 'sunspot_solr'
 gem 'sunspot_rails'
+gem 'sunspot_test'
 
 # Progress bar for prolonged activities in the terminal
 gem 'progress_bar'
@@ -42,12 +43,26 @@ group :doc do
 end
 
 group :test, :development do
+    # used for development seeding of database
     gem 'seed-fu', github: 'mbleigh/seed-fu'
+
+    # used for test case database
+    gem 'factory_girl_rails'
+
+    # testing framework for rails
 	gem 'rspec-rails'
+
+    # Simulates the user in test cases
 	gem 'capybara'
+
+    # automated test running on development machines
 	gem 'guard-rspec'
+
+    # ruby bindings for git framework
 	gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
+
 	if OS.mac? then
+        # notifications for guard on a mac
 		puts 'OSX detected'
 		gem 'growl_notify'
 	end
