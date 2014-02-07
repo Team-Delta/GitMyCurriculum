@@ -40,3 +40,11 @@ User.seed do |s|
     s.name = "John Thomas"
     s.password = "l03174912847kjhf"
 end
+
+User.seed do |s|
+    s.id = 6
+    s.username = "guest"
+    s.email = "g@y.com"
+    s.name = "Guest"
+    s.password = "manjaro1"
+end
