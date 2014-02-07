@@ -3,7 +3,8 @@ require 'spec_helper'
 
 feature 'Visitor signs in' do
   scenario 'with valid username and password' do
-    sign_in_with 'bammons123', '1234'
+    create(:user)
+    sign_in_with 'bammons123', '12345678'
 
     expect(page).to have_content('Sign Out')
   end

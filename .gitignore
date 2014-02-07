@@ -4,6 +4,12 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore tags for CTags
+.tags
+.tags_sorted_by_file
+tags
+tags_sorted_by_file
+
 # Ignore bundler config.
 /.bundle
 
@@ -14,6 +20,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/solr
+solr/
 /log
-/solr/*
+solr/**
