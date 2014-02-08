@@ -7,8 +7,26 @@
 
 #splash-top-row {
 	background: url("escheresque_ste.png") repeat scroll 0% 0% transparent;
+    min-height: 300px;
+    position: relative;
 }
 
 .text-color-white{
 	color: #FFFFFF;
+}
+
+.content {
+
+}
+
+.navbar{
+  margin-bottom: 0px;
+}
+
+#buffer {
+    height: 75px;
+}
+
+#remember-me{
+    margin-top: 15px;
 }

@@ -3,6 +3,10 @@ GitMyCurriculum::Application.routes.draw do
   get "search/user_search"
   get 'user_root' => 'profile#load'
 
+  authenticated :user do
+    root :to => "dashboard#dashboard_main", :as => "authenticated_root"
+  end
+
   root 'splash#load' 
 
   get "profile/edit" 

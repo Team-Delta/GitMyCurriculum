@@ -12,7 +12,7 @@
    <a class='navbar-brand' href='/'>GitMyCurriculum</a>                
   </div>
 
-  <%= form_tag "/search/user_search/", :class => "navbar-form navbar-left", :role => "search", :method => :get do %>
+  <%= form_tag "/search/user_search/", :id => "nav-search", :class => "navbar-form navbar-left", :role => "search", :method => :get do %>
     <div class="form-group">
         <%= text_field_tag :query, params[:query], class:"form-control", placeholder:"Search!" %>
     </div>

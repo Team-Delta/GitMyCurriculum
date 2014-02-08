@@ -19,6 +19,6 @@ feature 'Visitor signs in' do
     visit splash_load_path
     fill_in 'email or username', with: email
     fill_in 'password', with: password
-    click_button 'Submit'
+    click_button 'Sign In'
   end
 end
