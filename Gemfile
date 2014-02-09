@@ -5,7 +5,6 @@ source 'http://gems.github.com'
 gem 'rails', '4.0.2'
 
 # Easy solution for os dependant dependancies 
-gem 'os'
 require 'os'
 
 # User authentication
