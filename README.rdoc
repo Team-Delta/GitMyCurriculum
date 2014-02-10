@@ -9,26 +9,55 @@ Curriculum management for the average academic that leverages git.
 4. add the os gem <code>gem install os</code>
 5. run budler <code>bundle install</code>
 
-=== Things you may want to cover:
+=== Ruby version:
+This project is running ruby 2.1.0
 
-* Ruby version (done)
+=== System Dependancies & Development Environment
+Sunspot: used for searching
+Devise: used for authentication
 
-* System dependencies (done?)
+=== Configuration:
+FactoryGirl: used for data fixtures in test cases
+Seed_fu: used for data fixtures in development
+RSpec: unit tests
+Capybara: integration tests
+Guard: continuous testing on development machine
 
-* Configuration
+=== Database Creation & Loading:
+rake db:create
+rake db:migrate
+rake db:seed_fu (development)
 
-* Database creation
+=== How to run the test suite:
+rake test_setup:run_all (test script that runs all things for test suite)
 
-* Database initialization
+=== Code Line Policies:
+Master - This is our release branch. Only release versions for the project will go on this branch.
+Develop - This branch is for working passing code. No one is to push directly to this branch. All commits to this branch will come from pull requests from other branches. Integration tests will be ran nightly on this branch.
+Working Branches - These are for writing new features for the code. When the feature is finished, the process is to push the branch up and submit a pull request against develop. For more info on the flow read Git Flow. Integration tests will run upon initial push for this branch.
 
-* How to run the test suite
+=== Git Flow:
+Create a working branch off of develop. All lowercase and use tacs
+-git checkout -b feature#-name-of-branch
 
-* Services (job queues, cache servers, search engines, etc.)
+When work is finished, stage files, commit, and push branch up
+-git add ., git add -A, git add name-of-file
+-git commit -m "commit message"
+-git push origin branch-name
 
-* Deployment instructions
+When the branch has been pushed up
+-Submit a pull request on github against develop
+-Must have at least 2 points from code reviews and pass integration tests to merge with develop
+-After the above is fulfilled merge branch with develop
 
-* ...
-
+When working branch has been merged to develop
+-delete local and remote branch
+ -git push origin :name-of-branch
+ -git checkout develop
+ -git pull origin develop
+ -git branch -d name-of-branch
+ 
+Now you have completed the git flow. Rinse and repeat.
 
 Please feel free to use a different markup language if you do not plan to run
 <code>rake doc:app</code>.
