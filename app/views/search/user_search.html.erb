@@ -1,8 +1,12 @@
 <h3>Users</h3>
   <ul>
-    <% for r in @users%>
-      <li>
-          <strong><%= r.username %></strong> <br> <strong><%= r.name %></strong>
-      </li>
-    <% end %>
+  	<%if @numberOfMatches==0%>
+  		<strong> No Match Found</strong>
+  	<%else%>
+    	<% for r in @users%>
+      		<li>
+          	<strong><%= r.username %></strong> <br> <strong><%= r.name %></strong>
+      		</li>
+    	<% end %>
+    <%end%>
   </ul>

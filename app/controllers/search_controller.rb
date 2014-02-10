@@ -9,5 +9,6 @@ class SearchController < ApplicationController
       fulltext params[:query]
     end
     @users = @search.results
+    @numberOfMatches=@search.total
   end
 end
