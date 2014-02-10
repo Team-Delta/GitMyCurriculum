@@ -37,21 +37,21 @@ Develop - This branch is for working passing code. No one is to push directly to
 Working Branches - These are for writing new features for the code. When the feature is finished, the process is to push the branch up and submit a pull request against develop. For more info on the flow read Git Flow. Integration tests will run upon initial push for this branch.
 
 === Git Flow:
-Create a working branch off of develop. All lowercase and use tacs
--git checkout -b feature#-name-of-branch
+Create a working branch off of develop. All lowercase and use tacs<br>
+-git checkout -b feature#-name-of-branch<br>
 
-When work is finished, stage files, commit, and push branch up
--git add ., git add -A, git add name-of-file
--git commit -m "commit message"
--git push origin branch-name
+When work is finished, stage files, commit, and push branch up<br>
+-git add ., git add -A, git add name-of-file<br>
+-git commit -m "commit message"<br>
+-git push origin branch-name<br>
 
-When the branch has been pushed up
--Submit a pull request on github against develop
--Must have at least 2 points from code reviews and pass integration tests to merge with develop
--After the above is fulfilled merge branch with develop
+When the branch has been pushed up<br>
+-Submit a pull request on github against develop<br>
+-Must have at least 2 points from code reviews and pass integration tests to merge with develop<br>
+-After the above is fulfilled merge branch with develop<br>
 
-When working branch has been merged to develop
--delete local and remote branch
+When working branch has been merged to develop<br>
+-delete local and remote branch<br>
  -git push origin :name-of-branch
  -git checkout develop
  -git pull origin develop
