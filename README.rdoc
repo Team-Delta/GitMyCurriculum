@@ -32,32 +32,10 @@ rake db:seed_fu (development)
 rake test_setup:run_all (test script that runs all things for test suite)
 
 === Code Line Policies:
-Master - This is our release branch. Only release versions for the project will go on this branch.
-Develop - This branch is for working passing code. No one is to push directly to this branch. All commits to this branch will come from pull requests from other branches. Integration tests will be ran nightly on this branch.
-Working Branches - These are for writing new features for the code. When the feature is finished, the process is to push the branch up and submit a pull request against develop. For more info on the flow read Git Flow. Integration tests will run upon initial push for this branch.
+See wiki/pages/code line policies
 
 === Git Flow:
-Create a working branch off of develop. All lowercase and use tacs<br>
--git checkout -b feature#-name-of-branch<br>
-
-When work is finished, stage files, commit, and push branch up<br>
--git add ., git add -A, git add name-of-file<br>
--git commit -m "commit message"<br>
--git push origin branch-name<br>
-
-When the branch has been pushed up<br>
--Submit a pull request on github against develop<br>
--Must have at least 2 points from code reviews and pass integration tests to merge with develop<br>
--After the above is fulfilled merge branch with develop<br>
-
-When working branch has been merged to develop<br>
--delete local and remote branch<br>
- -git push origin :name-of-branch
- -git checkout develop
- -git pull origin develop
- -git branch -d name-of-branch
- 
-Now you have completed the git flow. Rinse and repeat.
+See wiki/pages/git flow
 
 Please feel free to use a different markup language if you do not plan to run
 <code>rake doc:app</code>.
