@@ -1,28 +1,41 @@
-== README
+= Git My Curriculum
+Curriculum management for the average academic that leverages git.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+== Installation
 
-Things you may want to cover:
+1. start with a linux os
+2. install curl
+3. install ruby and rails with rvm <code>sudo \curl -sSL https://get.rvm.io | bash -s stable --rails</code>
+4. add the os gem <code>gem install os</code>
+5. run budler <code>bundle install</code>
 
-* Ruby version
+=== Ruby version:
+This project is running ruby 2.1.0
 
-* System dependencies
+=== System Dependancies & Development Environment
+Sunspot: used for searching
+Devise: used for authentication
 
-* Configuration
+=== Configuration:
+FactoryGirl: used for data fixtures in test cases
+Seed_fu: used for data fixtures in development
+RSpec: unit tests
+Capybara: integration tests
+Guard: continuous testing on development machine
 
-* Database creation
+=== Database Creation & Loading:
+rake db:create
+rake db:migrate
+rake db:seed_fu (development)
 
-* Database initialization
+=== How to run the test suite:
+rake test_setup:run_all (test script that runs all things for test suite)
 
-* How to run the test suite
+=== Code Line Policies:
+See wiki/pages/code line policies
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
+=== Git Flow:
+See wiki/pages/git flow
 
 Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+<code>rake doc:app</code>.

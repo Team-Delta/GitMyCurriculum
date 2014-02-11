@@ -1,3 +1,6 @@
+# This is to seed the data for the database on the local dev machines
+# If you want your data to show up in test cases, write a factory in spec/factory
+
 User.seed do |s|
     s.id = 1
     s.username = "bammons123"
@@ -36,4 +39,12 @@ User.seed do |s|
     s.email = "lleifj29@oi3u490.com"
     s.name = "John Thomas"
     s.password = "l03174912847kjhf"
+end
+
+User.seed do |s|
+    s.id = 6
+    s.username = "guest"
+    s.email = "g@y.com"
+    s.name = "Guest"
+    s.password = "manjaro1"
 end
