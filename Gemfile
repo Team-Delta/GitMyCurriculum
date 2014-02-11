@@ -4,6 +4,9 @@ source 'http://gems.github.com'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
+# Faster debug for Rails
+gem 'debugger'
+
 # Easy solution for os dependant dependancies 
 require 'os'
 
