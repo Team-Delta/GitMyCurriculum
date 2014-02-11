@@ -1,4 +1,6 @@
 = Git My Curriculum
+{<img src="https://codeclimate.com/github/Team-Delta/GitMyCurriculum.png" />}[https://codeclimate.com/github/Team-Delta/GitMyCurriculum]
+
 Curriculum management for the average academic that leverages git.
 
 == Installation
@@ -7,6 +9,7 @@ Curriculum management for the average academic that leverages git.
 2. install curl
 3. install ruby and rails with rvm <code>sudo \curl -sSL https://get.rvm.io | bash -s stable --rails</code>
 4. add the os gem <code>gem install os</code>
+5. install mysql and mysql ruby bindings
 5. run budler <code>bundle install</code>
 
 === Ruby version:
@@ -24,12 +27,14 @@ Capybara: integration tests
 Guard: continuous testing on development machine
 
 === Database Creation & Loading:
-rake db:create
-rake db:migrate
-rake db:seed_fu (development)
+<code>rake db:create</code>
+
+<code>rake db:migrate</code>
+
+<code>rake db:seed_fu</code> (development)
 
 === How to run the test suite:
-rake test_setup:run_all (test script that runs all things for test suite)
+<code>rake test_setup:run_all</code> (test script that runs all things for test suite)
 
 === Code Line Policies:
 See wiki/pages/code line policies
