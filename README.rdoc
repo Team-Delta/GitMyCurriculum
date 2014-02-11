@@ -9,6 +9,7 @@ Curriculum management for the average academic that leverages git.
 2. install curl
 3. install ruby and rails with rvm <code>sudo \curl -sSL https://get.rvm.io | bash -s stable --rails</code>
 4. add the os gem <code>gem install os</code>
+5. install mysql and mysql ruby bindings
 5. run budler <code>bundle install</code>
 
 === Ruby version:
