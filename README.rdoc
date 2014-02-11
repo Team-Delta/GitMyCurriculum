@@ -1,4 +1,6 @@
 = Git My Curriculum
+{<img src="https://codeclimate.com/github/Team-Delta/GitMyCurriculum.png" />}[https://codeclimate.com/github/Team-Delta/GitMyCurriculum]
+
 Curriculum management for the average academic that leverages git.
 
 == Installation
