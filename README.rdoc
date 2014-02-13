@@ -10,7 +10,9 @@ Curriculum management for the average academic that leverages git.
 3. install ruby and rails with rvm <code>sudo \curl -sSL https://get.rvm.io | bash -s stable --rails</code>
 4. add the os gem <code>gem install os</code>
 5. install mysql and mysql ruby bindings
-5. run budler <code>bundle install</code>
+6. install jdk
+7. install node js
+8. run budler <code>bundle install</code>
 
 === Ruby version:
 This project is running ruby 2.1.0
@@ -25,13 +27,19 @@ Seed_fu: used for data fixtures in development
 RSpec: unit tests
 Capybara: integration tests
 Guard: continuous testing on development machine
+Debugger: faster debugging for rails
 
 === Database Creation & Loading:
+<code>ln -s /run/mysqld/mysqld.sock /tmp/mysql.sock</code>
+
 <code>rake db:create</code>
 
 <code>rake db:migrate</code>
 
 <code>rake db:seed_fu</code> (development)
+
+=== Run Develop Server
+<code>rails server --debugger</code>
 
 === How to run the test suite:
 <code>rake test_setup:run_all</code> (test script that runs all things for test suite)
