@@ -1,5 +1,21 @@
 namespace :test_setup do
-  desc "Migrate database for test enviornment"
+
+  desc "Install project dependancies"
+  task install: :environment do
+
+    Rails.env = "test"
+
+    puts ''
+    puts '#############################################'
+    puts 'getting project dependancies...'
+    puts '#############################################'
+    puts ''
+
+    system('bundle')
+
+  end
+  
+  desc "Migrate database for test environment"
   task migrate: :environment do
 
     Rails.env = "test"
