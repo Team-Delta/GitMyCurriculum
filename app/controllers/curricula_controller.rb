@@ -6,20 +6,22 @@ class CurriculaController < ApplicationController
 
 	def create
 		if request.post?
-			@info = Curricula.new(post_params)
-			@info.save
-			redirect_to "/dashboard/dashboard_main"
+			@curricula = Curricula.new(curricula_params)
+			@curricula.save
+			redirect_to dashboard_dashboard_main_path
 		end
 	end
 
 	def edit
-		@info = Curricula.all
+		@curricula = Curricula.find(params[:id])
+		@curricula.update_attributes(curricula_params)
+		redirect_to dashboard_dashboard_main_path
 	end
 
 	private
 
-	def post_params
-		params.permit(:cur_name, :cur_description)
+	def curricula_params
+		params.require(:curricula).permit(:cur_name, :cur_description)
 	end
 
 end
