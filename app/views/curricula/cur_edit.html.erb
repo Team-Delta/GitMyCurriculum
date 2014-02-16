@@ -1,0 +1,13 @@
+<div class="col-md-4 ">
+	<%= form_tag :edit_curriculum, :role => "form", :method => :post do %>
+	   		<%= label_tag :cur_name %>
+	   		<%= text_field_tag :cur_name, params[:cur_name], type:"text", placeholder:"curriculum name", class:"form-control", :autofocus => true %>
+	   <br>
+
+	   		<%= label_tag :cur_description %>
+	   		<%= text_area_tag :cur_description, params[:cur_descripton], type:"text", placeholder:"curriculum description", class:"form-control", :autofocus => true %>
+	   		<br>
+	   <%= submit_tag "Submit", class:"btn btn-primary btn-no-padding"%>
+
+	<% end %>
+</div>
