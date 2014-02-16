@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140203002603) do
+ActiveRecord::Schema.define(version: 20140212235646) do
+
+  create_table "curriculas", force: true do |t|
+    t.string  "cur_name",        default: "*subject to change*", null: false
+    t.text    "cur_description"
+    t.boolean "cur_private"
+    t.string  "owner"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
