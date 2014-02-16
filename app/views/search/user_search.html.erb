@@ -5,10 +5,14 @@
   <ul>
     	<% for r in @users%>
       		<li>
-          	<strong><%= r.username %></strong> <br> <strong><%= r.name %></strong>
+          	<strong><%= r.username %></strong> 
+             
       		</li>
+          <li class=''> 
+          <strong><%= r.name%></strong>   
+          </li>
     	<% end %>
   </ul>
-  <%end%>
+<%end%>
 
 

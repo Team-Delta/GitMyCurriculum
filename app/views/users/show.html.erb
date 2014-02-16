@@ -1,0 +1,34 @@
+<div class="col-md-2 col-md-offset-2">
+
+   <img id="avatar" src="http://www.gravatar.com/avatar/<%= @user.email %>?s=200px" />
+
+</div>
+
+<div class="col-md-6">
+
+   <div class="panel panel-default">
+
+      <div id="profile-panel-heading" class="panel-heading">
+
+         <div class="panel-title">
+
+            <%= @user.username %>
+           
+         </div>
+
+      </div>
+
+      <div class="panel-body">
+         <h4>Description</h4>
+         <%= @user.description %>
+
+         <hr>
+
+         <h4>Occupation</h4>
+         <%= @user.occupation %>
+
+      </div> 
+
+   </div>
+
+</div>
