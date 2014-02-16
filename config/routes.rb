@@ -11,6 +11,11 @@ GitMyCurriculum::Application.routes.draw do
 
   get "profile/edit" 
   get "profile/load"
+
+  get "curricula/create"
+  post "/curricula/create" => "curricula#create", :as => :create_curriculum
+  get "curricula/cur_edit"
+  post "/curricula/cur_edit" => "curricula#cur_edit", :as => :edit_curriculum
    
   get 'splash/load'
 
