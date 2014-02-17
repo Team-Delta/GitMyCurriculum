@@ -16,7 +16,7 @@ GitMyCurriculum::Application.routes.draw do
 
   get "dashboard/dashboard_main"
 
-  devise_for :users 
+  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

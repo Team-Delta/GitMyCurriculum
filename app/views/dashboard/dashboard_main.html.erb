@@ -27,6 +27,7 @@
                 </li>
             </ul>
         </div>
-
+            <%= render partial: "shared/flash_messages", flash: flash %> 
+            <%= devise_error_messages! %>
     </div>
 </main>

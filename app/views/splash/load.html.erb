@@ -31,15 +31,14 @@
         </div>
 
       <% end %>
-
+          <%= render partial: "shared/flash_messages", flash: flash %> 
+          <%= devise_error_messages! %>
     </div>
 
   </div>
 
   <div class="row">
     <div class="container">
-      
-      
     </div>
   </div>
 </div>

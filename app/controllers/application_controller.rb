@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :name, :password, :password_confirmation, :current_password, :description, :occupation) }
     end
 
+   # def index
+    # Use flash for some nice messaging support
+    #flash.notice = "Notice: You reached a new page "
+   # flash[:error] = "Error: You reached a broken page"
+    #flash[:warning] =  "Warning: Problem loading data"
+
   private
 
     def after_sign_in_path_for(resource_or_scope)

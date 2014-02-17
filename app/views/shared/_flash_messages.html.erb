@@ -1,0 +1,14 @@
+<% flash.each do |type, message| %>
+	<div class="<%= bootstrap_class_for(type) %>">
+		<%= message %>
+	</div>
+	<% if (notice and notice.length > 0) or (alert and alert.length > 0) %>
+   <% if notice %>
+      <%= notice %>
+   <% end %>
+   <% if alert %> 
+       <%= alert %>
+   <% end %>     
+<% end %>
+<% end %>
+
