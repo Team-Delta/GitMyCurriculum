@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
    devise :database_authenticatable, :registerable,
       :recoverable, :rememberable, :trackable, :validatable
 
+   has_many :curriculas
+
    attr_accessor :login
 
    def self.find_first_by_auth_conditions(warden_conditions)
@@ -14,6 +16,7 @@ class User < ActiveRecord::Base
         where(conditions).first
       end
     end
+
 
    validates :username,
       :uniqueness => {

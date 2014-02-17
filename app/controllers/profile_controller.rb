@@ -1,7 +1,7 @@
 class ProfileController < ApplicationController
 
   def load
-
+    @email = Digest::MD5.hexdigest(current_user.email.strip.downcase)
   end
 
   def edit
@@ -20,6 +20,5 @@ class ProfileController < ApplicationController
   def post_params
     params.require(:description, :occupation).permit(:description, :occupation)
   end
-
 
 end
