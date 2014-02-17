@@ -5,10 +5,10 @@
   <ul>
     	<% for r in @users%>
       		<li>
-          	<strong><%= r.username %></strong> <br> <strong><%= r.name %></strong>
-      		</li>
+          	<strong><%= link_to(r.name, users_show_path(:username => r.username))%></strong><br><%= r.username %>
+          </li>
     	<% end %>
   </ul>
-  <%end%>
+<%end%>
 
 
