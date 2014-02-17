@@ -1,9 +1,23 @@
-<div class="col-md-2 col-md-offset-2">
+<div class="col-md-10 col-md-offset-2">
+  <div class="col-md-3">
+    <center>
+      <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
+    </center>
+    <br>
+    <br>
+    <div class="panel panel-default">
 
-   <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
+            <div class="panel-heading" style="padding-bottom: 20px;">
+                Friends
+            </div>    
 
-</div>
 
+            <div class="list-group">
+                <a href="#" class="list-group-item">John Johnson</a>
+                <a href="#" class="list-group-item">George Washington</a>
+            </div>
+        </div>
+  </div>
 <div class="col-md-6">
 
    <div class="panel panel-default">
@@ -31,5 +45,27 @@
       </div> 
 
    </div>
+   <div class="panel panel-default">
 
+            <div class="panel-heading" style="padding-bottom: 20px;">
+                Curricula
+                <a href="/curricula/create">
+                <button class="btn btn-success pull-right" >
+                    Create Curriculum 
+                </button>
+                </a>
+            </div>    
+
+
+            <div class="list-group">
+                <a href="/curricula/cur_edit" class="list-group-item">
+                    <h4 class="list-group-item-heading">linear-algrebra-fall-14</h4>
+                    <p class="list-group-item-text">Curricula for Linear Algebra</p>
+                </a>
+                <a href="" class="list-group-item">
+                    <h4 class="list-group-item-heading">discrete-math-spring-15</h4>
+                    <p class="list-group-item-text">Discrete Math Description here</p>
+                </a>
+            </div>
+        </div>
 </div>
