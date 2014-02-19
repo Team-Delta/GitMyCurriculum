@@ -1,11 +1,12 @@
+
 <div class="col-md-10 col-md-offset-2">
-  <div class="col-md-3">
+<div class="col-md-3">
     <center>
-      <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
-    </center>
+    <img id="avatar" src="http://www.gravatar.com/avatar/<%= @user.email %>?s=200px" />
+  </center>
     <br>
     <br>
-    <div class="panel panel-default">
+  <div class="panel panel-default">
 
             <div class="panel-heading" style="padding-bottom: 20px;">
                 Friends
@@ -17,7 +18,8 @@
                 <a href="#" class="list-group-item">George Washington</a>
             </div>
         </div>
-  </div>
+</div>
+
 <div class="col-md-6">
 
    <div class="panel panel-default">
@@ -26,8 +28,17 @@
 
          <div class="panel-title">
 
-            <%= current_user.username %>
-            <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-success pull-right no-link-white" %>
+            <div float=left>
+
+               <strong><%= @user.name %></strong><br><%= @user.username %>
+
+            </div>
+
+            <div float=right align=right>
+
+               Email:  <%=@user.email%>
+               
+            </div>
            
          </div>
 
@@ -35,12 +46,12 @@
 
       <div class="panel-body">
          <h4>Description</h4>
-         <%= current_user.description %>
+         <%= @user.description %>
 
          <hr>
 
          <h4>Occupation</h4>
-         <%= current_user.occupation %>
+         <%= @user.occupation %>
 
       </div> 
 
@@ -49,11 +60,7 @@
 
             <div class="panel-heading" style="padding-bottom: 20px;">
                 Curricula
-                <a href="/curricula/create">
-                <button class="btn btn-success pull-right" >
-                    Create Curriculum 
-                </button>
-                </a>
+                
             </div>    
 
 
@@ -68,4 +75,5 @@
                 </a>
             </div>
         </div>
+
 </div>

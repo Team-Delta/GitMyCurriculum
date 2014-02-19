@@ -21,7 +21,11 @@ GitMyCurriculum::Application.routes.draw do
 
   get "dashboard/dashboard_main"
 
+  get "users/show"
+ 
+
   devise_for :users 
+  get 'users/:username' => 'users#show', as: :user
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
