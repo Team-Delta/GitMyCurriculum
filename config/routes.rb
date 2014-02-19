@@ -21,9 +21,11 @@ GitMyCurriculum::Application.routes.draw do
 
   get "dashboard/dashboard_main"
 
-
   devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
-
+  # :skip => [:sessions]
+  # as :user do
+  #   post 'splash/load' => 'devise/sessions#create', :as => :user_session
+  # end
   get "users/show"
  
   get 'users/:username' => 'users#show', as: :user

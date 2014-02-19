@@ -55,7 +55,7 @@ class PasswordsController < Devise::PasswordsController
     # Check if a reset_password_token is provided in the request
     def assert_reset_token_passed
       if params[:reset_password_token].blank?
-        set_flash_message(:alert, :no_token)
+        set_flash_message(:error, :no_token)
         redirect_to new_session_path(resource_name)
       end
     end
