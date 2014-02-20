@@ -12,5 +12,5 @@ before_script:
   - rake db:create
 
 script:
-  - rubocop
+  - rubocop -R
   - rake test_setup:run_all
