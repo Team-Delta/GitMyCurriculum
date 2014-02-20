@@ -7,6 +7,7 @@ class CurriculaController < ApplicationController
 	def create
 		if request.post?
 			@curricula = Curricula.new(curricula_params)
+			# flash[:success] = 'Successfully created curriculum' if 
 			@curricula.save
 			redirect_to dashboard_dashboard_main_path
 		end
@@ -20,8 +21,8 @@ class CurriculaController < ApplicationController
 
 	private
 
-	def curricula_params
-		params.require(:curricula).permit(:cur_name, :cur_description)
-	end
+		def curricula_params
+			params.require(:curricula).permit(:cur_name, :cur_description)
+		end
 
 end

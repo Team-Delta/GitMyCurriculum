@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+    -2.1.0
+
+install:
+  -gem install os
+  -bundle install
+
+before_script:
+  -echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+  -rake db:drop
+  -rake db:create
+  
+script:
+  -rake db:migrate
+  -rake test_setup:run_all

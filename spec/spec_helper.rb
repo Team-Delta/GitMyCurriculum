@@ -5,6 +5,8 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'coveralls'
+Coveralls.wear!
 
 # any test where you want to run search must have ', search => true do' in method address
 require 'sunspot_test/rspec'

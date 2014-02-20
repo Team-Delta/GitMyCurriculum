@@ -10,6 +10,9 @@ gem 'debugger'
 # Easy solution for os dependant dependancies 
 require 'os'
 
+# code coverage for testing
+gem 'coveralls', require: false
+
 # User authentication
 gem 'devise'
 
@@ -68,5 +71,8 @@ group :test, :development do
 		puts 'OSX detected'
 		gem 'growl_notify'
 	end
+
+    # Ruby and Rails formatter. To install on sublime run package control and search rubocop and install it as well.
+    gem 'rubocop'
 end
 

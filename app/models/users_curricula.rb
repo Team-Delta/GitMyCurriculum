@@ -4,7 +4,7 @@ class UsersCurricula < ActiveRecord::Base
 
     belongs_to :user
     belongs_to :curricula
-
+    
     validates :user, presence: true
     validates :user_id, uniqueness: { scope: [:curricula_id], message: "user already in curriculum" }
     validates :curricula, presence: true
