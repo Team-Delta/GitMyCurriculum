@@ -11,7 +11,11 @@ gem 'devise'
 gem 'mysql2'
 
 # Search with Sunspot Solr
+gem 'sunspot_solr'
 gem 'sunspot_rails'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
 
 group :development do
     # automated test running on development machines
@@ -37,14 +41,8 @@ group :development, :production do
     # ruby bindings for git framework
     gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
 
-    # Search with Sunspot Solr
-    gem 'sunspot_solr'
-
     # Use CoffeeScript for .js.coffee assets and views
     gem 'coffee-rails', '~> 4.0.0'
-
-    # Use jquery as the JavaScript library
-    gem 'jquery-rails'
 
     # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
     gem 'turbolinks'
