@@ -4,7 +4,7 @@ rvm:
 
 install:
   - gem install os
-  - bundle install --without development production doc
+  - bundle install --without development production doc --jobs 4
 
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
