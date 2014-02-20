@@ -3,15 +3,13 @@ rvm:
   - 2.1.0
 
 install:
-  - gem install os
-  - bundle install
+  - bundle install --without development production doc
 
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - sudo ln -s /run/mysqld/mysqld.sock /tmp/mysql.sock
-  - rake db:drop
   - rake db:create
 
 script:
-  - rake db:migrate
+  - rubocop
   - rake test_setup:run_all
