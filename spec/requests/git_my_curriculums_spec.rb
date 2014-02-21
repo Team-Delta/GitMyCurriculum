@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe "GitMyCurriculums" do
+describe 'GitMyCurriculums' do
 
 end

@@ -1,0 +1,10 @@
+LineLength:
+  Max: 175
+
+AllCops:
+  Excludes:
+    - db/**
+    - config/**
+
+MethodLength:
+  Max: 20

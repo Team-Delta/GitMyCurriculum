@@ -9,4 +9,5 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-GitMyCurriculum::Application.config.secret_key_base = '64bbdc4818540f1da5087b20b083719b65073025ffbfabbef43baa098edd23c2f496892592181ca0ede20ff9853023d415db93ba998f4baacf766fb6d74418c9'
+GitMyCurriculum::Application.config.secret_key_base =
+  '64bbdc4818540f1da5087b20b083719b65073025ffbfabbef43baa098edd23c2f496892592181ca0ede20ff9853023d415db93ba998f4baacf766fb6d74418c9'

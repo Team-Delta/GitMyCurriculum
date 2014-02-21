@@ -1,7 +1,8 @@
-class SessionsController < Devise::SessionsController 
-  prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
-  prepend_before_filter :allow_params_authentication!, :only => :create
-  prepend_before_filter :only => [ :create, :destroy ] { request.env["devise.skip_timeout"] = true }
+# override for devise to show our flash messages
+class SessionsController < Devise::SessionsController
+  prepend_before_filter :require_no_authentication, only: [:new, :create]
+  prepend_before_filter :allow_params_authentication!, only: :create
+  prepend_before_filter only: [:create, :destroy] { request.env['devise.skip_timeout'] = true }
 
   # GET /resource/sign_in
   def new
@@ -12,12 +13,12 @@ class SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    auth_options = {:recall => 'splash#load', :scope => :user}
+    auth_options = { recall: 'splash#load', scope: :user }
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:success, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?
-    respond_with resource, :location => after_sign_in_path_for(resource)
+    respond_with resource, location: after_sign_in_path_for(resource)
   end
 
   # DELETE /resource/sign_out
@@ -45,10 +46,10 @@ class SessionsController < Devise::SessionsController
     methods = resource_class.authentication_keys.dup
     methods = methods.keys if methods.is_a?(Hash)
     methods << :password if resource.respond_to?(:password)
-    { :methods => methods, :only => [:password] }
+    { methods: methods, only: [:password] }
   end
 
   def auth_options
-    { :scope => resource_name, :recall => "#{controller_path}#new" }
+    { scope: resource_name, recall: "#{controller_path}#new" }
   end
 end

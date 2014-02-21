@@ -1,7 +1,8 @@
-class PasswordsController < Devise::PasswordsController 
+# override for devise to show our flash messages
+class PasswordsController < Devise::PasswordsController
   prepend_before_filter :require_no_authentication
   # Render the #edit only if coming from a reset password email link
-  append_before_filter :assert_reset_token_passed, :only => :edit
+  append_before_filter :assert_reset_token_passed, only: :edit
 
   # GET /resource/password/new
   def new
@@ -14,7 +15,7 @@ class PasswordsController < Devise::PasswordsController
     yield resource if block_given?
 
     if successfully_sent?(resource)
-      respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))
+      respond_with({}, location: after_sending_reset_password_instructions_path_for(resource_name))
     else
       respond_with(resource)
     end
@@ -36,35 +37,36 @@ class PasswordsController < Devise::PasswordsController
       flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message(:success, flash_message) if is_flashing_format?
       sign_in(resource_name, resource)
-      respond_with resource, :location => after_resetting_password_path_for(resource)
+      respond_with resource, location: after_resetting_password_path_for(resource)
     else
       respond_with resource
     end
   end
 
   protected
-    def after_resetting_password_path_for(resource)
-      after_sign_in_path_for(resource)
-    end
 
-    # The path used after sending reset password instructions
-    def after_sending_reset_password_instructions_path_for(resource_name)
-      new_session_path(resource_name) if is_navigational_format?
-    end
+  def after_resetting_password_path_for(resource)
+    after_sign_in_path_for(resource)
+  end
 
-    # Check if a reset_password_token is provided in the request
-    def assert_reset_token_passed
-      if params[:reset_password_token].blank?
-        set_flash_message(:error, :no_token)
-        redirect_to new_session_path(resource_name)
-      end
-    end
+  # The path used after sending reset password instructions
+  def after_sending_reset_password_instructions_path_for(resource_name)
+    new_session_path(resource_name) if is_navigational_format?
+  end
 
-    # Check if proper Lockable module methods are present & unlock strategy
-    # allows to unlock resource on password reset
-    def unlockable?(resource)
-      resource.respond_to?(:unlock_access!) &&
-        resource.respond_to?(:unlock_strategy_enabled?) &&
-        resource.unlock_strategy_enabled?(:email)
+  # Check if a reset_password_token is provided in the request
+  def assert_reset_token_passed
+    if params[:reset_password_token].blank?
+      set_flash_message(:error, :no_token)
+      redirect_to new_session_path(resource_name)
     end
+  end
+
+  # Check if proper Lockable module methods are present & unlock strategy
+  # allows to unlock resource on password reset
+  def unlockable?(resource)
+    resource.respond_to?(:unlock_access!) &&
+      resource.respond_to?(:unlock_strategy_enabled?) &&
+      resource.unlock_strategy_enabled?(:email)
+  end
 end
