@@ -1,6 +1,6 @@
 GitMyCurriculum::Application.routes.draw do
 
-  get "search/user_search"
+  get 'search/user_search'
   get 'user_root' => 'profile#load'
 
   authenticated :user do
@@ -22,11 +22,10 @@ GitMyCurriculum::Application.routes.draw do
   get 'dashboard/dashboard_main'
 
   get 'users/show'
- 
 
   devise_for :users
   get 'users/:username', to: 'users#show', as: :user
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
