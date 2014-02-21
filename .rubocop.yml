@@ -5,3 +5,6 @@ AllCops:
   Excludes:
     - db/**
     - config/**
+
+MethodLength:
+  Max: 20

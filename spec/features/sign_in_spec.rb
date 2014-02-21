@@ -11,7 +11,7 @@ feature 'Visitor signs in' do
   scenario 'with invalid username' do
     sign_in_with 'john', 'password'
 
-    expect(page).to have_content('Forgot your password?')
+    expect(page).to have_content('Invalid email or password.')
   end
 
   def sign_in_with(email, password)

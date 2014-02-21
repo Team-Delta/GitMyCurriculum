@@ -23,9 +23,15 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'users/show'
 
-  devise_for :users
-  get 'users/:username', to: 'users#show', as: :user
-
+  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
+  # :skip => [:sessions]
+  # as :user do
+  #   post 'splash/load' => 'devise/sessions#create', :as => :user_session
+  # end
+  get "users/show"
+ 
+  get 'users/:username' => 'users#show', as: :user
+ 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
