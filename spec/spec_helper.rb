@@ -1,12 +1,12 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
+Coveralls.wear!('rails')
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'coveralls'
-Coveralls.wear!('rails')
 
 # any test where you want to run search must have ', search => true do' in method address
 require 'sunspot_test/rspec'
