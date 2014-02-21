@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 feature 'Visitor signs up' do
     scenario 'with valid information' do
         sign_up_with 'don', 'don@don.com', 'd0n12345', 'd0n12345'
@@ -26,7 +25,6 @@ feature 'Visitor signs up' do
 
         expect(page).to have_content('Password confirmation doesn\'t match Password')
     end
-
 
     def sign_up_with(username, email, password, password_conf)
         visit new_user_registration_path
