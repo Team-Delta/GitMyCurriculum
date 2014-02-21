@@ -49,9 +49,24 @@ group :development, :production do
 
     # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
     gem 'jbuilder', '~> 1.2'
+
+    # Simulates the user in test cases
+    gem 'capybara'
+
+    # used for test case database
+    gem 'factory_girl_rails'
+
+    # testing framework for rails
+    gem 'rspec-rails'
+
+    # Search with Sunspot Solr
+    gem 'sunspot_test'
 end
 
 group :test do
+     # ruby bindings for git framework
+    gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
+    
     # Ruby and Rails formatter. To install on sublime run package control and search rubocop and install it as well.
     gem 'rubocop'
 
