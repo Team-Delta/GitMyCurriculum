@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 feature 'Visitor signs in' do
   scenario 'with valid username and password' do
     create(:user)

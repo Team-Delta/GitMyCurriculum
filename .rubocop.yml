@@ -1,0 +1,7 @@
+LineLength:
+  Max: 175
+
+AllCops:
+  Excludes:
+    - db/**
+    - config/**
