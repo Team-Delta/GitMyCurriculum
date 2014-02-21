@@ -1,8 +1,5 @@
 <div class="container">
     <%= form_for(resource, :html => {:class => "form-signin"}, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-        <%= render partial: "shared/flash_messages", flash: flash %>
-        <%= devise_error_messages! %>
-        
         <h2 class="form-signin-heading">Sign up</h2>
         <div>
             <%= f.text_field :username, type:"text", placeholder:"username", class:"form-control", :autofocus => true %>
@@ -19,7 +16,6 @@
         <div>
             <%= f.submit "Submit", class:"btn btn-primary btn-no-padding" %>
         </div>
-        <%= render "devise/shared/links" %>
         
     <% end %>
 

@@ -56,16 +56,16 @@ ul.nav li a {
 
 .field_with_errors label {
   padding: 2px;
-  background-color: red;
+  background-color: #b94a48;
 }
 
 .field_with_errors input[type="text"] {
   padding: 3px 2px;
-  border: 2px solid red;
+  border: 2px solid #b94a48;
 }
 
 .field_with_errors input[type="password"]{
   padding: 3px 2px;
-  border: 2px solid red;
+  border: 2px solid #b94a48;
 }
 
