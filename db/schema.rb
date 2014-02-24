@@ -55,4 +55,9 @@ ActiveRecord::Schema.define(version: 20140224012254) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  create_table "watchings", force: true do |t|
+    t.integer "user_id"
+    t.integer "peer_id"
+  end
+
 end

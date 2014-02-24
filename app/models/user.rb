@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
   has_many :user_curriculas
   has_many :curriculas, through: :user_curriculas
 
+  has_many :watching
+  has_many :peers, through: :watching
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)
