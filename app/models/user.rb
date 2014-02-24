@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
   has_many :users_curriculas,               dependent: :destroy
   has_many :notifications,                  dependent: :destroy, foreign_key: :author_id
 
+  has_many :watching
+  has_many :peers, through: :watching
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)
