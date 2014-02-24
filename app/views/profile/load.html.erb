@@ -8,13 +8,13 @@
     <div class="panel panel-default">
 
             <div class="panel-heading" style="padding-bottom: 20px;">
-                Friends
+                Peers
             </div>    
 
-
             <div class="list-group">
-                <a href="#" class="list-group-item">John Johnson</a>
-                <a href="#" class="list-group-item">George Washington</a>
+               <%@peers.each do |peer| %>
+                  <a href="#" class="list-group-item"><%= peer.username %></a>
+                <% end %>
             </div>
         </div>
   </div>

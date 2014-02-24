@@ -2,6 +2,7 @@
 class ProfileController < ApplicationController
   def load
     @email = Digest::MD5.hexdigest(current_user.email.strip.downcase)
+    @peers = current_user.peers
   end
 
   def edit

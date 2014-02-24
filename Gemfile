@@ -47,29 +47,15 @@ group :development do
 end
 
 group :development, :production do
-    # ruby bindings for git framework
-    gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
 
     # Use CoffeeScript for .js.coffee assets and views
     gem 'coffee-rails', '~> 4.0.0'
 
     # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
     gem 'jbuilder', '~> 1.2'
-
-    # Simulates the user in test cases
-    gem 'capybara'
-
-    # used for test case database
-    gem 'factory_girl_rails'
-
-    # testing framework for rails
-    gem 'rspec-rails'
-
-    # Search with Sunspot Solr
-    gem 'sunspot_test'
 end
 
-group :test do
+group :test, :development do
      # ruby bindings for git framework
     gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
     

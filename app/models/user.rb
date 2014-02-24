@@ -27,10 +27,11 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   # relationships
-  has_many :curriculas,                     through: :users_curriculas
-  has_many :created_curriculas,             foreign_key: :creator_id, class_name: 'Curricula'
-  has_many :users_curriculas,               dependent: :destroy
-  has_many :notifications,                  dependent: :destroy, foreign_key: :author_id
+  has_many :user_curriculas
+  has_many :curriculas, through: :user_curriculas
+
+  has_many :watching
+  has_many :peers, through: :watching
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
