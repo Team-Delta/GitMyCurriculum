@@ -10,12 +10,10 @@
 #   t.boolean  'can_merge',       default: true,                  null: false
 # end
 class Curricula < ActiveRecord::Base
-  belongs_to :creator, foreign_key: 'creator_id', class_name: 'User'
 
-  has_many   :users_curriculas, dependent: :destroy
-  has_many   :users, through: :users_curriculas
-
-  validates  :creator, presence: true, on: :create
+  has_many :user_curriculas
+  has_many :users, through: :user_curriculas
+  
   validates  :cur_description, length: { maximum: 2000 }, allow_blank: true
 
   searchable do
