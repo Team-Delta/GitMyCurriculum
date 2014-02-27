@@ -7,7 +7,7 @@ class CurriculaController < ApplicationController
   def create
     if request.post?
       @curricula = Curricula.new(curricula_params)
-      @curricula.creator_id = current_user
+      @curricula.creator_id = current_user.id
       flash[:success] = 'Successfully created curriculum' if @curricula.save
       redirect_to dashboard_dashboard_main_path
     end
