@@ -7,12 +7,12 @@
   background-color: #468847;
 }
 
-.well-users {
-  background-color: #EBF5FF;
-}
-
 .list-group-item>.badge {
 float: right;
 margin-top: 5%;
+}
+
+.glyphicon-2x {
+    font-size: 64px;
 }
 

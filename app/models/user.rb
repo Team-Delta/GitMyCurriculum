@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
             }
 
   searchable do
-    text :username, :name
+    text :username, :stored => true
+    text :name, :stored => true
   end
 end

@@ -8,8 +8,6 @@
       <%if @numberOfUserMatches==0%>
         <strong> No Matching Users Found</strong> <br>
       <%else%>
-        <div class="well well-users">
-        <h2>Users:</h2> <br>
         <% for u in @users%>
 
           <div class="media">
@@ -25,21 +23,34 @@
 
                 <button class="btn btn-primary btn-no-padding pull-right" >
                         Add Peer 
-                    </button>
+                </button>
               </div>
           </div>
+          <hr>
         <% end %>
-        </div>
       <% end %>
 
       <%if @numberOfCurriculumMatches==0%> 
         <strong> No Matching Curriculums Found</strong> <br>
       <%else%>
-        <h3>Curriculum:</h3> <br>
         <% for c in @curricula%>
-            <li>
-            <strong><%= c.cur_name %></strong> <br> <strong><%= c.cur_description%>
-            </li>
+
+          <div class="media">
+
+            <a class="pull-left" href='#'>
+            <span class="glyphicon glyphicon-book glyphicon-2x"></span>
+            </a>
+
+            <div class="media-body">
+              <h4 class="media-heading"><%=c.cur_name%></h4>
+              <%=c.cur_description%>
+
+              <button class="btn btn-primary btn-no-padding pull-right" >
+                Follow Curriculum 
+              </button>
+            </div>
+          </div>
+          <hr>
         <% end %>
       <% end %>
     </ul>
