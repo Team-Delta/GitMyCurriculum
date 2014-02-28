@@ -3,8 +3,7 @@
 # Set instance variable @users to the results and render @users in the view
 class SearchController < ApplicationController
   def uc_search
-
-    @userSearch = User.search do
+    @user_search = User.search do
 
       if params[:query].present?
         keywords(params[:query]) do
@@ -12,12 +11,12 @@ class SearchController < ApplicationController
         end
       end
 
-      #fulltext params[:query], :highlight => true
-      #fulltext params[:query]
-      
+      # fulltext params[:query], :highlight => true
+      # fulltext params[:query]
+
     end
-    @users = @userSearch.results
-    @numberOfUserMatches=@userSearch.total
+    @users = @user_search.results
+    @number_of_user_matches = @user_search.total
 
     # @userSearch.hits.each do |hit|
 
@@ -29,10 +28,10 @@ class SearchController < ApplicationController
     #   end
     # end
 
-    @currSearch = Curricula.search do
+    @curr_search = Curricula.search do
       fulltext params[:query]
     end
-    @curricula = @currSearch.results
-    @numberOfCurriculumMatches=@currSearch.total
+    @curricula = @curr_search.results
+    @number_of_curriculum_matches = @curr_search.total
   end
 end
