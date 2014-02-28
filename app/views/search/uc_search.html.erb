@@ -1,0 +1,106 @@
+<div id="Search Results" class="col-md-7 col-md-offset-1">
+
+<%if @number_of_user_matches==0 && @number_of_curriculum_matches==0%>
+  <h3> No results found for: <%=params[:query]%></h3> <br>
+<%else%>
+  <h2>Showing results for: <%=params[:query]%></h2> <br>
+    <ul>
+      <%if @number_of_user_matches==0%>
+        <strong> No Matching Users Found</strong> <br>
+      <%else%>
+        <% for u in @users%>
+
+          <div class="media">
+
+              <% @email = Digest::MD5.hexdigest(u.email.strip.downcase) %>
+
+              <a class="pull-left" href="#">
+              <img src="http://www.gravatar.com/avatar/<%= @email %>?s=64px"/>
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><%= link_to(u.username, users_show_path(:username => u.username))%><br><%= u.name %></h4>
+
+                <button class="btn btn-primary btn-no-padding pull-right" >
+                        Add Peer 
+                </button>
+              </div>
+          </div>
+          <hr>
+        <% end %>
+      <% end %>
+
+      <%if @number_of_curriculum_matches==0%> 
+        <strong> No Matching Curriculums Found</strong> <br>
+      <%else%>
+        <% for c in @curricula%>
+
+          <div class="media">
+
+            <a class="pull-left" href='#'>
+            <span class="glyphicon glyphicon-book glyphicon-2x"></span>
+            </a>
+
+            <div class="media-body">
+              <h4 class="media-heading"><%=c.cur_name%></h4>
+              <%=c.cur_description%>
+
+              <button class="btn btn-primary btn-no-padding pull-right" >
+                Follow Curriculum 
+              </button>
+            </div>
+          </div>
+          <hr>
+        <% end %>
+      <% end %>
+    </ul>
+<% end %>
+</div>
+
+<div id="filter" class="col-md-2 col-md-offset-1">
+
+  <ul class="list-group">
+    <li class="list-group-item">
+      <%if @number_of_user_matches==0%>
+        <span class="badge"><%=@number_of_user_matches%></span>
+      <%else%>
+        <span class="badge badge-success"><%=@number_of_user_matches%></span>
+      <% end %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="userFilter">
+          <h4>Users</h4>
+        </label>
+    </div>
+    </li>
+
+    <li class="list-group-item">
+      <%if @number_of_curriculum_matches==0%>
+        <span class="badge"><%=@number_of_curriculum_matches%></span>
+      <%else%>
+        <span class="badge badge-success"><%=@number_of_curriculum_matches%></span>
+      <% end %>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="curribulumFilter">
+          <h4>Curricula</h4>
+        </label>
+    </div>
+    </li>
+
+    <ul class="list-group">
+    <li class="list-group-item">
+      <%if @number_of_curriculum_matches==0%>
+        <span class="badge"><%=@number_of_curriculum_matches%></span>
+      <%else%>
+        <span class="badge badge-success"><%=@number_of_curriculum_matches%></span>
+      <% end %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="userFilter">
+          <h4>Organizations</h4>
+        </label>
+    </div>
+    </li>
+  </ul>
+</div>
