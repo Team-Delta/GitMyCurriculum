@@ -9,13 +9,13 @@
   <div class="panel panel-default">
 
             <div class="panel-heading" style="padding-bottom: 20px;">
-                Friends
+                Peers
             </div>    
 
-
             <div class="list-group">
-                <a href="#" class="list-group-item">John Johnson</a>
-                <a href="#" class="list-group-item">George Washington</a>
+               <%@peers.each do |peer| %>
+                  <div class="list-group-item"><%= link_to(peer.name, users_show_path(:username => peer.username))%></div>
+                <% end %>
             </div>
         </div>
 </div>
