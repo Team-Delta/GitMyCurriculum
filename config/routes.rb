@@ -1,6 +1,6 @@
 GitMyCurriculum::Application.routes.draw do
 
-  get 'search/user_search'
+  get "search/uc_search"
   get 'user_root' => 'profile#load'
 
   authenticated :user do
