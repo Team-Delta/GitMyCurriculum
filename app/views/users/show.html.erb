@@ -10,6 +10,13 @@
 
             <div class="panel-heading" style="padding-bottom: 20px;">
                 Peers
+                <%if current_user%>
+                <%if !@is_peer.blank?%>
+                  <%= link_to "Unfollow", users_unfollow_path(:username => @user.username) %>
+                <%else%>
+                  <%= link_to "Follow", users_follow_path(:username => @user.username) %>
+                <%end%>
+                <%end%>
             </div>    
 
             <div class="list-group">

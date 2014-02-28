@@ -23,7 +23,7 @@ Watching.seed do |s|
 end
 
 Watching.seed do |s|
-   s.id = 5
+  s.id = 5
   s.user_id = 1
   s.peer_id = 2
 end
