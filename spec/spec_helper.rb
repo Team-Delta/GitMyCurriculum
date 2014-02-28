@@ -33,6 +33,9 @@ RSpec.configure do |config|
   # Using factory_girl to load in fixtures
   config.include FactoryGirl::Syntax::Methods
 
+  # Use to test login
+  config.include Devise::TestHelpers, type: :controller
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Capybara::DSL
