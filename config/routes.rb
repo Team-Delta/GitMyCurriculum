@@ -12,6 +12,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'profile/edit'
   get 'profile/load'
 
+  get 'curricula/load'
+
   get 'curricula/create'
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum
   get 'curricula/cur_edit'
