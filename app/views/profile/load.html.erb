@@ -13,7 +13,7 @@
 
             <div class="list-group">
                <%@peers.each do |peer| %>
-                  <a href="#" class="list-group-item"><%= peer.username %></a>
+                  <div class="list-group-item"><%= link_to(peer.name, users_show_path(:username => peer.username))%></div>
                 <% end %>
             </div>
         </div>

@@ -11,7 +11,21 @@ Watching.seed do |s|
 end
 
 Watching.seed do |s|
-   s.id = 3
+  s.id = 3
   s.user_id = 6
   s.peer_id = 3
+end
+
+
+
+Watching.seed do |s|
+  s.id = 6
+  s.user_id = 2
+  s.peer_id = 4
+end
+
+Watching.seed do |s|
+  s.id = 7
+  s.user_id = 2
+  s.peer_id = 5
 end

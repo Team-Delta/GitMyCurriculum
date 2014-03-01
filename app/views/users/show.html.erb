@@ -9,13 +9,20 @@
   <div class="panel panel-default">
 
             <div class="panel-heading" style="padding-bottom: 20px;">
-                Friends
+                Peers
+                <%if current_user%>
+                <%if !@is_peer.blank?%>
+                  <%= link_to "Unfollow", users_unfollow_path(:username => @user.username) %>
+                <%else%>
+                  <%= link_to "Follow", users_follow_path(:username => @user.username) %>
+                <%end%>
+                <%end%>
             </div>    
 
-
             <div class="list-group">
-                <a href="#" class="list-group-item">John Johnson</a>
-                <a href="#" class="list-group-item">George Washington</a>
+               <%@peers.each do |peer| %>
+                  <div class="list-group-item"><%= link_to(peer.name, users_show_path(:username => peer.username))%></div>
+                <% end %>
             </div>
         </div>
 </div>
@@ -32,12 +39,6 @@
 
                <strong><%= @user.name %></strong><br><%= @user.username %>
 
-            </div>
-
-            <div float=right align=right>
-
-               Email:  <%=@user.email%>
-               
             </div>
            
          </div>
