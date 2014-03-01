@@ -52,6 +52,8 @@ namespace :test_setup do
   task run_all: :environment do
 
     Rails.env = "test"
+
+    system('rubocop -R')
     Rake::Task['test_setup:migrate'].invoke
     Rake::Task['test_setup:tests'].invoke
 

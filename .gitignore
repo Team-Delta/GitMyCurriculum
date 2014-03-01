@@ -23,3 +23,8 @@ tags_sorted_by_file
 solr/
 /log
 solr/**
+
+# Ignore html page and style for simplecov
+coverage/**
+coverage/.*
+Gemfile.lock
