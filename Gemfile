@@ -58,8 +58,8 @@ group :development, :production do
 end
 
 group :test, :development do
-     # ruby bindings for git framework
-    gem 'rugged', git: 'git://github.com/libgit2/rugged.git', branch: 'development', submodules: true
+    # ruby bindings for git framework
+    gem 'git'
     
     # Ruby and Rails formatter. To install on sublime run package control and search rubocop and install it as well.
     gem 'rubocop'
