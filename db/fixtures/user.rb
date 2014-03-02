@@ -48,3 +48,11 @@ User.seed do |s|
   s.name = 'Guest'
   s.password = 'manjaro1'
 end
+
+User.seed do |s|
+  s.id = 7
+  s.username = 'spider'
+  s.email = 'Kesha@BodyPillow.com'
+  s.name = 'Ke$ha'
+  s.password = 'alan'
+end

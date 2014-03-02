@@ -4,6 +4,12 @@ source 'http://gems.github.com'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
+# Faster debug for Rails
+# gem 'debugger'
+
+# Easy solution for os dependant dependancies 
+require 'os'
+
 # User authentication
 gem 'devise'
 
@@ -19,6 +25,8 @@ gem 'jquery-rails'
 
  # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+
+gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
 group :development do
     # automated test running on development machines

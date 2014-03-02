@@ -1,8 +1,26 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
+#require 'coveralls'
+#Coveralls.wear!('rails')
+require 'simplecov'
+SimpleCov.start :rails do
+  add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/lib/'
+  add_filter '/vendor/'
+  add_filter '/app/controllers/registrations_controller.rb'
+  add_filter '/app/controllers/confirmations_controller.rb'
+  add_filter '/app/controllers/sessions_controller.rb'
+  add_filter '/app/controllers/passwords_controller.rb'
+
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Models', 'app/models'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Views', 'app/views'
+end
+
 require File.expand_path('../../config/environment', __FILE__)
-require 'coveralls'
-Coveralls.wear!('rails')
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
@@ -32,6 +50,9 @@ RSpec.configure do |config|
 
   # Using factory_girl to load in fixtures
   config.include FactoryGirl::Syntax::Methods
+
+  # Use to test login
+  config.include Devise::TestHelpers, type: :controller
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"

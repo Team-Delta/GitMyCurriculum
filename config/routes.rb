@@ -1,6 +1,6 @@
 GitMyCurriculum::Application.routes.draw do
 
-  get 'search/user_search'
+  get "search/uc_search"
   get 'user_root' => 'profile#load'
 
   authenticated :user do
@@ -12,26 +12,24 @@ GitMyCurriculum::Application.routes.draw do
   get 'profile/edit'
   get 'profile/load'
 
-  get 'curricula/load'
-
+  get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/create'
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum
-  get 'curricula/cur_edit'
-  post '/curricula/cur_edit', to: 'curricula#cur_edit', as: :edit_curriculum
+  get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
+  post '/curricula/edit/:id', to: 'curricula#edit', as: :edit_curriculum
 
   get 'splash/load'
 
   get 'dashboard/dashboard_main'
 
   get 'users/show'
+  get 'users/follow'
+  get 'users/unfollow'
+  post 'users/follow' => 'users#follow', as: :follow
+  post 'users/unfollow' => 'users#unfollow', as: :unfollow
 
   devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
-  # :skip => [:sessions]
-  # as :user do
-  #   post 'splash/load' => 'devise/sessions#create', :as => :user_session
-  # end
-  get "users/show"
- 
+
   get 'users/:username' => 'users#show', as: :user
  
   # The priority is based upon order of creation: first created -> highest priority.
