@@ -14,7 +14,7 @@
           </div>   
           <div class="list-group">
             <% for c in @contributed_curricula %>
-              <%= link_to edit_curricula_path(:id => c.curricula.id), class: "list-group-item" do %>
+              <%= link_to curricula_path(:id => c.curricula.id), class: "list-group-item" do %>
                 <h4 class="list-group-item-heading"><%=c.curricula.cur_name%></h4>
               <% end %>
             <% end %>
@@ -40,7 +40,7 @@
             </a>
             <% else %>
               <% for c in @created_curricula %>
-                <%= link_to edit_curricula_path(:id => c.id), class: "list-group-item" do %>
+                <%= link_to curricula_path(:id => c.id), class: "list-group-item" do %>
                   <h4 class="list-group-item-heading"><%= c.cur_name %></h4>
                 <% end %>
               <% end %>

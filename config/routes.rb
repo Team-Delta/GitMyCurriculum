@@ -12,7 +12,9 @@ GitMyCurriculum::Application.routes.draw do
   get 'profile/edit'
   get 'profile/load'
 
-  get 'curricula/show/:name' => 'curricula#show', as: :curricula
+  get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
+
+  get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/create'
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum
   get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
