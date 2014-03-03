@@ -34,8 +34,6 @@ class CurriculaController < ApplicationController
     @curriculum = Curricula.where('creator_id=? AND cur_name=?', @user.id, params[:curriculum_name]).first
     @path = Rails.root + @curriculum.path
 
-    puts @path
-
     redirect_to dashboard_dashboard_main_path
   end
 
