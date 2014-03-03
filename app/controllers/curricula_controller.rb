@@ -12,7 +12,7 @@ class CurriculaController < ApplicationController
       @user = User.find(current_user.id)
       @curricula.users << @user
       @curricula.creator_id = @user.id
-      @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}"
+      @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}/.git"
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
 
@@ -35,6 +35,13 @@ class CurriculaController < ApplicationController
     @path = Rails.root + @curriculum.path
 
     redirect_to dashboard_dashboard_main_path
+  end
+
+  def commits
+    @curriculum = Curricula.find_by_id(params[:id])
+    path = Rails.root + @curriculum.path
+    git = Git.bare(path)
+    @commits = git.log.since('2 weeks ago')
   end
 
   private
