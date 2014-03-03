@@ -63,11 +63,7 @@
     </div>
 
     <div class="row" style="padding: 10px;">
-
-        <a href='/Change_history' class="btn btn-success" style="width: 150px;">
-            Change History
-        </a>
-
+      <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
