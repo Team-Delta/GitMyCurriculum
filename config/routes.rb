@@ -27,8 +27,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'dashboard/dashboard_main'
 
   get 'users/show'
-  get 'users/search_follow'
-  get 'users/search_unfollow'
+  get 'users/follow'
+  get 'users/unfollow'
   post 'users/follow' => 'users#follow', as: :follow
   post 'users/unfollow' => 'users#unfollow', as: :unfollow
 

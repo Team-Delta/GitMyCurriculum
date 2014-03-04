@@ -11,9 +11,9 @@
           Peers
           <% if current_user %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", unfollow_path(:username => @user.username) %>
+            <%= link_to "Unfollow", users_unfollow_path(:username => @user.username) %>
           <% else %>
-            <%= link_to "Follow", follow_path(:username => @user.username) %>
+            <%= link_to "Follow", users_follow_path(:username => @user.username) %>
           <% end %>
           <% end %>
       </div>    
