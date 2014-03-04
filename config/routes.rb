@@ -27,10 +27,15 @@ GitMyCurriculum::Application.routes.draw do
   get 'dashboard/dashboard_main'
 
   get 'users/show'
-  get 'users/follow'
-  get 'users/unfollow'
+  get 'users/search_follow'
+  get 'users/search_unfollow'
   post 'users/follow' => 'users#follow', as: :follow
   post 'users/unfollow' => 'users#unfollow', as: :unfollow
+
+  get 'search/s_follow'
+  get 'search/s_unfollow'
+  post 'search/s_follow' => 'search#s_follow', as: :s_follow
+  post 'search/s_unfollow' => 'search#s_unfollow', as: :s_unfollow
 
   devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
 

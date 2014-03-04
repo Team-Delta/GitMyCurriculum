@@ -11,9 +11,9 @@
           Peers
           <% if current_user %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", users_unfollow_path(:username => @user.username) %>
+            <%= link_to "Unfollow", unfollow_path(:username => @user.username) %>
           <% else %>
-            <%= link_to "Follow", users_follow_path(:username => @user.username) %>
+            <%= link_to "Follow", follow_path(:username => @user.username) %>
           <% end %>
           <% end %>
       </div>    
@@ -58,9 +58,7 @@
           </a>
         <%else%>
           <% for c in @created_curricula %>
-              <a href="/curricula/cur_edit" class="list-group-item">
-                <h4 class="list-group-item-heading"><%=c.cur_name%></h4>
-              </a>
+             <div class="list-group-item"><%= link_to(c.cur_name, curricula_path(:id => c.id))%></div>
           <% end %>
         <% end %>
       </div>     
@@ -73,9 +71,7 @@
         </div>   
         <div class="list-group">
           <% for c in @contributed_curricula %>
-            <a href="/curricula/cur_edit" class="list-group-item">
-              <h4 class="list-group-item-heading"><%= c.curricula.cur_name %></h4>
-            </a>
+            <div class="list-group-item"><%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%></div>
           <% end %>
         </div>      
       </div>
