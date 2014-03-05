@@ -11,6 +11,7 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'profile/edit'
   get 'profile/load'
+  get 'profile/create'
 
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
 

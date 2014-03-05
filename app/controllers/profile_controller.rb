@@ -11,12 +11,12 @@ class ProfileController < ApplicationController
     @info = User.all
   end
 
-  def create
-    @info = User.new(post_params)
+  # def create
+  #   @info = User.new(post_params)
 
-    @info.save
-    redirect_to :back
-  end
+  #   @info.save
+  #   redirect_to :back
+  # end
 
   private
 
