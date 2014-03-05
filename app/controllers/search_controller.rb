@@ -39,23 +39,23 @@ class SearchController < ApplicationController
     @user = User.find_by_username(params[:username])
     if current_user
       Watching.create(user_id: current_user.id, peer_id: @user.id)
-      flash[:notice] = "You are now following #{@user.name}."
+      flash[:success] = "You are now following #{@user.name}."
     else
       flash[:error] = "You must login to follow #{@user.name}.".html_safe
     end
-    @search_path = '/search/uc_search/?utf8=%E2%9C%93&query=' + params[:query]
-    redirect_to @search_path
+    redirect_to search_uc_search_path(:query => params[:query])
+
   end
 
   def s_unfollow
     @user = User.find_by_username(params[:username])
     if current_user
       Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id).destroy_all
-      flash[:notice] = "You are no longer following #{@user.name}."
+      flash[:success] = "You are no longer following #{@user.name}."
     else
       flash[:error] = "You must login to unfollow #{@user.name}.".html_safe
     end
-    @search_path = '/search/uc_search/?utf8=%E2%9C%93&query=' + params[:query]
-    redirect_to @search_path
+    redirect_to search_uc_search_path(:query => params[:query])
+
   end
 end
