@@ -9,13 +9,4 @@ describe ProfileController do
       response.should be_success
     end
   end
-
-  # describe "GET 'create'"do
-  #   it 'returns http success' do
-  #      @info = {:description => 'post_params', :occupation => 'post_params'}
-  #     get 'create'
-  #     response should be_success
-  #     #@info.occupation.should eql nil
-  #   end
-  # end
 end
