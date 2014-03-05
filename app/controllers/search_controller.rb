@@ -34,4 +34,26 @@ class SearchController < ApplicationController
     @curricula = @curr_search.results
     @number_of_curriculum_matches = @curr_search.total
   end
+
+  def s_follow
+    @user = User.find_by_username(params[:username])
+    if current_user
+      Watching.create(user_id: current_user.id, peer_id: @user.id)
+      flash[:success] = "You are now following #{@user.name}."
+    else
+      flash[:error] = "You must login to follow #{@user.name}.".html_safe
+    end
+    redirect_to search_uc_search_path(query: params[:query])
+  end
+
+  def s_unfollow
+    @user = User.find_by_username(params[:username])
+    if current_user
+      Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id).destroy_all
+      flash[:success] = "You are no longer following #{@user.name}."
+    else
+      flash[:error] = "You must login to unfollow #{@user.name}.".html_safe
+    end
+    redirect_to search_uc_search_path(query: params[:query])
+  end
 end

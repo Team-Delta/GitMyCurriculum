@@ -21,7 +21,14 @@
                 <h4 class="media-heading"><%= link_to(u.username, users_show_path(:username => u.username))%><br><%= u.name %></h4>
 
                 <button class="btn btn-primary btn-no-padding pull-right" >
-                        Add Peer 
+                  <% if current_user %>
+                    <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, u.id) %>
+                    <% if !@is_peer.blank? %>
+                      <%= link_to "Unfollow", search_s_unfollow_path(:username => u.username, :query => params[:query]) %>
+                    <% else %>
+                      <%= link_to "Follow", search_s_follow_path(:username => u.username, :query => params[:query]) %>
+                    <% end %>
+                  <% end %>
                 </button>
               </div>
           </div>
@@ -41,7 +48,7 @@
             </a>
 
             <div class="media-body">
-              <h4 class="media-heading"><%=c.cur_name%></h4>
+              <h4 class="media-heading"><%=link_to(c.cur_name, curricula_path(:id => c.id))%></h4>
               <%=c.cur_description%>
 
               <button class="btn btn-primary btn-no-padding pull-right" >
