@@ -1,4 +1,4 @@
-# override for devise to show our flash messages
+# Override for devise to show our flash messages
 class PasswordsController < Devise::PasswordsController
   prepend_before_filter :require_no_authentication
   # Render the #edit only if coming from a reset password email link
