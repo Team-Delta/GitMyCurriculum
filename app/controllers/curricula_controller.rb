@@ -4,6 +4,29 @@ class CurriculaController < ApplicationController
   def show
     @curriculum = Curricula.find_by_id(params[:id])
     @creator = User.find(@curriculum.creator_id)
+
+    path = Rails.root + @curriculum.path
+    git = Git.bare(path)
+
+    @branches = git.branches
+
+    if params.key?(:branch)
+      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/#{params[:branch]}"
+    else
+      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/master"
+    end
+
+    @branch = params[:branch]
+
+    if params.key?(:tree)
+      tree = git.gtree(params[:tree])
+    else
+      latest = git.log.first
+      tree = git.gtree(latest)
+    end
+
+    @child_trees = tree.trees
+    @child_blobs = tree.blobs
   end
 
   def create

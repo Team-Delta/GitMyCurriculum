@@ -14,14 +14,16 @@
 
                 <div class="panel-title">
 
-                    Branch Name
+                    <%= @branch %>
 
                     <div class = 'btn-group pull-right'>
-                        <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>Choose Branch <span class = 'caret'></span></button>
-                        <ul class = 'dropdown-menu'>
-                            <li><a href="#">master</a></li>
-                            <li><a href="#">frank-creating-syllabus</a></li>
-                        </ul>
+
+                      <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>Choose Branch <span class = 'caret'></span></button>
+                      <ul class = 'dropdown-menu'>
+                          <% for b in @branches %>
+                            <li><%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %></li>
+                          <% end %>
+                      </ul>
                     </div>​
                 </div>
 
@@ -31,18 +33,24 @@
 
                 <ul class="list-unstyled">
 
-                    <li>
-                        <h5 class="glyphicon glyphicon-folder-close"> 
-                            Powerpoint Files
-                        </h5>
-                    </li>
+                    <% for t in @child_trees %>
+                        <li> 
+                            <a href=<%= open_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
+                                <h5 class="glyphicon glyphicon-folder-close"> 
+                                    <%= t[0] %>
+                                </h5>
+                            </a>
+                        </li>
+                    <% end %>  
 
-                    <li>
-                        <h5 class="glyphicon glyphicon-file"> 
-                            Syllabus
-                        </h5>
-                    <li>
-
+                    <% for b in @child_blobs %>
+                        <li> 
+                            <h5 class="glyphicon glyphicon-file"> 
+                                <%= b[0]%>
+                            </h5>
+                        </li>
+                    <% end %>      
+                
                 </ul>
 
             </div>
@@ -54,21 +62,13 @@
 
 <div class="col-md-3" style="text-align:center;">
 
-    <div class="row" style="padding-bottom: 10px;">
-
-        <a data-toggle="modal" href='#create-branch' class="btn btn-success" style="width: 150px;">
-            Create Branch   
-        </a>
-
-    </div>
-
     <div class="row" style="padding: 10px;">
       <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
 
-        <a href='/Requests' class="btn btn-success" style="width: 150px;">
+        <a href='/Requests' class="btn btn-success">
             Requests
         </a>
 
@@ -76,7 +76,7 @@
 
     <div class="row" style="padding: 10px;">
 
-        <a href='/Sources' class="btn btn-success" style="width: 150px;">
+        <a href='/Sources' class="btn btn-success">
             Sources
         </a>
 
@@ -84,34 +84,10 @@
 
     <div class="row" style="padding: 10px;">
 
-        <a href='/Wiki' class="btn btn-success" style="width: 150px;">
+        <a href='/Wiki' class="btn btn-success">
             Wiki
         </a>
 
     </div>
 
-</div>
-
-<div class='modal fade' id='create-branch' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                <h4 class='modal-title'>Create Branch</h4>
-            </div>
-            <div class='modal-body'>
-                <div class='container'>
-                    <form role='form' action='' method='post'>
-
-                        <div class='form-group'>
-                            <label>Branch Name:</label>
-                            <input type="text" class="form-control">   
-                        </div>
-
-                        <input type='submit' value='Submit' class='pull-right btn btn-info'/>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
