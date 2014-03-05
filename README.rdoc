@@ -21,14 +21,20 @@ This project is running ruby 2.1.0
 
 === System Dependancies & Development Environment
 Sunspot: used for searching
+
 Devise: used for authentication
 
 === Configuration:
 FactoryGirl: used for data fixtures in test cases
+
 Seed_fu: used for data fixtures in development
+
 RSpec: unit tests
+
 Capybara: integration tests
+
 Guard: continuous testing on development machine
+
 Debugger: faster debugging for rails
 
 === Database Creation & Loading:
