@@ -43,8 +43,7 @@ class SearchController < ApplicationController
     else
       flash[:error] = "You must login to follow #{@user.name}.".html_safe
     end
-    redirect_to search_uc_search_path(:query => params[:query])
-
+    redirect_to search_uc_search_path(query: params[:query])
   end
 
   def s_unfollow
@@ -55,7 +54,6 @@ class SearchController < ApplicationController
     else
       flash[:error] = "You must login to unfollow #{@user.name}.".html_safe
     end
-    redirect_to search_uc_search_path(:query => params[:query])
-
+    redirect_to search_uc_search_path(query: params[:query])
   end
 end
