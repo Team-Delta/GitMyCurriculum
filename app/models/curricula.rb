@@ -17,5 +17,6 @@ class Curricula < ActiveRecord::Base
 
   searchable do
     text :cur_name
+    text :cur_description
   end
 end
