@@ -28,8 +28,12 @@ gem 'turbolinks'
 
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
-gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
+# Rails Stylesheets
+gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-sass', '~> 3.1.1'
+
+# Cleaner view templates
+gem 'haml'
 
 group :development do
     # automated test running on development machines
