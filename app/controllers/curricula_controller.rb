@@ -83,5 +83,4 @@ class CurriculaController < ApplicationController
   def curricula_params
     params.require(:curricula).permit(:cur_name, :cur_description, :creator_id, :path)
   end
-
 end
