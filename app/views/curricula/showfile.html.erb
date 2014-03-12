@@ -1,6 +1,6 @@
 <div class="row col-md-offset-1">
 
-     <div class="btn-group col-md-3">
+    <div class="btn-group col-md-2">
 
       <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>Choose Branch <span class = 'caret'></span></button>
       <ul class = 'dropdown-menu'>
@@ -8,6 +8,7 @@
           <li><%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %></li>
         <% end %>
       </ul>
+
     </div>​
 
     <ol id="breadcrumb" class="breadcrumb col-md-8">
@@ -19,7 +20,7 @@
 
 <div class="row col-md-offset-1">
 
-    <div class="col-md-8">
+    <div class="row col-md-8">
 
         <div class="panel panel-default">
 
@@ -27,39 +28,26 @@
 
                 <div class="panel-title">
 
-                    <%= @branch %>
+                    <%= params[:name] %>
 
                 </div>
 
             </div>
 
-            <div class="panel-body">
+            <table class="table" id="file-table">
 
-                <ul class="list-unstyled">
+                <tbody>
+                    <col width = "5%">
+                    <col width = "95%">
+                    <% @blob.contents_array.each_with_index do |value, index| %>
+                        <tr>
+                            <td id="index-cell"><%= index + 1 %></td>
+                            <td id="value-cell"><%= value %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
 
-                    <% for t in @child_trees %>
-                        <li> 
-                            <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
-                                <h5 class="glyphicon glyphicon-folder-close"> 
-                                    <%= t[0] %>
-                                </h5>
-                            </a>
-                        </li>
-                    <% end %>  
-
-                    <% for b in @child_blobs %>
-                        <li> 
-                            <a href=<%= open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1])%>> 
-                                <h5 class="glyphicon glyphicon-file"> 
-                                    <%= b[0]%>
-                                </h5>
-                            </a>
-                        </li>
-                    <% end %>      
-                
-                </ul>
-
-            </div>
+            </table>
 
         </div>
     </div>
@@ -67,7 +55,9 @@
     <div class="col-md-3" style="text-align:center;">
 
         <div class="row" style="padding: 10px;">
+
           <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
+
         </div>
 
         <div class="row" style="padding: 10px;">
@@ -87,5 +77,4 @@
         </div>
 
     </div>
-
 </div>

@@ -69,7 +69,7 @@ Peers</a></li>
               </a>
             <%else%>
               <% for c in @created_curricula %>
-                  <div class="list-group-item"><%= link_to(c.cur_name, curricula_path(:id => c.id))%></div>
+                <div class="list-group-item"><%= link_to(c.cur_name, curricula_path(:id => c.id))%></div>
               <%end%>
             <%end%>
 
