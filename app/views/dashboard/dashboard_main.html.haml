@@ -1,0 +1,20 @@
+%main
+	.col-md-5
+		%h2 Notifications:
+		%hr
+
+	.col-md-4.col-md-offset-3
+		- if !@contributed_curricula.blank?
+
+			.panel.panel-default
+				.panel-heading Curricula Contributed To
+				.list-group
+					- for c in @contributed_curricula
+						= link_to curricula_path(:id => c.curricula.id) do
+							%h4{:class => 'list-group-item-heading'}= c.curricula.cur_name
+
+		.panel.panel-default
+			.panel-heading
+				Curricula
+				%a{:href => "/curricula/create"}
+					%button {:class => 'btn btn-success pull-right'} Create Curriculum
