@@ -1,80 +1,103 @@
-
-<div class="col-md-10 col-md-offset-2">
-  <div class="col-md-3">
-    <center>
-      <img id="avatar" src="http://www.gravatar.com/avatar/<%= @user.email %>?s=200px" />
-    </center>
-    <br>
-    <br>
-    <div class="panel panel-default">
+<div class="container">
+  <div class="col-md-4">
+      <center>
+        <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
+      </center>
+      <br>
+      <center>
+      <%= @user.username %>
+      <br>
+      <p> Been a user since: <%= @user.created_at %> </p>
       <div class="panel-heading" style="padding-bottom: 20px;">
-          Peers
-          <% if current_user %>
+        <% if current_user %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", users_unfollow_path(:username => @user.username) %>
+            <%= link_to "Unfollow", users_unfollow_path(:username => @user.username), class:"btn btn-danger btn-lg btn-block" %>
           <% else %>
-            <%= link_to "Follow", users_follow_path(:username => @user.username) %>
-          <% end %>
-          <% end %>
-      </div>    
-
-      <div class="list-group">
-          <%@peers.each do |peer| %>
-            <div class="list-group-item"><%= link_to(peer.name, users_show_path(:username => peer.username))%></div>
-          <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div id="profile-panel-heading" class="panel-heading">
-         <div class="panel-title">
-            <div>
-               <strong><%= @user.name %></strong><br><%= @user.username %>
-            </div>
-         </div>
-      </div>
-
-      <div class="panel-body">
-         <h4>Description</h4>
-         <%= @user.description %>
-
-         <hr>
-
-         <h4>Occupation</h4>
-         <%= @user.occupation %>
-      </div> 
-
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading" style="padding-bottom: 20px;">
-        Curricula          
-      </div>   
-      <div class="list-group">
-        <% if @created_curricula.blank? %>
-          <a class="list-group-item">
-            <h4 class="list-group-item-heading">No Curriculum</h4>
-          </a>
-        <%else%>
-          <% for c in @created_curricula %>
-             <div class="list-group-item"><%= link_to(c.cur_name, curricula_path(:id => c.id))%></div>
+            <%= link_to "Follow", users_follow_path(:username => @user.username), class:"btn btn-primary btn-lg btn-block" %>
           <% end %>
         <% end %>
-      </div>     
-    </div>
+      </div>  
+    </center>
+     </div>
 
-    <% if !@contributed_curricula.blank? %>      
-      <div class="panel panel-default">
-        <div class="panel-heading" style="padding-bottom: 20px;">
-          Curricula Contributed To    
-        </div>   
-        <div class="list-group">
-          <% for c in @contributed_curricula %>
-            <div class="list-group-item"><%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%></div>
-          <% end %>
-        </div>      
+  <div class="col-md-8">
+    <ul class="nav nav-pills nav-justified">
+      <li class="active"><a href="#info" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Info</a></li>
+      <li><a href="#curricula" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Curricula</a></li>
+      <li><a href="#peers" data-toggle="tab"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> 
+Peers</a></li>
+    </ul><!--creating tabs-->
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+      <div class="tab-pane active" id="info"> 
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading" style="padding-bottom: 20px;">
+             <strong><%= @user.name %></strong><br><%= @user.username %>
+          </div>
+
+          <div class="panel-body">
+            <h4>Description</h4>
+              <%= @user.description %>
+            <hr>
+            <h4>Occupation</h4>
+            <%= @user.occupation %>
+          </div>
+
+        </div>
+
       </div>
-    <% end %>
+
+      <div class="tab-pane" id="curricula">
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading" style="padding-bottom: 20px;">
+
+            Curricula
+
+          </div> 
+
+
+          <div class="list-group">
+
+            <%if @created_curricula.blank?%>
+              <a class="list-group-item">
+                <h4 class="list-group-item-heading">No Curriculum</h4>
+              </a>
+            <%else%>
+              <% for c in @created_curricula %>
+                  <div class="list-group-item"><%= link_to(c.cur_name, curricula_path(:id => c.id))%></div>
+              <%end%>
+            <%end%>
+
+          </div>
+
+        </div> 
+
+      </div>
+
+      <div class="tab-pane" id="peers">
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading" style="padding-bottom: 20px;">
+            Peers
+          </div>    
+
+          <div class="list-group">
+            <%@peers.each do |peer| %>
+              <div class="list-group-item"><%= link_to(peer.name, users_show_path(:username => peer.username))%></div>
+            <% end %>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div> <!--end of tabs info-->
   </div>
 </div>
