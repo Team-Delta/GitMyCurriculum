@@ -51,9 +51,9 @@
         <div class="panel panel-default">
 
           <div class="panel-heading" style="padding-bottom: 20px;">
-             <strong><%= @user.name %></strong>
-             <br>
-             <%= @user.username %>
+            <strong><%= @user.name %></strong>
+            <br>
+            <%= @user.username %>
           </div>
 
           <div class="panel-body">
@@ -85,9 +85,9 @@
               </a>
             <%else%>
               <% for c in @created_curricula %>
-                  <div class="list-group-item">
-                    <%= link_to(c.cur_name, curricula_path(:id => c.id))%>
-                  </div>
+                <div class="list-group-item">
+                  <%= link_to(c.cur_name, curricula_path(:id => c.id))%>
+                </div>
               <%end%>
             <%end%>
 
