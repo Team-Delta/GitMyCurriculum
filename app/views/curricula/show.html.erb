@@ -36,7 +36,6 @@
             <div class="panel-body">
 
                 <ul class="list-unstyled">
-
                     <% for t in @child_trees %>
                         <li> 
                             <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
@@ -56,7 +55,6 @@
                             </a>
                         </li>
                     <% end %>      
-                
                 </ul>
 
             </div>
