@@ -1,3 +1,0 @@
-describe ApplicationHelper do
-
-end
