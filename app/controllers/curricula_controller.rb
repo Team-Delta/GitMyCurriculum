@@ -10,7 +10,6 @@ class CurriculaController < ApplicationController
     @log = git.log
     @branches = git.branches
 
-
     if params.key?(:branch)
       commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
       @branch = params[:branch]
@@ -25,22 +24,8 @@ class CurriculaController < ApplicationController
       tree = git.gtree(commit[0..-2])
     end
 
-
-    begin
-      if params.key?(:tree)
-        tree = git.gtree(params[:tree])
-      else
-        latest = git.log.first
-        tree = git.gtree(latest)
-      end
-
-      @child_trees = tree.trees
-      @child_blobs = tree.blobs
-    rescue
-      flash[:info] = 'It looks like your curriculum has no saves. Create some files and save them to get started!'
-    end
-
-
+    @child_trees = tree.trees
+    @child_blobs = tree.blobs
   end
 
   def showfile

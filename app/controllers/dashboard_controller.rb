@@ -4,26 +4,23 @@ class DashboardController < ApplicationController
     begin
       @created_curricula = Curricula.where('creator_id = ?', current_user.id)
       @contributed_curricula = UserCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', current_user.id, current_user.id)
-      
-    rescue
+      check_for_new_commits
+    rescue => e
+      logger.error e.message
     end
-    check_for_new_commits
-    @notifications = Array.new
-    for c in @created_curricula
+
+    @notifications = []
+    @created_curricula.each do |c|
       c.notifications.find_each do |n|
         @notification = Hash.new
-        if !n.message.nil?
-          set_notification_hash(n.notification_type, n.message)
-        end
+        set_notification_hash(n.notification_type, n.message) unless n.message.nil?
       end
     end
 
-    for c in @contributed_curricula
+    @contributed_curricula.each do |c|
       c.curricula.notifications.find_each do |n|
         @notification = Hash.new
-        if !n.message.nil?
-          set_notification_hash(n.notification_type, n.message)
-        end
+        set_notification_hash(n.notification_type, n.message) unless n.message.nil?
       end
     end
   end
@@ -31,44 +28,40 @@ class DashboardController < ApplicationController
   private
 
   def check_for_new_commits
-    for @c in @created_curricula
-      path = Rails.root + @c.path
+    @created_curricula.each do |c|
+      path = Rails.root + c.path
       @git = Git.bare(path)
       @log = @git.log
-      for l in @log
-        notification = @c.notifications.where('commit_id = ?', l.sha[0..8]).first
-        if notification == nil
-          create_notification_for l
-        end
+      @log.each do |l|
+        notification = c.notifications.where('commit_id = ?', l.sha[0..8]).first
+        create_notification_for(l, c) if notification.nil?
       end
     end
 
-    for @c in @contributed_curricula
-      path = Rails.root + @c.path
+    @contributed_curricula.each do |c|
+      path = Rails.root + c.path
       @git = Git.bare(path)
       @log = @git.log
-      for l in @log
-        notification = @c.notifications.where('commit_id = ?', l.sha[0..8]).first
-        if notification == nil
-          create_notification_for l
-        end
+      @log.each do |l|
+        notification = c.notifications.where('commit_id = ?', l.sha[0..8]).first
+        create_notification_for(l, c) if notification.nil?
       end
     end
   end
 
-  def create_notification_for(commit)
+  def create_notification_for(commit, c)
     @user = User.find_user_by_email commit.author.email
-    @notification = Notification.new()
+    @notification = Notification.new
     @notification.author = @user
     @notification.notification_type = 0
     @notification.message = "#{@user.username} has saved to stream #{@git.branch.name} at #{@c.creator.username}/#{@c.cur_name}.\n#{commit.sha[0..8]} #{commit.message}"
-    @notification.created_at = commit.author.date.strftime("%y-%m-%d")
+    @notification.created_at = commit.author.date.strftime('%y-%m-%d')
     @notification.commit_id = commit.sha[0..8]
     @c.notifications << @notification
     @notification.save
   end
 
-  def set_notification_hash (notif_type, message)
+  def set_notification_hash(notif_type, message)
     @notification[:message] = message
     case notif_type
     when 0, 2, 3, 4
@@ -76,11 +69,11 @@ class DashboardController < ApplicationController
     when 1
       @notification[:css_class] = 'bg-warning text-warning'
     when 5
-       @notification[:css_class] = 'bg-success text-success'
+      @notification[:css_class] = 'bg-success text-success'
     when 6
-       @notification[:css_class] = 'bg-danger text-danger'
+      @notification[:css_class] = 'bg-danger text-danger'
     else
-       @notification[:css_class] = 'bg-info text-primary'
+      @notification[:css_class] = 'bg-info text-primary'
     end
     @notifications.push(@notification)
   end

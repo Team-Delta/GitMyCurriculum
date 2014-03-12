@@ -11,21 +11,6 @@ feature 'CRUD for a curriculum' do
     expect(page).to have_content('Successfully created curriculum')
   end
 
-  scenario 'open a Curriculum' do
-    make_curriculum_with 'This', 'Is AWESOME'
-    visit authenticated_root_path
-    click_link 'This'
-    expect(page).to have_content('master')
-  end
-
-  scenario 'create files and save them to Curriculum' do
-    make_curriculum_with 'This', 'Is AWESOME'
-
-  end
-
-  def clone_repository
-  end
-  
   def sign_in_with(email, password)
     visit splash_load_path
     fill_in 'email or username', with: email
