@@ -2,6 +2,9 @@
   <div class="col-md-5">
     <h2>Notifications:</h2>
     <hr>
+    <% for n in @notifications %>
+      <p class="<%= n[:css_class] %>"> <%= n[:message] %> </p>
+    <% end %>
   </div>
 
   <div class="col-md-4 col-md-offset-3" >
@@ -25,27 +28,27 @@
 
       <div class="panel panel-default">
 
-          <div class="panel-heading" style="padding-bottom: 20px;">
-              Curricula
-              <a href="/curricula/create">
-              <button class="btn btn-success pull-right" >
-                  Create Curriculum 
-              </button>
-              </a>
-          </div>   
-          <div class="list-group">
-            <% if @created_curricula.blank? %>
-            <a class="list-group-item">
-                <h4 class="list-group-item-heading">No Curriculum</h4>
+        <div class="panel-heading" style="padding-bottom: 20px;">
+            Curricula
+            <a href="/curricula/create">
+            <button class="btn btn-success pull-right" >
+                Create Curriculum 
+            </button>
             </a>
-            <% else %>
-              <% for c in @created_curricula %>
-                <%= link_to curricula_path(:id => c.id), class: "list-group-item" do %>
-                  <h4 class="list-group-item-heading"><%= c.cur_name %></h4>
-                <% end %>
+        </div>   
+        <div class="list-group">
+          <% if @created_curricula.blank? %>
+          <a class="list-group-item">
+              <h4 class="list-group-item-heading">No Curriculum</h4>
+          </a>
+          <% else %>
+            <% for c in @created_curricula %>
+              <%= link_to curricula_path(:id => c.id), class: "list-group-item" do %>
+                <h4 class="list-group-item-heading"><%= c.cur_name %></h4>
               <% end %>
             <% end %>
-          </div>
+          <% end %>
+        </div>
           
       </div>
     </div>

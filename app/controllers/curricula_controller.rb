@@ -7,7 +7,7 @@ class CurriculaController < ApplicationController
 
     path = Rails.root + @curriculum.path
     git = Git.bare(path)
-
+    @log = git.log
     @branches = git.branches
 
     if params.key?(:branch)
@@ -45,7 +45,7 @@ class CurriculaController < ApplicationController
       @curricula = Curricula.new(curricula_params)
       @user = User.find(current_user.id)
       @curricula.users << @user
-      @curricula.creator_id = @user.id
+      @curricula.creator = @user
       @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}/.git"
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
@@ -75,7 +75,7 @@ class CurriculaController < ApplicationController
     @curriculum = Curricula.find_by_id(params[:id])
     path = Rails.root + @curriculum.path
     git = Git.bare(path)
-    @commits = git.log.since('2 weeks ago')
+    @commits = git.log
   end
 
   private

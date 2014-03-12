@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   # relationships
+  has_many :notifications, dependent: :destroy, foreign_key: :author_id, class_name: 'Notification'
   has_many :user_curriculas
   has_many :curriculas, through: :user_curriculas
 
@@ -51,5 +52,11 @@ class User < ActiveRecord::Base
   searchable do
     text :username,  stored: 'true'
     text :name,  stored: 'true'
+  end
+
+  class << self
+    def find_user_by_email(email)
+      where('users.email = ?', email).first
+    end
   end
 end

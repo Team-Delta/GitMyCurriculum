@@ -26,3 +26,23 @@
     color: #468847;
     text-align: left;
  }
+
+ .bg-info {
+    padding: 10px;
+    border-left: 3px solid #428bca;
+ }
+
+ .bg-warning {
+    padding: 10px;
+    border-left: 3px solid #8a6d3b;
+ }
+
+ .bg-success {
+    padding: 10px;
+    border-left: 3px solid #3c763d;
+ }
+
+ .bg-danger {
+    padding: 10px;
+    border-left: 3px solid #a94442;
+ }
