@@ -54,10 +54,10 @@ class DashboardController < ApplicationController
     @notification = Notification.new
     @notification.author = @user
     @notification.notification_type = 0
-    @notification.message = "#{@user.username} has saved to stream #{@git.branch.name} at #{@c.creator.username}/#{@c.cur_name}.\n#{commit.sha[0..8]} #{commit.message}"
+    @notification.message = "#{@user.username} has saved to stream #{@git.branch.name} at #{c.creator.username}/#{c.cur_name}.\n#{commit.sha[0..8]} #{commit.message}"
     @notification.created_at = commit.author.date.strftime('%y-%m-%d')
     @notification.commit_id = commit.sha[0..8]
-    @c.notifications << @notification
+    c.notifications << @notification
     @notification.save
   end
 
