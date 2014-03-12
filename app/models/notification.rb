@@ -20,9 +20,8 @@ class Notification < ActiveRecord::Base
   N_REQUEST_DENY = 6     # if a request gets denied
 
   belongs_to :curricula
-  belongs_to :author, class_name: "User"
+  belongs_to :author, class_name: 'User'
 
   class << self
-
   end
 end
