@@ -11,22 +11,33 @@ class CurriculaController < ApplicationController
     @branches = git.branches
 
     if params.key?(:branch)
-      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/#{params[:branch]}"
+      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+      @branch = params[:branch]
     else
-      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/master"
+      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+      @branch = 'master'
     end
-
-    @branch = params[:branch]
 
     if params.key?(:tree)
       tree = git.gtree(params[:tree])
     else
-      latest = git.log.first
-      tree = git.gtree(latest)
+      tree = git.gtree(commit[0..-2])
     end
 
     @child_trees = tree.trees
     @child_blobs = tree.blobs
+  end
+
+  def showfile
+    @curriculum = Curricula.find_by_id(params[:id])
+    @creator = User.find(@curriculum.creator_id)
+
+    path = Rails.root + @curriculum.path
+    git = Git.bare(path)
+
+    @branches = git.branches
+
+    @blob = git.gblob(params[:blob])
   end
 
   def create
