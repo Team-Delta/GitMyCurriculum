@@ -1,16 +1,39 @@
-<div id="Search Results" class="col-md-7 col-md-offset-1">
+<div class="well well-sm col-md-2 col-md-offset-1 bs-docs-sidebar">
 
-<%if @number_of_user_matches==0 && @number_of_curriculum_matches==0%>
+  <ul class="nav nav-pills nav-stacked">
+    <li class="active">
+      <a href="#allSearch" data-toggle="tab">All Results
+      <span class="badge badge-success pull-right"><%= @number_of_user_matches + @number_of_curriculum_matches %></span>
+      </a>
+    </li>
+    <li>
+      <a href="#userSearch" data-toggle="tab">Users
+      <span class="badge badge-success pull-right"><%= @number_of_user_matches %></span>
+      </a>
+    </li>
+    <li>
+      <a href="#currSearch" data-toggle="tab">Curriculum
+      <span class="badge badge-success pull-right"><%= @number_of_curriculum_matches %></span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div id="Search Results" class="col-md-7">
+
+<% if @number_of_user_matches==0 && @number_of_curriculum_matches==0 %>
   <h3> No results found for: <%=params[:query]%></h3> <br>
-<%else%>
+<% else %>
   <h2>Showing results for: <%=params[:query]%></h2> <br>
-    <ul>
-      <%if @number_of_user_matches==0%>
-        <strong> No Matching Users Found</strong> <br>
-      <%else%>
-        <% for u in @users%>
+  <ul>
+    <div id="searchTabContent" class="tab-content">    
+      <div class="tab-pane fade in active" id="userSearch">
 
-          <div class="media">
+        <% if @number_of_user_matches == 0 %>
+          <strong> No Matching Users Found</strong> <br>
+        <% end %>
+          <% for u in @users %>
+            <div class="media">
 
               <% @email = Digest::MD5.hexdigest(u.email.strip.downcase) %>
 
@@ -21,86 +44,68 @@
                 <h4 class="media-heading"><%= link_to(u.username, users_show_path(:username => u.username))%><br><%= u.name %></h4>
 
                 <button class="btn btn-primary btn-no-padding pull-right" >
-                        Add Peer 
+                  <% if current_user %>
+                    <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, u.id) %>
+                    <% if !@is_peer.blank? %>
+                      <%= link_to "Unfollow", search_s_unfollow_path(:username => u.username, :query => params[:query]) %>
+                    <% else %>
+                      <%= link_to "Follow", search_s_follow_path(:username => u.username, :query => params[:query]) %>
+                    <% end %>
+                  <% end %>
                 </button>
               </div>
           </div>
           <hr>
         <% end %>
-      <% end %>
+      </div>
 
-      <%if @number_of_curriculum_matches==0%> 
-        <strong> No Matching Curriculums Found</strong> <br>
-      <%else%>
-        <% for c in @curricula%>
+      <div class="tab-pane fade" id="currSearch">
+        <% if @number_of_curriculum_matches == 0 %> 
+          <strong> No Matching Curriculums Found</strong> <br>
+        <% else %>
+          <% for c in @curricula %>
 
-          <div class="media">
+            <div class="media">
 
-            <a class="pull-left" href='#'>
-            <span class="glyphicon glyphicon-book glyphicon-2x"></span>
-            </a>
+              <a class="pull-left" href='#'>
+              <span class="glyphicon glyphicon-book glyphicon-2x"></span>
+              </a>
 
-            <div class="media-body">
-              <h4 class="media-heading"><%=c.cur_name%></h4>
-              <%=c.cur_description%>
+              <div class="media-body">
+                <h4 class="media-heading"><%=link_to(c.cur_name, curricula_path(:id => c.id))%></h4>
+                <%= c.cur_description %>
 
-              <button class="btn btn-primary btn-no-padding pull-right" >
-                Follow Curriculum 
-              </button>
+                <button class="btn btn-primary btn-no-padding pull-right" >
+                  Follow Curriculum 
+                </button>
+              </div>
             </div>
-          </div>
-          <hr>
+            <hr>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-<% end %>
+      </div>
+    </div>
+  </ul>
+  <% end %>
 </div>
 
-<div id="filter" class="col-md-2 col-md-offset-1">
+<!-- <div class="col-md-2 col-md-offset-1 bs-docs-sidebar">
 
-  <ul class="list-group">
-    <li class="list-group-item">
-      <%if @number_of_user_matches==0%>
-        <span class="badge"><%=@number_of_user_matches%></span>
-      <%else%>
-        <span class="badge badge-success"><%=@number_of_user_matches%></span>
+  <ul class="nav nav-list bs-docs-sidenav">
+    <li class="active"><a href="#userSearch" data-toggle="tab">Users</a>
+      <% if @number_of_user_matches == 0 %>
+        <span class="badge"><%= @number_of_user_matches %></span>
+      <% else %>
+        <span class="badge badge-success"><%= @number_of_user_matches %></span>
       <% end %>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="userFilter">
-          <h4>Users</h4>
-        </label>
-    </div>
     </li>
 
-    <li class="list-group-item">
-      <%if @number_of_curriculum_matches==0%>
-        <span class="badge"><%=@number_of_curriculum_matches%></span>
-      <%else%>
-        <span class="badge badge-success"><%=@number_of_curriculum_matches%></span>
+    <li><a href="#currSearch" data-toggle="tab">Curriculum</a>
+      <% if @number_of_curriculum_matches == 0 %>
+        <span class="badge"><%= @number_of_curriculum_matches %></span>
+      <% else %>
+        <span class="badge badge-success"><%= @number_of_curriculum_matches %></span>
       <% end %>
-
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="curribulumFilter">
-          <h4>Curricula</h4>
-        </label>
-    </div>
-    </li>
-
-    <ul class="list-group">
-    <li class="list-group-item">
-      <%if @number_of_curriculum_matches==0%>
-        <span class="badge"><%=@number_of_curriculum_matches%></span>
-      <%else%>
-        <span class="badge badge-success"><%=@number_of_curriculum_matches%></span>
-      <% end %>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="userFilter">
-          <h4>Organizations</h4>
-        </label>
-    </div>
     </li>
   </ul>
-</div>
+</div> -->

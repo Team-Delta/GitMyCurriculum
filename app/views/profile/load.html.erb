@@ -67,11 +67,10 @@ Peers</a></li>
               <a class="list-group-item">
                 <h4 class="list-group-item-heading">No Curriculum</h4>
               </a>
-            <%else%>
-              <% for c in @created_curricula %>
-                <a href="/curricula/cur_edit" class="list-group-item">
-                  <h4 class="list-group-item-heading"><%=c.cur_name%></h4>
-                </a>
+              <%else%>
+                <% for c in @created_curricula %>
+                  <div class="list-group-item"><%= link_to(c.cur_name, curricula_path(:id => c.id))%></div>
+                <%end%>
               <%end%>
             <%end%>
 
@@ -91,9 +90,7 @@ Peers</a></li>
 
             <div class="list-group">
               <% for c in @contributed_curricula %>
-                <a href="/curricula/cur_edit" class="list-group-item">
-                  <h4 class="list-group-item-heading"><%=c.curricula.cur_name%></h4>
-                </a>
+                <div class="list-group-item"><%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%></div>
               <%end%>
             </div>
 
