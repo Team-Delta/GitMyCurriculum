@@ -7,4 +7,4 @@ AllCops:
     - config/**
 
 MethodLength:
-  Max: 20
+  Max: 30

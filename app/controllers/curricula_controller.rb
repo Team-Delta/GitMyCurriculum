@@ -7,26 +7,37 @@ class CurriculaController < ApplicationController
 
     path = Rails.root + @curriculum.path
     git = Git.bare(path)
-
+    @log = git.log
     @branches = git.branches
 
     if params.key?(:branch)
-      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/#{params[:branch]}"
+      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+      @branch = params[:branch]
     else
-      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/master"
+      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+      @branch = 'master'
     end
-
-    @branch = params[:branch]
 
     if params.key?(:tree)
       tree = git.gtree(params[:tree])
     else
-      latest = git.log.first
-      tree = git.gtree(latest)
+      tree = git.gtree(commit[0..-2])
     end
 
     @child_trees = tree.trees
     @child_blobs = tree.blobs
+  end
+
+  def showfile
+    @curriculum = Curricula.find_by_id(params[:id])
+    @creator = User.find(@curriculum.creator_id)
+
+    path = Rails.root + @curriculum.path
+    git = Git.bare(path)
+
+    @branches = git.branches
+
+    @blob = git.gblob(params[:blob])
   end
 
   def create
@@ -34,7 +45,7 @@ class CurriculaController < ApplicationController
       @curricula = Curricula.new(curricula_params)
       @user = User.find(current_user.id)
       @curricula.users << @user
-      @curricula.creator_id = @user.id
+      @curricula.creator = @user
       @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}/.git"
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
@@ -64,7 +75,7 @@ class CurriculaController < ApplicationController
     @curriculum = Curricula.find_by_id(params[:id])
     path = Rails.root + @curriculum.path
     git = Git.bare(path)
-    @commits = git.log.since('2 weeks ago')
+    @commits = git.log
   end
 
   private

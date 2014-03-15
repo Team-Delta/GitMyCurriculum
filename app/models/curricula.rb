@@ -10,6 +10,9 @@
 #   t.boolean  'can_merge',       default: true,                  null: false
 # end
 class Curricula < ActiveRecord::Base
+  belongs_to :creator, foreign_key: 'creator_id', class_name: 'User'
+
+  has_many :notifications, dependent: :destroy
   has_many :user_curriculas
   has_many :users, through: :user_curriculas
 
@@ -17,5 +20,9 @@ class Curricula < ActiveRecord::Base
 
   searchable do
     text :cur_name
+    text :cur_description
+  end
+
+  class << self
   end
 end

@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-feature 'Edit profile' do
+feature 'CRUD for a curriculum' do
   background do
     create(:user)
     sign_in_with 'bammons123', '12345678'
   end
 
-  scenario'Make a Curriculum' do
+  scenario 'make a Curriculum' do
     make_curriculum_with 'This', 'Is AWESOME'
     expect(page).to have_content('Successfully created curriculum')
   end
@@ -19,7 +19,7 @@ feature 'Edit profile' do
   end
 
   def make_curriculum_with(name, description)
-    visit   '/curricula/create'
+    visit create_curriculum_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

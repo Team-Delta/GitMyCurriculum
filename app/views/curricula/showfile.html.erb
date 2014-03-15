@@ -1,8 +1,8 @@
 <div class="row col-md-offset-1">
-  <div class="btn-group col-md-3">
+  <div class="btn-group col-md-2">
 
-    <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>
-      Choose Branch 
+    <button class='btn btn-success dropdown-toggle' data-toggle = 'dropdown'>
+      Choose Branch
       <span class = 'caret'></span>
     </button>
 
@@ -13,7 +13,6 @@
         </li>
       <% end %>
     </ul>
-
   </div>​
 
   <ol id="breadcrumb" class="breadcrumb col-md-8">
@@ -28,52 +27,35 @@
       </a>
     </li>
   </ol>
-
 </div>
 
 <div class="row col-md-offset-1">
 
-  <div class="col-md-8">
+  <div class="row col-md-8">
 
     <div class="panel panel-default">
-
       <div class="panel-heading">
         <div class="panel-title">
-          <%= @branch %>
+          <%= params[:name] %>
         </div>
       </div>
 
-      <div class="panel-body">
-        <ul class="list-unstyled">
-
-          <% for t in @child_trees %>
-            <li> 
-              <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
-                <h5 class="glyphicon glyphicon-folder-close"> 
-                  <%= t[0] %>
-                </h5>
-              </a>
-            </li>
-          <% end %>  
-
-          <% for b in @child_blobs %>
-            <li>
-              <a href=<%= open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1])%>> 
-                <h5 class="glyphicon glyphicon-file"> 
-                  <%= b[0]%>
-                </h5>
-              </a>
-            </li>
+      <table class="table" id="file-table">
+        <tbody>
+          <col width = "5%">
+          <col width = "95%">
+          <% @blob.contents_array.each_with_index do |value, index| %>
+            <tr>
+              <td id="index-cell"><%= index + 1 %></td>
+              <td id="value-cell"><%= value %></td>
+            </tr>
           <% end %>
-
-        </ul>
-      </div>
-
+        </tbody>
+      </table>
     </div>
   </div>
 
   <div class="col-md-3" style="text-align:center;">
-
     <div class="row" style="padding: 10px;">
       <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
     </div>
@@ -91,5 +73,4 @@
     </div>
 
   </div>
-
 </div>
