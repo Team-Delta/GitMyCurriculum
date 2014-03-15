@@ -60,4 +60,9 @@ ActiveRecord::Schema.define(version: 20140224012254) do
     t.integer "peer_id"
   end
 
+  create_table "following_curricula", force: true do |t|
+    t.integer "user_id"
+    t.integer "curricula_id"
+  end
+
 end
