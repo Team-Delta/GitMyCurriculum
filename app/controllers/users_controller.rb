@@ -3,38 +3,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_username(params[:username])
     @peers = @user.peers
-    @month = @user.created_at.month
+    @month = Date::MONTHNAMES[@user.created_at.month]
     @year = @user.created_at.year
     @day = @user.created_at.day
     @created_curricula = Curricula.where('creator_id = ?', @user.id)
     @contributed_curricula = UserCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', @user.id, @user.id)
     @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) if current_user
-    case @month
-    when 1
-      @month = 'January'
-    when 2
-      @month = 'February'
-    when 3
-      @month = 'March'
-    when 4
-      @month = 'April'
-    when 5
-      @month = 'May'
-    when 6
-      @month = 'June'
-    when 7
-      @month = 'July'
-    when 8
-      @month = 'August'
-    when 9
-      @month = 'September'
-    when 10
-      @month = 'October'
-    when 11
-      @month = 'November'
-    when 12
-      @month = 'December'
-    end
   end
 
   def follow
