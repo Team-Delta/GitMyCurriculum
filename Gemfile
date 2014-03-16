@@ -28,9 +28,6 @@ gem 'turbolinks'
 
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
-gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
-gem 'bootstrap-sass', '~> 3.1.1'
-
 group :development do
     # automated test running on development machines
     gem 'guard-rspec'
@@ -83,6 +80,11 @@ end
 group :production do
     # Use Uglifier as compressor for JavaScript assets
     gem 'uglifier', '>= 1.3.0'
+end
+
+group :production, :development, :test do
+    gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
+    gem 'bootstrap-sass', '~> 3.1.1'
 end
 
 group :ci do
