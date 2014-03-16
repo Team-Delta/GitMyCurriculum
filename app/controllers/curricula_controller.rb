@@ -10,22 +10,27 @@ class CurriculaController < ApplicationController
     @log = @git.log
     @branches = @git.branches
 
-    if params.key?(:branch)
-      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
-      @branch = params[:branch]
-    else
-      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+    begin
+      if params.key?(:branch)
+        commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+        @branch = params[:branch]
+      else
+        commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+        @branch = 'master'
+      end
+
+      if params.key?(:tree)
+        tree = @git.gtree(params[:tree])
+      else
+        tree = @git.gtree(commit[0..-2])
+      end
+
+      @child_trees = tree.trees
+      @child_blobs = tree.blobs
+    rescue
+      flash[:error] = 'It appears that your project does not have any commits. You have no branches or objects to display.'
       @branch = 'master'
     end
-
-    if params.key?(:tree)
-      tree = @git.gtree(params[:tree])
-    else
-      tree = @git.gtree(commit[0..-2])
-    end
-
-    @child_trees = tree.trees
-    @child_blobs = tree.blobs
   end
 
   def showfile
@@ -49,6 +54,13 @@ class CurriculaController < ApplicationController
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
       @gw = Git.clone(@g.repo, "repos/#{current_user.username}/#{@curricula.cur_name}/working/#{@curricula.cur_name}")
+      @gw.config('user.name', @user.username)
+      @gw.config('user.email', @user.email)
+
+      File.open("#{Rails.root}/repos/#{current_user.username}/#{@curricula.cur_name}/working/#{@curricula.cur_name}/testfile.doc", 'w') { |f| f.write('Temporary document: can be deleted.') }
+      @gw.add(all: true)
+      @gw.commit_all('First save')
+      @gw.push
 
       flash[:success] = 'Successfully created curriculum' if @curricula.save
       redirect_to dashboard_dashboard_main_path
@@ -63,11 +75,30 @@ class CurriculaController < ApplicationController
     end
   end
 
-  def clone
-    @user = User.find_by_username(params[:username])
-    @curriculum = Curricula.where('creator_id=? AND cur_name=?', @user.id, params[:curriculum_name]).first
-    @path = Rails.root + @curriculum.path
+  def fork
+    @forked = Curricula.find_by_id(params[:id])
+    @creator = @forked.creator
 
+    @fork = Curricula.new
+    @fork.cur_name = @forked.cur_name
+    @fork.cur_description = @forked.cur_description
+    @fork.users << current_user
+    @fork.creator = current_user
+    @fork.path = "repos/#{current_user.username}/#{@fork.cur_name}/.git"
+
+    Dir.mkdir("#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}")
+
+    @g = Git.clone("#{Rails.root}/#{@forked.path}", '.git', path: "#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}", bare: true)
+    @gw = Git.clone(@g.repo, "repos/#{current_user.username}/#{@fork.cur_name}/working/#{@fork.cur_name}")
+    @gw.config('user.name', current_user.username)
+    @gw.config('user.email', current_user.email)
+
+    File.open("#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}/working/#{@fork.cur_name}/forkfile.doc", 'w') { |f| f.write('Temporary document: can be deleted.') }
+    @gw.add(all: true)
+    @gw.commit_all('First forked stream save')
+    @gw.push
+
+    flash[:success] = 'Successfully forked curriculum' if @fork.save
     redirect_to dashboard_dashboard_main_path
   end
 

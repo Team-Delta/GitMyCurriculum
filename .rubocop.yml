@@ -1,5 +1,5 @@
 LineLength:
-  Max: 175
+  Max: 200
 
 AllCops:
   Excludes:
@@ -10,3 +10,6 @@ AllCops:
 
 MethodLength:
   Max: 30
+
+ClassLength:
+  Max: 110  
