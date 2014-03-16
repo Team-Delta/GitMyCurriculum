@@ -50,7 +50,7 @@ class CurriculaController < ApplicationController
       @curricula = Curricula.new(curricula_params)
       @user = User.find(current_user.id)
       @curricula.users << @user
-      @curricula.creator_id = @user.id
+      @curricula.creator = @user
       @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}/.git"
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
@@ -76,13 +76,13 @@ class CurriculaController < ApplicationController
 
   def fork
     @forked = Curricula.find_by_id(params[:id])
-    @creator = User.find(@forked.creator_id)
+    @creator = @forked.creator
 
     @fork = Curricula.new
     @fork.cur_name = @forked.cur_name
     @fork.cur_description = @forked.cur_description
     @fork.users << current_user
-    @fork.creator_id = current_user.id
+    @fork.creator = current_user
     @fork.path = "repos/#{current_user.username}/#{@fork.cur_name}/.git"
     flash[:success] = 'Successfully forked curriculum' if @fork.save
 

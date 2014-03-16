@@ -2,17 +2,27 @@
 
   <div class="panel panel-info">
     <div class="panel-heading">Change History For: <%= @curriculum.cur_name %></div>
-
-      <ul class="list-group">
-        <% for c in @commits %>
-          <li class="list-group-item">
-            <h4><%= c.message %></h4>
-            Authored By: <strong><%= c.author.name %></strong> on <strong><%= c.author.date.strftime("%m-%d-%y") %></strong>
-            <div class="pull-right">Change ID: <%= c %></div>
-          </li>
-        <% end %>
-      </ul>
-
+    <ul class="list-group">
+      <% for c in @commits %>
+        <li class="list-group-item">
+          <h4>
+            <%= c.message %>
+          </h4>
+          Authored By: 
+          <strong>
+            <%= c.author.name %>
+          </strong> 
+          on 
+          <strong>
+            <%= c.author.date.strftime("%m-%d-%y") %>
+          </strong>
+          <div class="pull-right">
+            Change ID: 
+            <%= c %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 

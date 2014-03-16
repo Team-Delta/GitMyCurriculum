@@ -1,19 +1,33 @@
 <div class="row col-md-offset-1">
+  <div class="btn-group col-md-3">
 
-     <div class="btn-group col-md-3">
+    <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>
+      Choose Branch 
+      <span class = 'caret'></span>
+    </button>
 
-      <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>Choose Branch <span class = 'caret'></span></button>
-      <ul class = 'dropdown-menu'>
-        <% for b in @branches %>
-          <li><%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %></li>
-        <% end %>
-      </ul>
-    </div>​
+    <ul class = 'dropdown-menu'>
+      <% for b in @branches %>
+        <li>
+          <%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %>
+        </li>
+      <% end %>
+    </ul>
 
-    <ol id="breadcrumb" class="breadcrumb col-md-8">
-        <li><a href="#" id="brlink"> <%= @creator.username %> </a></li>
-        <li><a href="#" id="brlink"> <%= @curriculum.cur_name %> </a></li>
-    </ol>
+  </div>​
+
+  <ol id="breadcrumb" class="breadcrumb col-md-8">
+    <li>
+      <a href="#" id="brlink">
+        <%= @creator.username %>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="brlink">
+        <%= @curriculum.cur_name %>
+      </a>
+    </li>
+  </ol>
 
 </div>
 
@@ -60,37 +74,31 @@
                   <% end %>  
                 <% end %>    
               </ul>
-
             </div>
-
         </div>
     </div>
 
     <div class="col-md-3" style="text-align:center;">
 
-        <div class="row" style="padding: 10px;">
-          <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
-        </div>
+      <div class="row" style="padding: 10px;">
+        <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
+      </div>
 
-        <div class="row" style="padding: 10px;">
+      <div class="row" style="padding: 10px;">
+          <%= link_to "Fork", fork_path(:id => @curriculum.id), class: "btn btn-success" %>
+      </div>
 
-            <a href='/' class="btn btn-success">
-                Requests
-            </a>
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Requests
+          </a>
+      </div>
 
-        </div>
-
-        <div class="row" style="padding: 10px;">
-
-            <a href='/' class="btn btn-success">
-                Sources
-            </a>
-
-        </div>
-
-        <div class="row" style="padding: 10px;">
-            <%= link_to "Fork", fork_path(:id => @curriculum.id), class: "btn btn-success" %>
-        </div>
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Sources
+          </a>
+      </div>
 
     </div>
 
