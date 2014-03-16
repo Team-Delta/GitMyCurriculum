@@ -87,6 +87,16 @@
               <% for c in @created_curricula %>
                 <div class="list-group-item">
                   <%= link_to(c.cur_name, curricula_path(:id => c.id))%>
+                  button class="btn btn-primary btn-no-padding pull-right" >
+                  <% if current_user %>
+                    <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
+                    <% if !@followed_curricula.blank? %>
+                      <%= link_to "Unfollow", search_s_c_unfollow_path(:curname => c.cur_name, :username => @user.username), :class => "no-link-white" %>
+                    <% else %>
+                      <%= link_to "Follow", search_s_c_follow_path(:curname => c.cur_name, :username => @user.username), :class => "no-link-white" %>
+                    <% end %>
+                  <% end %>
+                </button>
                 </div>
               <%end%>
             <%end%>
@@ -109,6 +119,7 @@
             <%@peers.each do |peer| %>
               <div class="list-group-item">
                 <%= link_to(peer.name, users_show_path(:username => peer.username))%>
+
               </div>
             <% end %>
           </div>

@@ -39,4 +39,26 @@ class SearchController < ApplicationController
     end
     redirect_to search_uc_search_path(query: params[:query])
   end
+
+  def s_c_follow
+    @curricula = Curricula.find_by cur_name(params[:curname])
+    if current_user
+      FollowingCurricula.create(user_id: current_user.id, curricula_id: @curricula.id)
+      flash[:success] = "You are now following #{@curricula.cur_name}."
+    else
+      flash[:error] = "You must login to follow #{@curricula.cur_name}.".html_safe
+    end
+    redirect_to search_uc_search_path(query: params[:query])
+  end
+
+  def s_c_unfollow
+    @curricula = Curricula.find_by cur_name(params[:curname])
+    if current_user
+      FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, @curricula.id).destroy_all
+      flash[:success] = "You are no longer following #{@curricula.cur_name}."
+    else
+      flash[:error] = "You must login to unfollow #{@curricula.cur_name}.".html_safe
+    end
+    redirect_to search_uc_search_path(query: params[:query])
+  end
 end

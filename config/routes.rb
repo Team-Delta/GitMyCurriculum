@@ -37,11 +37,19 @@ GitMyCurriculum::Application.routes.draw do
   get 'users/unfollow'
   post 'users/follow' => 'users#follow', as: :follow
   post 'users/unfollow' => 'users#unfollow', as: :unfollow
+  get 'users/c_follow'
+  get 'users/c_unfollow'
+  post 'users/c_follow' => 'users#c_follow', as: :c_follow
+  post 'users/c_unfollow' => 'users#c_unfollow', as: :c_unfollow
 
   get 'search/s_follow'
   get 'search/s_unfollow'
+  get 'search/s_c_follow'
+  get 'search/s_c_unfollow'
   post 'search/s_follow' => 'search#s_follow', as: :s_follow
   post 'search/s_unfollow' => 'search#s_unfollow', as: :s_unfollow
+  post 'search/s_c_follow' => 'search#s_c_follow', as: :s_c_follow
+  post 'search/s_c_unfollow' => 'search#s_c_unfollow', as: :s_c_unfollow
 
   devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
 

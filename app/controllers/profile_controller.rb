@@ -5,6 +5,7 @@ class ProfileController < ApplicationController
     @peers = current_user.peers
     @created_curricula = Curricula.where('creator_id = ?', current_user.id)
     @contributed_curricula = UserCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', current_user.id, current_user.id)
+    @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', current_user.id, current_user.id)
   end
 
   def edit
