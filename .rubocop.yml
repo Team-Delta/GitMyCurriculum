@@ -5,6 +5,8 @@ AllCops:
   Excludes:
     - db/**
     - config/**
+    - spec/**
+    - app/controllers/application_controller.rb
 
 MethodLength:
   Max: 30
