@@ -30,6 +30,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
   post '/curricula/edit/:id', to: 'curricula#edit', as: :edit_curriculum
 
+  get 'curriculua/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
+
   get 'splash/load'
 
   get 'dashboard/dashboard_main'
