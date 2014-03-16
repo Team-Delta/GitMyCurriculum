@@ -14,13 +14,15 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
 
+  get 'curricula/fork/:id' => 'curricula#fork', as: :fork
+
   get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
 
   get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/show/:id/:branch' => 'curricula#show', as: :switch
   get 'curricula/show/:id/:branch/:tree' => 'curricula#show', as: :open_folder
 
-  get 'curricula/:id/:branch/blob/:name/:blob' => 'curricula#showfile', as: :open_file
+  get 'curricula/:id/:branch/blob/:name/:blob' => 'curricula#showfile', as: :open_file, :name => /(\w+)(\D+)(\w)/
   
   get 'curricula/create'
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum

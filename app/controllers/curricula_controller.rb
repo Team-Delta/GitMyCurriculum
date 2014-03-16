@@ -7,25 +7,30 @@ class CurriculaController < ApplicationController
 
     path = Rails.root + @curriculum.path
     git = Git.bare(path)
-    @log = git.log
+
     @branches = git.branches
 
-    if params.key?(:branch)
-      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
-      @branch = params[:branch]
-    else
-      commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+    begin
+      if params.key?(:branch)
+        commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+        @branch = params[:branch]
+      else
+        commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+        @branch = 'master'
+      end
+
+      if params.key?(:tree)
+        tree = git.gtree(params[:tree])
+      else
+        tree = git.gtree(commit[0..-2])
+      end
+
+      @child_trees = tree.trees
+      @child_blobs = tree.blobs
+    rescue
+      # flash[:error] = "It appears that your project does not have any commits. You have no branches or objects to display."
       @branch = 'master'
     end
-
-    if params.key?(:tree)
-      tree = git.gtree(params[:tree])
-    else
-      tree = git.gtree(commit[0..-2])
-    end
-
-    @child_trees = tree.trees
-    @child_blobs = tree.blobs
   end
 
   def showfile
@@ -45,10 +50,16 @@ class CurriculaController < ApplicationController
       @curricula = Curricula.new(curricula_params)
       @user = User.find(current_user.id)
       @curricula.users << @user
-      @curricula.creator = @user
+      @curricula.creator_id = @user.id
       @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}/.git"
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
+
+      clone = Git.clone("#{Rails.root}/#{@curricula.path}", 'clone.git', path: "#{Rails.root}/repos/#{current_user.username}/#{@curricula.cur_name}")
+      File.open("#{Rails.root}/repos/#{current_user.username}/#{@curricula.cur_name}/clone.git/test.rb", 'w') { |f| f.write('write your stuff here') }
+      clone.add(all: true)
+      clone.commit_all('message')
+      clone.push
 
       flash[:success] = 'Successfully created curriculum' if @curricula.save
       redirect_to dashboard_dashboard_main_path
@@ -63,10 +74,28 @@ class CurriculaController < ApplicationController
     end
   end
 
-  def clone
-    @user = User.find_by_username(params[:username])
-    @curriculum = Curricula.where('creator_id=? AND cur_name=?', @user.id, params[:curriculum_name]).first
-    @path = Rails.root + @curriculum.path
+  def fork
+    @forked = Curricula.find_by_id(params[:id])
+    @creator = User.find(@forked.creator_id)
+
+    @fork = Curricula.new
+    @fork.cur_name = @forked.cur_name
+    @fork.cur_description = @forked.cur_description
+    @fork.users << current_user
+    @fork.creator_id = current_user.id
+    @fork.path = "repos/#{current_user.username}/#{@fork.cur_name}/.git"
+    flash[:success] = 'Successfully forked curriculum' if @fork.save
+
+    Dir.mkdir("#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}")
+
+    Git.clone("#{Rails.root}/#{@forked.path}", '.git', path: "#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}", bare: true)
+
+    clone = Git.clone("#{Rails.root}/#{@fork.path}", 'clone.git', path: "#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}")
+
+    File.open("#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}/clone.git/forktest", 'w') { |f| f.write('things') }
+    clone.add(all: true)
+    clone.commit_all('message')
+    clone.push
 
     redirect_to dashboard_dashboard_main_path
   end
