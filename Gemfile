@@ -26,6 +26,10 @@ gem 'jquery-rails'
  # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+gem 'sprockets', '2.11.0'
+gem 'sass-rails', '>= 4.0.0' 
+gem 'bootstrap-sass', '~> 3.1.1'    
+
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
 group :development do
@@ -80,11 +84,6 @@ end
 group :production do
     # Use Uglifier as compressor for JavaScript assets
     gem 'uglifier', '>= 1.3.0'
-end
-
-group :production, :development, :test do
-    gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
-    gem 'bootstrap-sass', '~> 3.1.1'
 end
 
 group :ci do
