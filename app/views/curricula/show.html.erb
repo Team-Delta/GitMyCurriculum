@@ -33,63 +33,73 @@
 
 <div class="row col-md-offset-1">
 
-  <div class="col-md-8">
+    <div class="col-md-8">
 
-    <div class="panel panel-default">
+        <div class="panel panel-default">
 
-      <div class="panel-heading">
-        <div class="panel-title">
-          <%= @branch %>
+            <div class="panel-heading">
+
+                <div class="panel-title">
+
+                    <%= @branch %>
+
+                </div>
+
+            </div>
+
+            <div class="panel-body">
+
+              <ul class="list-unstyled">
+                <% unless @child_trees.nil? %>
+                  <% for t in @child_trees %>
+                    <li> 
+                        <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
+                            <h5 class="glyphicon glyphicon-folder-close"> 
+                                <%= t[0] %>
+                            </h5>
+                        </a>
+                    </li>
+                  <% end %> 
+                <% end %>
+
+                <% unless @child_blobs.nil? %> 
+                  <% for b in @child_blobs %>
+                      <li> 
+                        <a href=<%= open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1])%>> 
+                            <h5 class="glyphicon glyphicon-file"> 
+                                <%= b[0]%>
+                            </h5>
+                        </a>
+                      </li>
+                  <% end %>  
+                <% end %>    
+              </ul>
+            </div>
         </div>
+    </div>
+
+    <div class="col-md-3" style="text-align:center;">
+
+      <div class="row" style="padding: 10px;">
+        <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
       </div>
 
-      <div class="panel-body">
-        <ul class="list-unstyled">
+      <div class="row" style="padding: 10px;">
+          <%= link_to "Fork", fork_path(:id => @curriculum.id), class: "btn btn-success" %>
+      </div>
 
-          <% for t in @child_trees %>
-            <li> 
-              <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
-                <h5 class="glyphicon glyphicon-folder-close"> 
-                  <%= t[0] %>
-                </h5>
-              </a>
-            </li>
-          <% end %>  
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Requests
+          </a>
+      </div>
 
-          <% for b in @child_blobs %>
-            <li>
-              <a href=<%= open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1])%>> 
-                <h5 class="glyphicon glyphicon-file"> 
-                  <%= b[0]%>
-                </h5>
-              </a>
-            </li>
-          <% end %>
-
-        </ul>
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Sources
+          </a>
       </div>
 
     </div>
-  </div>
-
-  <div class="col-md-3" style="text-align:center;">
-
-    <div class="row" style="padding: 10px;">
-      <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
-    </div>
-
-    <div class="row" style="padding: 10px;">
-      <a href='/Requests' class="btn btn-success">
-        Requests
-      </a>
-    </div>
-
-    <div class="row" style="padding: 10px;">
-      <a href='/Sources' class="btn btn-success">
-        Sources
-      </a>
-    </div>
-
-  </div>
 
 </div>
