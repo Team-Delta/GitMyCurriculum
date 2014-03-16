@@ -54,6 +54,8 @@ class CurriculaController < ApplicationController
 
       @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
       @gw = Git.clone(@g.repo, "repos/#{current_user.username}/#{@curricula.cur_name}/working/#{@curricula.cur_name}")
+      @gw.config('user.name', @user.username)
+      @gw.config('user.email', @user.email)
 
       File.open("#{Rails.root}/repos/#{current_user.username}/#{@curricula.cur_name}/working/#{@curricula.cur_name}/testfile.doc", 'w') { |f| f.write('Temporary document: can be deleted.') }
       @gw.add(all: true)
@@ -87,8 +89,9 @@ class CurriculaController < ApplicationController
     Dir.mkdir("#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}")
 
     @g = Git.clone("#{Rails.root}/#{@forked.path}", '.git', path: "#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}", bare: true)
-
     @gw = Git.clone(@g.repo, "repos/#{current_user.username}/#{@fork.cur_name}/working/#{@fork.cur_name}")
+    @gw.config('user.name', current_user.username)
+    @gw.config('user.email', current_user.email)
 
     File.open("#{Rails.root}/repos/#{current_user.username}/#{@fork.cur_name}/working/#{@fork.cur_name}/forkfile.doc", 'w') { |f| f.write('Temporary document: can be deleted.') }
     @gw.add(all: true)
