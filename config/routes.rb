@@ -11,8 +11,6 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'profile/edit'
   get 'profile/load'
-  get 'profile/p_c_unfollow'
-  post 'profile/p_c_unfollow' => 'profile#p_c_unfollow', as: :p_c_unfollow
 
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
 
@@ -37,27 +35,18 @@ GitMyCurriculum::Application.routes.draw do
   get 'splash/load'
 
   get 'dashboard/dashboard_main'
-  get 'dashboard/d_c_unfollow'
-  post 'dashboard/d_c_unfollow' => 'dashboard#d_c_unfollow', as: :d_c_unfollow
 
   get 'users/show'
-  get 'users/follow'
-  get 'users/unfollow'
-  post 'users/follow' => 'users#follow', as: :follow
-  post 'users/unfollow' => 'users#unfollow', as: :unfollow
-  get 'users/c_follow'
-  get 'users/c_unfollow'
-  post 'users/c_follow' => 'users#c_follow', as: :c_follow
-  post 'users/c_unfollow' => 'users#c_unfollow', as: :c_unfollow
 
-  get 'search/s_follow'
-  get 'search/s_unfollow'
-  get 'search/s_c_follow'
-  get 'search/s_c_unfollow'
-  post 'search/s_follow' => 'search#s_follow', as: :s_follow
-  post 'search/s_unfollow' => 'search#s_unfollow', as: :s_unfollow
-  post 'search/s_c_follow' => 'search#s_c_follow', as: :s_c_follow
-  post 'search/s_c_unfollow' => 'search#s_c_unfollow', as: :s_c_unfollow
+  get 'subscriptions/user_follow'
+  get 'subscriptions/user_unfollow'
+  get 'subscriptions/curricula_follow'
+  get 'subscriptions/curricula_unfollow'
+  post 'subscriptions/user_follow' => 'curricula#user_follow', as: :user_follow
+  post 'subscriptions/user_unfollow' => 'curricula#user_unfollow', as: :user_unfollow
+  post 'subscriptions/curricula_follow' => 'curricula#curricula_follow', as: :curricula_follow
+  post 'subscriptions/curricula_unfollow' => 'curricula#curricula_unfollow', as: :curricula_unfollow
+
 
   devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
 

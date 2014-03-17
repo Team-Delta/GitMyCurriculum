@@ -15,17 +15,6 @@ class ProfileController < ApplicationController
     @info = User.all
   end
 
-  def p_c_unfollow
-    @curricula = Curricula.find_by cur_name: params[:curname]
-    if current_user
-      FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, @curricula.id).destroy_all
-      flash[:success] = "You are no longer following #{@curricula.cur_name}."
-    else
-      flash[:error] = "You must login to unfollow #{@curricula.cur_name}.".html_safe
-    end
-    redirect_to profile_load_path(tab: 'following')
-  end
-
   private
 
   def post_params

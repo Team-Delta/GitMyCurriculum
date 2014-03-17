@@ -67,9 +67,9 @@
                   <% if current_user %>
                     <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, u.id) %>
                     <% if !@is_peer.blank? %>
-                      <%= link_to "Unfollow", search_s_unfollow_path(:username => u.username, :query => params[:query]), :class => "no-link-white" %>
+                      <%= link_to "Unfollow", subscriptions_user_unfollow_path(:username => u.username, :query => params[:query], :redirect => 'search'), :class => "no-link-white" %>
                     <% else %>
-                      <%= link_to "Follow", search_s_follow_path(:username => u.username, :query => params[:query]), :class => "no-link-white" %>
+                      <%= link_to "Follow", subscriptions_user_follow_path(:username => u.username, :query => params[:query], :redirect => 'search'), :class => "no-link-white" %>
                     <% end %>
                   <% end %>
                 </button>
@@ -100,9 +100,9 @@
                   <% if current_user %>
                     <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
                     <% if !@followed_curricula.blank? %>
-                      <%= link_to "Unfollow", search_s_c_unfollow_path(:curname => c.cur_name, :query => params[:query]), :class => "no-link-white" %>
+                      <%= link_to "Unfollow", subscriptions_curricula_unfollow_path(:curname => c.cur_name, :query => params[:query], :redirect => 'search'), :class => "no-link-white" %>
                     <% else %>
-                      <%= link_to "Follow", search_s_c_follow_path(:curname => c.cur_name, :query => params[:query]), :class => "no-link-white" %>
+                      <%= link_to "Follow", subscriptions_curricula_follow_path(:curname => c.cur_name, :query => params[:query], :redirect => 'search'), :class => "no-link-white" %>
                     <% end %>
                   <% end %>
                 </button>

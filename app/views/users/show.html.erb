@@ -9,9 +9,9 @@
       <div class="panel-heading" style="padding-bottom: 20px;">
         <% if current_user %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", users_unfollow_path(:username => @user.username), class:"btn btn-danger btn-lg btn-block" %>
+            <%= link_to "Unfollow", subscriptions_user_unfollow_path(:username => @user.username, :redirect => 'user_info'), class:"btn btn-danger btn-lg btn-block" %>
           <% else %>
-            <%= link_to "Follow", users_follow_path(:username => @user.username), class:"btn btn-primary btn-lg btn-block" %>
+            <%= link_to "Follow", subscriptions_user_follow_path(:username => @user.username, :redirect => 'user_info'), class:"btn btn-primary btn-lg btn-block" %>
           <% end %>
         <% end %>
       </div>  
@@ -91,9 +91,9 @@
                   <% if current_user %>
                     <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
                     <% if !@followed_curricula.blank? %>
-                      <%= link_to "Unfollow", users_c_unfollow_path(:curname => c.cur_name, :username => @user.username), :class => "no-link-white" %>
+                      <%= link_to "Unfollow", subscriptions_curricula_unfollow_path(:curname => c.cur_name, :username => @user.username, :redirect => 'user_curricula'), :class => "no-link-white" %>
                     <% else %>
-                      <%= link_to "Follow", users_c_follow_path(:curname => c.cur_name, :username => @user.username), :class => "no-link-white" %>
+                      <%= link_to "Follow", subscriptions_curricula_follow_path(:curname => c.cur_name, :username => @user.username, :redirect => 'user_curricula'), :class => "no-link-white" %>
                     <% end %>
                   <% end %>
                 </button>
