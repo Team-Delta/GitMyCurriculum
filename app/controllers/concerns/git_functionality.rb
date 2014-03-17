@@ -1,19 +1,17 @@
 # Module containing extracted ruby-git code
 module GitFunctionality
   def create_bare_repo(curriculum)
-    Git.init("repos/#{curriculum.creator.username}/#{@curriculum.cur_name}", bare: true)
+    Git.init("repos/#{curriculum.creator.username}/#{curriculum.cur_name}", bare: true)
   end
 
-  def create_working_directory(curriculum)
-    bare_path = get_bare_path(curriculum)
-    working_path = get_working_path(curriculum)
-    Git.clone(bare_path, working_path)
+  def create_working_directory(curriculum, user)
+    working_repo = Git.clone(get_bare_path(curriculum), get_working_path(curriculum))
+    working_repo.config('user.name', user.username)
+    working_repo.config('user.email', user.email)
   end
 
   def fork_repo(original, fork)
-    Dir.mkdir("#{Rails.root}/repos/#{fork.creator.username}/#{fork.cur_name}")
-    path = get_bare_path(original)
-    Git.clone(path, '.git', path: "#{Rails.root}/repos/#{fork.creator.username}/#{fork.cur_name}", bare: true)
+    Git.clone(get_bare_path(original), get_bare_path(fork), bare: true)
   end
 
   def create_initial_save(curriculum, fork)
@@ -25,12 +23,19 @@ module GitFunctionality
       filename = 'testfile.doc'
       message = 'First save'
     end
-    path = get_working_path(curriculum)
-    repo = Git.open(path)
-    File.open("#{path}/#{filename}", 'w') { |f| f.write('Temporary document: can be deleted.') }
-    repo.add(all: true)
-    repo.commit_all(message)
-    repo.push
+    working_repo = get_working_repo curriculum
+    File.open("#{working_repo.dir}/#{filename}", 'w') { |f| f.write('Temporary document: can be deleted.') }
+    working_repo.add(all: true)
+    working_repo.commit_all(message)
+    working_repo.push
+  end
+
+  def delete_save(curriculum, commit_id)
+    working_repo = get_working_repo curriculum
+    commit = working_repo.gcommit(commit_id)
+    Notification.where('commit_id = ?', short_sha(commit.sha)).destroy_all
+    working_repo.reset_hard(commit.parent.sha)
+    system("cd /repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}; git push origin master --force")
   end
 
   def get_bare_path(curriculum)
@@ -41,13 +46,17 @@ module GitFunctionality
     "#{Rails.root}/repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}"
   end
 
-  def configure_user_info(curriculum, user)
-    path = get_working_path(curriculum)
-    repo = Git.open(path)
-    repo.config('user.name', user.username)
-    repo.config('user.email', user.email)
+  def get_bare_repo(curriculum)
+    path = get_bare_path curriculum
+    Git.bare(path)
+  end
+
+  def get_working_repo(curriculum)
+    working = get_working_path curriculum
+    Git.open(working)
   end
 
   def short_sha(commit_id)
+    commit_id[0..8]
   end
 end

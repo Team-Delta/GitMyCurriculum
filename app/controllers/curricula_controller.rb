@@ -6,7 +6,8 @@ class CurriculaController < ApplicationController
   def show
     @curriculum = Curricula.find_by_id(params[:id])
 
-    get_git_repo_for @curriculum
+    @git = get_bare_repo @curriculum
+    @git_working = get_working_repo @curriculum
     @git_working.pull
     @log = @git.log
     @branches = @git.branches
@@ -38,7 +39,7 @@ class CurriculaController < ApplicationController
   def showfile
     @curriculum = Curricula.find_by_id(params[:id])
 
-    get_git_repo_for @curriculum
+    @git = get_bare_repo @curriculum
 
     @branches = @git.branches
     @blob = @git.gblob(params[:blob])
@@ -53,8 +54,7 @@ class CurriculaController < ApplicationController
       @curriculum.path = "repos/#{@user.username}/#{@curriculum.cur_name}/.git"
 
       create_bare_repo(@curriculum)
-      create_working_directory(@curriculum)
-      configure_user_info(@curriculum, @user)
+      create_working_directory(@curriculum, @user)
       create_initial_save(@curriculum, false)
 
       flash[:success] = 'Successfully created curriculum' if @curriculum.save
@@ -74,12 +74,15 @@ class CurriculaController < ApplicationController
     @forked = Curricula.find_by_id(params[:id])
     @creator = @forked.creator
 
-    @fork = create_curriculum(cur_name: @forked.cur_name, cur_description: @forked.cur_description)
-    @user = current_user
+    @fork = Curricula.new
+    @fork.cur_name = @forked.cur_name
+    @fork.cur_description = @forked.cur_description
+    @fork.creator = current_user
+    @fork.users << current_user
+    @fork.path = "repos/#{current_user.username}/#{@forked.cur_name}/.git"
 
     fork_repo(@forked, @fork)
-    create_working_directory(@fork)
-    configure_user_info(@fork, current_user)
+    create_working_directory(@fork, current_user)
     create_initial_save(@fork, true)
 
     flash[:success] = 'Successfully forked curriculum' if @fork.save
@@ -88,25 +91,20 @@ class CurriculaController < ApplicationController
 
   def commits
     @curriculum = Curricula.find_by_id(params[:id])
-    get_git_repo_for @curriculum
+    @git = get_bare_repo @curriculum
     @commits = @git.log
   end
 
   def revert_save
     @curriculum = Curricula.find_by_id(params[:id])
-    @commit = params[:commit_id]
-    get_git_repo_for @curriculum
-    @commit = @git_working.gcommit(@commit)
-    Notification.where('commit_id = ?', @commit.sha[0..8]).destroy_all
-    @git_working.reset_hard(@commit.parent.sha)
-    system("cd /repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/working/#{@curriculum.cur_name}; git push origin master --force")
+    delete_save @curriculum, params[:commit_id]
 
     redirect_to c_commit_path(id: @curriculum.id)
   end
 
   def compare
     @curriculum = Curricula.find_by_id(params[:id])
-    get_git_repo_for @curriculum
+    @git = get_bare_repo @curriculum
     @commit = @git.gcommit(params[:commit])
 
     begin
@@ -119,24 +117,6 @@ class CurriculaController < ApplicationController
   end
 
   private
-
-  def create_curriculum(hash = {})
-    curriculum = Curricula.new(hash)
-    curriculum.users << @user
-    curriculum.creator = @user
-    curriculum.path = "repos/#{@user.username}/#{curriculum.cur_name}/.git"
-    curriculum
-  end
-
-  def get_git_repo_for(curriculum)
-    @user = User.find_by_id(current_user.id)
-    path = Rails.root + curriculum.path
-    wp = "repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}"
-    @git = Git.bare(path)
-    @git_working = Git.open(wp)
-    @git_working.config('user.name', @user.username)
-    @git_working.config('user.email', @user.email)
-  end
 
   def curricula_params
     params.require(:curricula).permit(:cur_name, :cur_description, :creator_id, :path)
