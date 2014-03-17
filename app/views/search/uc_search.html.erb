@@ -92,7 +92,7 @@
 
                 <div class="media-body">
                   <h4 class="media-heading">
-                    <%=link_to(c.cur_name, curricula_path(:id => c.id))%>
+                    <%=link_to("#{c.creator.username}/#{c.cur_name}", curricula_path(:id => c.id))%>
                   </h4>
                   <%= c.cur_description %>
 
