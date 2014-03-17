@@ -16,7 +16,7 @@
 
   <div class="col-md-8">
     <ul class="nav nav-pills nav-justified">
-      <li class="active">
+      <li class="<%= if (params[:tab] == 'info' || !params[:tab])then 'active'  else '' end%>">
         <a href="#info" data-toggle="tab">
           <span class="glyphicon glyphicon-th"></span>
           Info
@@ -34,6 +34,12 @@
           Curricula Contributed To
         </a>
       </li>
+      <li class="<%= if params[:tab] == 'following' then 'active'  else '' end%>">
+        <a href="#following" data-toggle="tab">
+          <span class="glyphicon glyphicon-eye-open"></span>
+          Curricula Following
+        </a>
+      </li>
       <li>
         <a href="#peers" data-toggle="tab">
           <span class="glyphicon glyphicon-user"></span>
@@ -46,7 +52,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
 
-      <div class="tab-pane active" id="info"> 
+      <div class="<%= if (params[:tab] == 'info' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="info"> 
         <div class="panel panel-default">
           <div class="panel-heading" style="padding-bottom: 20px;">
             <%= current_user.username %>
@@ -105,6 +111,30 @@
 
           </div>
         <%end%>
+      </div>
+
+      <div class="<%= if params[:tab] == 'following' then 'tab-pane active'  else 'tab-pane' end%>" id="following">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="padding-bottom: 20px;">
+            Curricula Following
+          </div>   
+          <div class="list-group">
+            <% if @followed_curricula.blank? %>
+              <a class="list-group-item">
+                <h4 class="list-group-item-heading">No Curricula</h4>
+              </a>
+            <%else%> 
+              <% for c in @followed_curricula %>
+                <div class="list-group-item">
+                  <%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%>
+                  <button class="btn btn-primary btn-no-padding pull-right" >
+                    <%= link_to "Unfollow", profile_p_c_unfollow_path(:curname => c.curricula.cur_name), :class => "no-link-white" %>
+                </button>
+                </div>
+              <%end%>
+            <%end%>
+            </div>
+          </div>
       </div>
 
       <div class="tab-pane" id="peers">

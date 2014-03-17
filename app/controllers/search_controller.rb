@@ -41,7 +41,7 @@ class SearchController < ApplicationController
   end
 
   def s_c_follow
-    @curricula = Curricula.find_by cur_name(params[:curname])
+    @curricula = Curricula.find_by cur_name: params[:curname]
     if current_user
       FollowingCurricula.create(user_id: current_user.id, curricula_id: @curricula.id)
       flash[:success] = "You are now following #{@curricula.cur_name}."
@@ -52,7 +52,7 @@ class SearchController < ApplicationController
   end
 
   def s_c_unfollow
-    @curricula = Curricula.find_by cur_name(params[:curname])
+    @curricula = Curricula.find_by cur_name: params[:curname]
     if current_user
       FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, @curricula.id).destroy_all
       flash[:success] = "You are no longer following #{@curricula.cur_name}."

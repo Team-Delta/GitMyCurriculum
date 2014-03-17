@@ -11,6 +11,8 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'profile/edit'
   get 'profile/load'
+  get 'profile/p_c_unfollow'
+  post 'profile/p_c_unfollow' => 'profile#p_c_unfollow', as: :p_c_unfollow
 
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
 
@@ -35,6 +37,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'splash/load'
 
   get 'dashboard/dashboard_main'
+  get 'dashboard/d_c_unfollow'
+  post 'dashboard/d_c_unfollow' => 'dashboard#d_c_unfollow', as: :d_c_unfollow
 
   get 'users/show'
   get 'users/follow'
