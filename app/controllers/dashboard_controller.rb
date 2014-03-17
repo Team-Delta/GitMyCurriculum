@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
     begin
       @created_curricula = Curricula.find_curricula_for_creator current_user
       @contributed_curricula = Curricula.find_curricula_for_contributor current_user
+      @followed_curricula = Curricula.find_curricula_for_follower current_user
       check_for_new_commits
     rescue => e
       logger.error e.message

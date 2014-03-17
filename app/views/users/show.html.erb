@@ -9,9 +9,9 @@
       <div class="panel-heading" style="padding-bottom: 20px;">
         <% if current_user %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", users_unfollow_path(:username => @user.username), class:"btn btn-danger btn-lg btn-block" %>
+            <%= link_to "Unfollow", subscriptions_user_unfollow_path(:username => @user.username, :redirect => 'user_info'), class:"btn btn-danger btn-lg btn-block" %>
           <% else %>
-            <%= link_to "Follow", users_follow_path(:username => @user.username), class:"btn btn-primary btn-lg btn-block" %>
+            <%= link_to "Follow", subscriptions_user_follow_path(:username => @user.username, :redirect => 'user_info'), class:"btn btn-primary btn-lg btn-block" %>
           <% end %>
         <% end %>
       </div>  
@@ -20,13 +20,13 @@
 
   <div class="col-md-8">
     <ul class="nav nav-pills nav-justified">
-      <li class="active">
+      <li class="<%= if (params[:tab] == 'info' || !params[:tab])then 'active'  else '' end%>">
         <a href="#info" data-toggle="tab">
           <span class="glyphicon glyphicon-th"></span> 
           Info
         </a>
       </li>
-      <li>
+      <li class="<%= if params[:tab] == 'curricula' then 'active'  else '' end%>">
         <a href="#curricula" data-toggle="tab">
           <span class="glyphicon glyphicon-list-alt"></span> 
           Curricula
@@ -46,7 +46,7 @@
       
       <hr class="hr-margins">
 
-      <div class="tab-pane active" id="info"> 
+      <div class="<%= if (params[:tab] == 'info' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="info"> 
 
         <div class="panel panel-default">
 
@@ -68,7 +68,7 @@
 
       </div>
 
-      <div class="tab-pane" id="curricula">
+      <div class="<%= if params[:tab] == 'curricula' then 'tab-pane active'  else 'tab-pane' end%>" id="curricula">
 
         <div class="panel panel-default">
 
@@ -87,6 +87,16 @@
               <% for c in @created_curricula %>
                 <div class="list-group-item">
                   <%= link_to(c.cur_name, curricula_path(:id => c.id))%>
+                  <button class="btn btn-primary btn-no-padding pull-right" >
+                  <% if current_user %>
+                    <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
+                    <% if !@followed_curricula.blank? %>
+                      <%= link_to "Unfollow", subscriptions_curricula_unfollow_path(:curname => c.cur_name, :username => @user.username, :redirect => 'user_curricula'), :class => "no-link-white" %>
+                    <% else %>
+                      <%= link_to "Follow", subscriptions_curricula_follow_path(:curname => c.cur_name, :username => @user.username, :redirect => 'user_curricula'), :class => "no-link-white" %>
+                    <% end %>
+                  <% end %>
+                </button>
                 </div>
               <%end%>
             <%end%>
@@ -109,6 +119,7 @@
             <%@peers.each do |peer| %>
               <div class="list-group-item">
                 <%= link_to(peer.name, users_show_path(:username => peer.username))%>
+
               </div>
             <% end %>
           </div>

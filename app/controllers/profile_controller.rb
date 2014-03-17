@@ -8,6 +8,7 @@ class ProfileController < ApplicationController
     @day =   current_user.created_at.day
     @created_curricula = Curricula.find_curricula_for_creator current_user
     @contributed_curricula = Curricula.find_curricula_for_contributor current_user
+    @followed_curricula = Curricula.find_curricula_for_follower current_user
   end
 
   def edit

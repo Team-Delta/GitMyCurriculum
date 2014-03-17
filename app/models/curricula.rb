@@ -32,5 +32,9 @@ class Curricula < ActiveRecord::Base
     def find_curricula_for_contributor(contributor)
       UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ?', contributor, contributor)
     end
+
+    def find_curricula_for_follower(follower)
+      @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', follower, follower)
+    end
   end
 end

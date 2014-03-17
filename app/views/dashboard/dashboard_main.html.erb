@@ -26,6 +26,22 @@
       </div>
     <% end %>
 
+    <% if !@followed_curricula.blank? %>      
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding-bottom: 20px;">
+          Curricula Following
+        </div>   
+        <div class="list-group">
+          <% for c in @followed_curricula %>
+            <%= link_to curricula_path(:id => c.curricula.id), class: "list-group-item" do %>
+              <h4 class="list-group-item-heading"><%=c.curricula.cur_name%></h4>
+            <% end %>
+          <% end %>
+        </div>
+            
+      </div>
+    <% end %>
+
     <div class="panel panel-default">
       <div class="panel-heading" style="padding-bottom: 20px;">
         Curricula
