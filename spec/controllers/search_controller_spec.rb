@@ -25,4 +25,6 @@ describe SearchController do
       User.search { keywords 'fl' }.results.should == []
     end
   end
+
+  
 end

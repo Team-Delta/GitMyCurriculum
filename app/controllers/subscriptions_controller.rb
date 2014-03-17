@@ -2,7 +2,7 @@
 class SubscriptionsController < ApplicationController
   def user_follow
     @user = User.find_by_username(params[:username])
-    @signin = validate_login(params[:username], 'follow')
+    @signin = validate_login(@user.name, 'follow')
     if @signin == 'true'
       Watching.create_follow_relationship_for current_user, @user
       flash[:success] = "You are now following #{@user.name}."
@@ -12,7 +12,7 @@ class SubscriptionsController < ApplicationController
 
   def user_unfollow
     @user = User.find_by_username(params[:username])
-    @signin = validate_login(params[:username], 'unfollow')
+    @signin = validate_login(@user.name, 'unfollow')
     if @signin == 'true'
       Watching.delete_follow_relationship_for current_user, @user
       flash[:success] = "You are no longer following #{@user.name}."
