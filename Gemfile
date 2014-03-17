@@ -32,6 +32,8 @@ gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
+gem 'diffy'
+
 group :development do
     # automated test running on development machines
     gem 'guard-rspec'

@@ -1,6 +1,7 @@
 # controller for creating, loading, and editing a curricula
 class CurriculaController < ApplicationController
   include GitFunctionality
+
   # where to put the user to auto assign the creater/owner
   def show
     @curriculum = Curricula.find_by_id(params[:id])
@@ -27,7 +28,8 @@ class CurriculaController < ApplicationController
 
       @child_trees = tree.trees
       @child_blobs = tree.blobs
-    rescue
+    rescue => e
+      logger.error e.message
       flash[:error] = 'It appears that your project does not have any commits. You have no branches or objects to display.'
       @branch = 'master'
     end
@@ -44,8 +46,11 @@ class CurriculaController < ApplicationController
 
   def create
     if request.post?
-      @curriculum = create_curriculum(curricula_params)
       @user = current_user
+      @curriculum = Curricula.new(curricula_params)
+      @curriculum.creator = @user
+      @curriculum.users << @user
+      @curriculum.path = "repos/#{@user.username}/#{@curriculum.cur_name}/.git"
 
       create_bare_repo(@curriculum)
       create_working_directory(@curriculum)
@@ -99,14 +104,27 @@ class CurriculaController < ApplicationController
     redirect_to c_commit_path(id: @curriculum.id)
   end
 
+  def compare
+    @curriculum = Curricula.find_by_id(params[:id])
+    get_git_repo_for @curriculum
+    @commit = @git.gcommit(params[:commit])
+
+    begin
+      @difftree = @git.gtree(@commit.parents.first).diff(@commit)
+      @array = []
+      @difftree.each { |i| @array.push(i) }
+    rescue => e
+      logger.error e.message
+    end
+  end
+
   private
 
   def create_curriculum(hash = {})
     curriculum = Curricula.new(hash)
-    user = current_user
-    curriculum.users << user
-    curriculum.creator = user
-    curriculum.path = "repos/#{user.username}/#{curriculum.cur_name}/.git"
+    curriculum.users << @user
+    curriculum.creator = @user
+    curriculum.path = "repos/#{@user.username}/#{curriculum.cur_name}/.git"
     curriculum
   end
 

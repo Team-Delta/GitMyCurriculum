@@ -32,6 +32,8 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'curriculua/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
+  get '/curricula/compare/:id/:commit', to: 'curricula#compare', as: :compare
+
   get 'splash/load'
 
   get 'dashboard/dashboard_main'
