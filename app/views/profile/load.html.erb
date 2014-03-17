@@ -1,19 +1,13 @@
 <div class="container">
   <div class="col-md-4">
-    <center>
-      <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
-    </center>
-    <br>
-    <center>
-      <%= current_user.username %>
-      <br>
-      <p>
-        Been a user since: 
-        <%= current_user.created_at %>
-      </p>
-    </center>
-  </div>
-
+      <center>
+        <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
+      </center>
+      <center>
+      <h3><%= current_user.username %></h3>
+      <h5>Member since: <%=@month%> <%=@day%>, <%=@year%></h5>
+      </center>
+    </div>
   <div class="col-md-8">
     <ul class="nav nav-pills nav-justified">
       <li class="active">
@@ -45,6 +39,7 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
+      <hr class="hr-margins">
 
       <div class="tab-pane active" id="info"> 
         <div class="panel panel-default">

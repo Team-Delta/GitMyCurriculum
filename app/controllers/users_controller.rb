@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_username(params[:username])
     @peers = @user.peers
+    @month = Date::MONTHNAMES[@user.created_at.month]
+    @year = @user.created_at.year
+    @day = @user.created_at.day
     @created_curricula = Curricula.where('creator_id = ?', @user.id)
     @contributed_curricula = UserCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', @user.id, @user.id)
     @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) if current_user
