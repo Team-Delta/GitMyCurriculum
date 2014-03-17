@@ -3,11 +3,9 @@
     <center>
       <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
     </center>
-    <br>
     <center>
-      <%= @user.username %>
-      <br>
-      <p> Been a user since: <%= @user.created_at %></p>
+      <h3><%= @user.username %></h3>
+      <h5> Member since: <%=@month%> <%=@day%>, <%=@year%></h5>
       <div class="panel-heading" style="padding-bottom: 20px;">
         <% if current_user %>
           <% if !@is_peer.blank? %>
@@ -45,6 +43,8 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
+      
+      <hr class="hr-margins">
 
       <div class="<%= if (params[:tab] == 'info' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="info"> 
 

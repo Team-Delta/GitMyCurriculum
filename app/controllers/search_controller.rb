@@ -21,7 +21,7 @@ class SearchController < ApplicationController
   def s_follow
     @user = User.find_by_username(params[:username])
     if current_user
-      Watching.create(user_id: current_user.id, peer_id: @user.id)
+      Watching.create_follow_relationship_for current_user, @user
       flash[:success] = "You are now following #{@user.name}."
     else
       flash[:error] = "You must login to follow #{@user.name}.".html_safe
@@ -32,7 +32,7 @@ class SearchController < ApplicationController
   def s_unfollow
     @user = User.find_by_username(params[:username])
     if current_user
-      Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id).destroy_all
+      Watching.delete_follow_relationship_for current_user, @user
       flash[:success] = "You are no longer following #{@user.name}."
     else
       flash[:error] = "You must login to unfollow #{@user.name}.".html_safe

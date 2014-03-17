@@ -1,6 +1,6 @@
 <div class="well well-sm col-md-2 col-md-offset-1 bs-docs-sidebar">
 
-  <ul class="nav nav-pills nav-stacked">
+  <ul class="nav nav-pills no-outline nav-stacked">
     <li class="active">
       <a href="#allSearch" data-toggle="tab">
         All Results
@@ -92,7 +92,7 @@
 
                 <div class="media-body">
                   <h4 class="media-heading">
-                    <%=link_to(c.cur_name, curricula_path(:id => c.id))%>
+                    <%=link_to("#{c.creator.username}/#{c.cur_name}", curricula_path(:id => c.id))%>
                   </h4>
                   <%= c.cur_description %>
 
