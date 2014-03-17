@@ -12,7 +12,7 @@ FactoryGirl.define do
     password '12345678'
   end
 
-  factory :user_follow, class: User do
+  factory :user_2, class: User do
     username 'tcavalet123'
     email 'baileyammons@someplace.net'
     name 'Taylor Cavaletto'
