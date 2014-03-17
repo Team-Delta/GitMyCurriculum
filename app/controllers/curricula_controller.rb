@@ -3,7 +3,6 @@ class CurriculaController < ApplicationController
   # where to put the user to auto assign the creater/owner
   def show
     @curriculum = Curricula.find_by_id(params[:id])
-    @creator = User.find(@curriculum.creator_id)
 
     get_git_repo_for @curriculum
     @git_working.pull
@@ -12,10 +11,10 @@ class CurriculaController < ApplicationController
 
     begin
       if params.key?(:branch)
-        commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+        commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
         @branch = params[:branch]
       else
-        commit = File.read("repos/#{@creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+        commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
         @branch = 'master'
       end
 
@@ -35,7 +34,6 @@ class CurriculaController < ApplicationController
 
   def showfile
     @curriculum = Curricula.find_by_id(params[:id])
-    @creator = User.find(@curriculum.creator_id)
 
     get_git_repo_for @curriculum
 

@@ -7,7 +7,7 @@ feature 'CRUD for a curriculum' do
   end
 
   scenario 'make a Curriculum' do
-    system("rm -rf repos/bammons123/This")
+    system('rm -rf repos/bammons123/This')
     make_curriculum_with 'This', 'Is AWESOME'
     expect(page).to have_content('Successfully created curriculum')
   end

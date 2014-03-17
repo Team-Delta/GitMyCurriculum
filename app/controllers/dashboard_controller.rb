@@ -2,8 +2,8 @@
 class DashboardController < ApplicationController
   def dashboard_main
     begin
-      @created_curricula = Curricula.where('creator_id = ?', current_user.id)
-      @contributed_curricula = UserCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', current_user.id, current_user.id)
+      @created_curricula = Curricula.find_curricula_for_creator current_user
+      @contributed_curricula = Curricula.find_curricula_for_contributor current_user
       check_for_new_commits
     rescue => e
       logger.error e.message
