@@ -24,5 +24,14 @@ class Curricula < ActiveRecord::Base
   end
 
   class << self
+
+    def find_curricula_for_creator(creator)
+      where('curriculas.creator_id = ?', creator)
+    end
+
+    def find_curricula_for_contributor(contributor)
+      UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ?', contributor, contributor)
+    end
+
   end
 end
