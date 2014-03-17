@@ -30,7 +30,6 @@ class CurriculaController < ApplicationController
       flash[:error] = 'It appears that your project does not have any commits. You have no branches or objects to display.'
       @branch = 'master'
     end
-    
   end
 
   def showfile

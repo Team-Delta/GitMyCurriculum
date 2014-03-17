@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @created_curricula = Curricula.find_curricula_for_creator current_user
     @contributed_curricula = Curricula.find_curricula_for_contributor current_user
     @is_peer = Watching.find_peers_for current_user, @user
-    #@is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) if current_user
+    # @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) if current_user
   end
 
   def follow
