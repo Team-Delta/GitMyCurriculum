@@ -1,0 +1,46 @@
+<% if @number_of_user_matches == 0 %>
+  <strong> No Matching Users Found</strong> <br>
+<% end %>
+<% for u in @users %>
+  <% if u.class == User && current_user.username == u.username%>
+    <div class="media">
+      <% @email = Digest::MD5.hexdigest(u.email.strip.downcase) %>
+      <a class="pull-left" href="#">
+        <img src="http://www.gravatar.com/avatar/<%= @email %>?s=64px"/>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to(u.username, users_show_path(:username => u.username))%>
+          <br>
+          <%= u.name %>
+        </h4>
+      </div>
+    </div>
+  <hr>
+  <% else %>
+    <div class="media">
+      <% @email = Digest::MD5.hexdigest(u.email.strip.downcase) %>
+      <a class="pull-left" href="#">
+        <img src="http://www.gravatar.com/avatar/<%= @email %>?s=64px"/>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= link_to(u.username, users_show_path(:username => u.username))%>
+          <br>
+          <%= u.name %>
+        </h4>
+        <button class="btn btn-primary btn-no-padding pull-right" >
+          <% if current_user %>
+            <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, u.id) %>
+            <% if !@is_peer.blank? %>
+              <%= link_to "Unfollow", search_s_unfollow_path(:username => u.username, :query => params[:query]), :class => "no-link-white" %>
+            <% else %>
+              <%= link_to "Follow", search_s_follow_path(:username => u.username, :query => params[:query]), :class => "no-link-white" %>
+            <% end %>
+          <% end %>
+        </button>
+      </div>
+    </div>
+  <hr>
+  <% end %>
+<% end %>
