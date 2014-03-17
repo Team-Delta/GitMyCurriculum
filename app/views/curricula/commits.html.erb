@@ -7,9 +7,11 @@
         <li class="list-group-item">
           <div class="row">
             <div class="col-md-6">
-              <h4>
-                <%= c.message %>
-              </h4>
+              <%= link_to compare_path(:id => @curriculum.id, :commit => c) do %>
+                <h4>
+                  <%= c.message %>
+                </h4>
+              <% end %>
             </div>
             <div class="col-md-6">
               <%= link_to "Delete Save", revert_save_path(:id => @curriculum.id, :commit_id => c.sha), class:"btn btn-danger pull-right" %>
