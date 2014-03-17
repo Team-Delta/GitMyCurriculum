@@ -37,7 +37,7 @@ group :development do
     gem 'guard-rspec'
 
     # Progress bar for prolonged activities in the terminal
-    gem 'progress_bar', github: 'fivedigit/progress_bar'
+    gem 'progress_bar'
 
     # used for development seeding of database
     gem 'seed-fu', github: 'mbleigh/seed-fu'
