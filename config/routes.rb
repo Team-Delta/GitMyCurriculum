@@ -14,32 +14,41 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
 
+  get 'curricula/fork/:id' => 'curricula#fork', as: :fork
+
   get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
 
   get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/show/:id/:branch' => 'curricula#show', as: :switch
-  get 'curricula/show/:id/:branch/:tree' => 'curricula#show', as: :open
+  get 'curricula/show/:id/:branch/:tree' => 'curricula#show', as: :open_folder
 
+  get 'curricula/:id/:branch/blob/:name/:blob' => 'curricula#showfile', as: :open_file, :name => /(\w+)(\D+)(\w)/
+  
   get 'curricula/create'
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum
 
   get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
   post '/curricula/edit/:id', to: 'curricula#edit', as: :edit_curriculum
 
+  get 'curriculua/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
+
+  get '/curricula/compare/:id/:commit', to: 'curricula#compare', as: :compare
+
   get 'splash/load'
 
   get 'dashboard/dashboard_main'
 
   get 'users/show'
-  get 'users/follow'
-  get 'users/unfollow'
-  post 'users/follow' => 'users#follow', as: :follow
-  post 'users/unfollow' => 'users#unfollow', as: :unfollow
 
-  get 'search/s_follow'
-  get 'search/s_unfollow'
-  post 'search/s_follow' => 'search#s_follow', as: :s_follow
-  post 'search/s_unfollow' => 'search#s_unfollow', as: :s_unfollow
+  get 'subscriptions/user_follow'
+  get 'subscriptions/user_unfollow'
+  get 'subscriptions/curricula_follow'
+  get 'subscriptions/curricula_unfollow'
+  post 'subscriptions/user_follow' => 'curricula#user_follow', as: :user_follow
+  post 'subscriptions/user_unfollow' => 'curricula#user_unfollow', as: :user_unfollow
+  post 'subscriptions/curricula_follow' => 'curricula#curricula_follow', as: :curricula_follow
+  post 'subscriptions/curricula_unfollow' => 'curricula#curricula_unfollow', as: :curricula_unfollow
+
 
   devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
 

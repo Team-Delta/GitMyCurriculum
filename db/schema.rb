@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224012254) do
+ActiveRecord::Schema.define(version: 20140316172001) do
 
   create_table "curriculas", force: true do |t|
     t.string   "cur_name",        default: "*subject to change*", null: false
@@ -23,6 +23,21 @@ ActiveRecord::Schema.define(version: 20140224012254) do
     t.integer  "creator_id"
     t.integer  "namespace_id"
     t.boolean  "can_merge",       default: true,                  null: false
+  end
+
+  create_table "following_curriculas", force: true do |t|
+    t.integer "user_id"
+    t.integer "curricula_id"
+  end
+
+  create_table "notifications", force: true do |t|
+    t.text     "message"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "author_id"
+    t.integer  "curricula_id"
+    t.string   "commit_id"
+    t.integer  "notification_type"
   end
 
   create_table "user_curriculas", force: true do |t|

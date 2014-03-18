@@ -10,3 +10,12 @@
 #avatar {
     border-radius: 10px;
 }
+
+.hr-margins {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.nav-pills > .active > a {
+    outline: 0 !important;
+}

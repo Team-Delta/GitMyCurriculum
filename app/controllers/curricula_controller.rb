@@ -1,45 +1,63 @@
 # controller for creating, loading, and editing a curricula
 class CurriculaController < ApplicationController
+  include GitFunctionality
+
   # where to put the user to auto assign the creater/owner
   def show
     @curriculum = Curricula.find_by_id(params[:id])
-    @creator = User.find(@curriculum.creator_id)
 
-    path = Rails.root + @curriculum.path
-    git = Git.bare(path)
+    @git = get_bare_repo @curriculum
+    @git_working = get_working_repo @curriculum
+    @git_working.pull
+    @log = @git.log
+    @branches = @git.branches
 
-    @branches = git.branches
+    begin
+      if params.key?(:branch)
+        commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+        @branch = params[:branch]
+      else
+        commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+        @branch = 'master'
+      end
 
-    if params.key?(:branch)
-      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/#{params[:branch]}"
-    else
-      system "cd repos/#{@creator.username}/#{@curriculum.cur_name}/.git; git symbolic-ref HEAD refs/heads/master"
+      if params.key?(:tree)
+        tree = @git.gtree(params[:tree])
+      else
+        tree = @git.gtree(commit[0..-2])
+      end
+
+      @child_trees = tree.trees
+      @child_blobs = tree.blobs
+    rescue => e
+      logger.error e.message
+      flash[:error] = 'It appears that your project does not have any commits. You have no branches or objects to display.'
+      @branch = 'master'
     end
+  end
 
-    @branch = params[:branch]
+  def showfile
+    @curriculum = Curricula.find_by_id(params[:id])
 
-    if params.key?(:tree)
-      tree = git.gtree(params[:tree])
-    else
-      latest = git.log.first
-      tree = git.gtree(latest)
-    end
+    @git = get_bare_repo @curriculum
 
-    @child_trees = tree.trees
-    @child_blobs = tree.blobs
+    @branches = @git.branches
+    @blob = @git.gblob(params[:blob])
   end
 
   def create
     if request.post?
-      @curricula = Curricula.new(curricula_params)
-      @user = User.find(current_user.id)
-      @curricula.users << @user
-      @curricula.creator_id = @user.id
-      @curricula.path = "repos/#{current_user.username}/#{@curricula.cur_name}/.git"
+      @user = current_user
+      @curriculum = Curricula.new(curricula_params)
+      @curriculum.creator = @user
+      @curriculum.users << @user
+      @curriculum.path = "repos/#{@user.username}/#{@curriculum.cur_name}/.git"
 
-      @g = Git.init("repos/#{current_user.username}/#{@curricula.cur_name}", bare: true)
+      create_bare_repo(@curriculum)
+      create_working_directory(@curriculum, @user)
+      create_initial_save(@curriculum, false)
 
-      flash[:success] = 'Successfully created curriculum' if @curricula.save
+      flash[:success] = 'Successfully created curriculum' if @curriculum.save
       redirect_to dashboard_dashboard_main_path
     end
   end
@@ -52,19 +70,50 @@ class CurriculaController < ApplicationController
     end
   end
 
-  def clone
-    @user = User.find_by_username(params[:username])
-    @curriculum = Curricula.where('creator_id=? AND cur_name=?', @user.id, params[:curriculum_name]).first
-    @path = Rails.root + @curriculum.path
+  def fork
+    @forked = Curricula.find_by_id(params[:id])
+    @creator = @forked.creator
 
+    @fork = Curricula.new
+    @fork.cur_name = @forked.cur_name
+    @fork.cur_description = @forked.cur_description
+    @fork.creator = current_user
+    @fork.users << current_user
+    @fork.path = "repos/#{current_user.username}/#{@forked.cur_name}/.git"
+
+    fork_repo(@forked, @fork)
+    create_working_directory(@fork, current_user)
+    create_initial_save(@fork, true)
+
+    flash[:success] = 'Successfully forked curriculum' if @fork.save
     redirect_to dashboard_dashboard_main_path
   end
 
   def commits
     @curriculum = Curricula.find_by_id(params[:id])
-    path = Rails.root + @curriculum.path
-    git = Git.bare(path)
-    @commits = git.log.since('2 weeks ago')
+    @git = get_bare_repo @curriculum
+    @commits = @git.log
+  end
+
+  def revert_save
+    @curriculum = Curricula.find_by_id(params[:id])
+    delete_save @curriculum, params[:commit_id]
+
+    redirect_to c_commit_path(id: @curriculum.id)
+  end
+
+  def compare
+    @curriculum = Curricula.find_by_id(params[:id])
+    @git = get_bare_repo @curriculum
+    @commit = @git.gcommit(params[:commit])
+
+    begin
+      @difftree = @git.gtree(@commit.parents.first).diff(@commit)
+      @array = []
+      @difftree.each { |i| @array.push(i) }
+    rescue => e
+      logger.error e.message
+    end
   end
 
   private

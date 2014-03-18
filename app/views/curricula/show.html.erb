@@ -1,92 +1,104 @@
-<div class="col-md-8 col-md-offset-1">
+<div class="row col-md-offset-1">
+  <div class="btn-group col-md-3">
 
-    <div class="row">
-        <ol id="breadcrumb" class="breadcrumb">
-            <li><a href="#" id="brlink"> <%= @creator.username %> </a></li>
-            <li><a href="#" id="brlink"> <%= @curriculum.cur_name %> </a></li>
-        </ol>
-    </div>
+    <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>
+      Choose Branch 
+      <span class = 'caret'></span>
+    </button>
 
-    <div class="row">
+    <ul class = 'dropdown-menu'>
+      <% for b in @branches %>
+        <li>
+          <%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>​
+
+  <ol id="breadcrumb" class="breadcrumb col-md-8">
+    <li>
+      <a href="#" id="brlink">
+        <%= @curriculum.creator.username %>
+      </a>
+    </li>
+    <li>
+      <a href="#" id="brlink">
+        <%= @curriculum.cur_name %>
+      </a>
+    </li>
+  </ol>
+
+</div>
+
+<div class="row col-md-offset-1">
+
+    <div class="col-md-8">
+
         <div class="panel panel-default">
 
-            <div class="panel-heading" style="padding-bottom: 20px;">
+            <div class="panel-heading">
 
                 <div class="panel-title">
 
                     <%= @branch %>
 
-                    <div class = 'btn-group pull-right'>
-
-                      <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>Choose Branch <span class = 'caret'></span></button>
-                      <ul class = 'dropdown-menu'>
-                          <% for b in @branches %>
-                            <li><%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %></li>
-                          <% end %>
-                      </ul>
-                    </div>​
                 </div>
 
             </div>
 
             <div class="panel-body">
 
-                <ul class="list-unstyled">
+              <ul class="list-unstyled">
+                <% unless @child_trees.nil? %>
+                  <% for t in @child_trees %>
+                    <li> 
+                        <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
+                            <h5 class="glyphicon glyphicon-folder-close"> 
+                                <%= t[0] %>
+                            </h5>
+                        </a>
+                    </li>
+                  <% end %> 
+                <% end %>
 
-                    <% for t in @child_trees %>
-                        <li> 
-                            <a href=<%= open_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
-                                <h5 class="glyphicon glyphicon-folder-close"> 
-                                    <%= t[0] %>
-                                </h5>
-                            </a>
-                        </li>
-                    <% end %>  
-
-                    <% for b in @child_blobs %>
-                        <li> 
+                <% unless @child_blobs.nil? %> 
+                  <% for b in @child_blobs %>
+                      <li> 
+                        <a href=<%= open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1])%>> 
                             <h5 class="glyphicon glyphicon-file"> 
                                 <%= b[0]%>
                             </h5>
-                        </li>
-                    <% end %>      
-                
-                </ul>
-
+                        </a>
+                      </li>
+                  <% end %>  
+                <% end %>    
+              </ul>
             </div>
-
         </div>
     </div>
 
-</div>
+    <div class="col-md-3" style="text-align:center;">
 
-<div class="col-md-3" style="text-align:center;">
+      <div class="row" style="padding: 10px;">
+        <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
+      </div>
 
-    <div class="row" style="padding: 10px;">
-      <%= link_to "Change History", c_commit_path(:id => @curriculum.id), class: "btn btn-success" %>
-    </div>
+      <div class="row" style="padding: 10px;">
+          <%= link_to "Fork", fork_path(:id => @curriculum.id), class: "btn btn-success" %>
+      </div>
 
-    <div class="row" style="padding: 10px;">
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Requests
+          </a>
+      </div>
 
-        <a href='/Requests' class="btn btn-success">
-            Requests
-        </a>
-
-    </div>
-
-    <div class="row" style="padding: 10px;">
-
-        <a href='/Sources' class="btn btn-success">
-            Sources
-        </a>
-
-    </div>
-
-    <div class="row" style="padding: 10px;">
-
-        <a href='/Wiki' class="btn btn-success">
-            Wiki
-        </a>
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Sources
+          </a>
+      </div>
 
     </div>
 

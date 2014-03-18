@@ -26,7 +26,13 @@ gem 'jquery-rails'
  # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+gem 'sprockets', '2.11.0'
+gem 'sass-rails', '>= 4.0.0' 
+gem 'bootstrap-sass', '~> 3.1.1'    
+
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
+
+gem 'diffy'
 
 group :development do
     # automated test running on development machines

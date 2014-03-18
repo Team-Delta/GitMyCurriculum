@@ -5,9 +5,30 @@
     <ul class="list-group">
       <% for c in @commits %>
         <li class="list-group-item">
-          <h4><%= c.message %></h4>
-          Authored By: <strong><%= c.author.name %></strong> on <strong><%= c.author.date.strftime("%m-%d-%y") %></strong>
-          <div class="pull-right">Change ID: <%= c %></div>
+          <div class="row">
+            <div class="col-md-6">
+              <%= link_to compare_path(:id => @curriculum.id, :commit => c) do %>
+                <h4>
+                  <%= c.message %>
+                </h4>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <%= link_to "Delete Save", revert_save_path(:id => @curriculum.id, :commit_id => c.sha), class:"btn btn-danger pull-right" %>
+            </div>
+          </div>
+          Authored By: 
+          <strong>
+            <%= c.author.name %>
+          </strong> 
+          on 
+          <strong>
+            <%= c.author.date.strftime("%m-%d-%y") %>
+          </strong>
+          <div class="pull-right">
+            Change ID: 
+            <%= c %>
+          </div>
         </li>
       <% end %>
     </ul>

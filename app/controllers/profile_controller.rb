@@ -3,8 +3,12 @@ class ProfileController < ApplicationController
   def load
     @email = Digest::MD5.hexdigest(current_user.email.strip.downcase)
     @peers = current_user.peers
-    @created_curricula = Curricula.where('creator_id = ?', current_user.id)
-    @contributed_curricula = UserCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', current_user.id, current_user.id)
+    @month = Date::MONTHNAMES[current_user.created_at.month]
+    @year =  current_user.created_at.year
+    @day =   current_user.created_at.day
+    @created_curricula = Curricula.find_curricula_for_creator current_user
+    @contributed_curricula = Curricula.find_curricula_for_contributor current_user
+    @followed_curricula = Curricula.find_curricula_for_follower current_user
   end
 
   def edit

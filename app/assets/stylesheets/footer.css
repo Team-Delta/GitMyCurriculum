@@ -1,0 +1,8 @@
+.footer {
+position: relative;
+padding-top: 30px;
+padding-bottom: 30px;
+font-size: 12px;
+line-height: 1.5;
+border-top: 1px solid #eee;
+}
