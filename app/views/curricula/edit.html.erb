@@ -2,11 +2,11 @@
   <%= form_for :edit_curriculum, :url => edit_curriculum_path, :role => "form", :method => :post do |f| %>
   <div class="col-md-4">
     <%= f.label :cur_name %>
-    <%= f.text_field :cur_name, type:"text", placeholder:"curriculum name", class:"form-control", :autofocus => true %>
+    <%= f.text_field :cur_name, type:"text", placeholder:@curricula.cur_name, class:"form-control", :autofocus => true %>
     <br>
 
     <%= f.label :cur_description %>
-    <%= f.text_area :cur_description, type:"text", placeholder:"curriculum description", class:"form-control", :autofocus => true %>
+    <%= f.text_area :cur_description, type:"text", placeholder:@curricula.cur_description, class:"form-control", :autofocus => true %>
     <br>
 
     <%= submit_tag "Submit", class:"btn btn-primary btn-no-padding"%>
@@ -16,16 +16,15 @@
     <div class="input-group col-md-4 col-md-offset-9">
       <input type="text" class="form-control" placeholder="Add User" id="user_textfield">
       <span class="input-group-btn">
-      <button class="btn btn-default" type="button" id="the_button">Go!</button>
+      <button class="btn btn-default" type="button" id="add_button">Go!</button>
         <script type="text/javascript">
-          $("#the_button").click(function(){ 
-              to_print=document.getElementById('user_textfield').getText();
+          $("#add_button").click(function(){ 
 
-              //@contributors.add(user_textfield.getText())
-              document.write(to_print);
-              var html = '<ul id="hellolist" data-role="listview"><li><h3><%=@toPrint%></h3></li></ul>';            
-              $('#content').append($(html));
-              $('#hellolist').listview('refresh');
+              @contributors.push('jfk21');
+              document.write("add contributor complete");
+                      //var html = '<ul id="hellolist" data-role="listview"><li><h3>This is a test</h3></li></ul>';            
+                      //$('#content').append($(html));
+                      //$('#hellolist').listview('refresh');
               //$('#content').load($('contributor_list'));           
               //$('#contributor_list').trigger('create');
           });
@@ -44,7 +43,15 @@
             <%else%>
               <%@contributors.each do |c| %>
                 <div class="list-group-item">
-                  <%= link_to(c.name, users_show_path(:username => c.username))%>
+                  <%=c%>
+                  <button class="btn btn-default" type="button" id="remove_button">Go!</button>
+                  <script type="text/javascript">
+                    $("#remove_button").click(function(){
+                      @contributors.remove(c);
+                      $('#content').load($('contributor_list'));           
+                      $('#contributor_list').trigger('create');
+                    });
+                  </script>
                 </div>
               <% end %>
             <%end%>
