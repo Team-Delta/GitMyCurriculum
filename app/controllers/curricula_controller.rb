@@ -64,6 +64,8 @@ class CurriculaController < ApplicationController
 
   def edit
     @curricula = Curricula.find(params[:id])
+    @get_contributors=Curricula.get_contributors @curricula
+    
     if request.post?
       @curricula.update_attributes(curricula_params)
       redirect_to dashboard_dashboard_main_path

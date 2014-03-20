@@ -33,8 +33,17 @@ class Curricula < ActiveRecord::Base
       UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ?', contributor, contributor)
     end
 
+    def is_user_a_contributor(curricula)
+      UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ? AND curricula_id = ?', current_user.id, current_user.id, curricula.id)
+    end
+
+    def get_contributors(curricula)
+      @tosend=UserCurricula.joins(:curricula).where('user_curriculas.user_id != curriculas.creator_id AND curricula_id = ?', curricula.id)
+      User.joins(@tosend).select('users.username').where('users.id=@tosend.user_id')
+    end
+
     def find_curricula_for_follower(follower)
-      @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', follower, follower)
+      FollowingCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', follower, follower)
     end
   end
 end

@@ -88,6 +88,12 @@
           <%= link_to "Fork", fork_path(:id => @curriculum.id), class: "btn btn-success" %>
       </div>
 
+      <%if current_user.id==@curriculum.creator_id%>
+        <div class="row" style="padding: 10px;">
+          <%= link_to "Edit Curriculum", edit_curricula_path(:id => @curriculum.id), class: "btn btn-success" %>
+        </div>
+      <%end%>
+
       <div class="row" style="padding: 10px;">
           <a href='' class="btn btn-success">
               Requests
