@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316172001) do
+ActiveRecord::Schema.define(version: 20140323012005) do
 
   create_table "curriculas", force: true do |t|
     t.string   "cur_name",        default: "*subject to change*", null: false
@@ -30,14 +30,22 @@ ActiveRecord::Schema.define(version: 20140316172001) do
     t.integer "curricula_id"
   end
 
+  create_table "forked_curriculas", force: true do |t|
+    t.integer  "forked_to_curriculum_id",   null: false
+    t.integer  "forked_from_curriculum_id", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "notifications", force: true do |t|
-    t.text     "message"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "author_id"
     t.integer  "curricula_id"
     t.string   "commit_id"
     t.integer  "notification_type"
+    t.text     "message"
+    t.string   "stream"
   end
 
   create_table "user_curriculas", force: true do |t|

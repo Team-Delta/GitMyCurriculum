@@ -7,38 +7,31 @@ GitMyCurriculum::Application.routes.draw do
     root to: 'dashboard#dashboard_main', as: 'authenticated_root'
   end
 
+  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
+  
   root 'splash#load'
 
+  get 'users/show'
+  get 'splash/load'
   get 'profile/edit'
   get 'profile/load'
-
-  get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
-
-  get 'curricula/fork/:id' => 'curricula#fork', as: :fork
-
-  get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
-
+  get 'dashboard/dashboard_main'
+  get 'users/:username' => 'users#show', as: :user
   get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/show/:id/:branch' => 'curricula#show', as: :switch
   get 'curricula/show/:id/:branch/:tree' => 'curricula#show', as: :open_folder
-
   get 'curricula/:id/:branch/blob/:name/:blob' => 'curricula#showfile', as: :open_file, :name => /(\w+)(\D+)(\w)/
   
   get 'curricula/create'
-  post '/curricula/create', to: 'curricula#create', as: :create_curriculum
-
   get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
   post '/curricula/edit/:id', to: 'curricula#edit', as: :edit_curriculum
+  post '/curricula/create', to: 'curricula#create', as: :create_curriculum
 
-  get 'curriculua/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
-
+  get 'curricula/fork/:id' => 'curricula#fork', as: :fork
+  get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
+  get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
   get '/curricula/compare/:id/:commit', to: 'curricula#compare', as: :compare
-
-  get 'splash/load'
-
-  get 'dashboard/dashboard_main'
-
-  get 'users/show'
+  get 'curriculua/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
   get 'subscriptions/user_follow'
   get 'subscriptions/user_unfollow'
@@ -48,11 +41,8 @@ GitMyCurriculum::Application.routes.draw do
   post 'subscriptions/user_unfollow' => 'curricula#user_unfollow', as: :user_unfollow
   post 'subscriptions/curricula_follow' => 'curricula#curricula_follow', as: :curricula_follow
   post 'subscriptions/curricula_unfollow' => 'curricula#curricula_unfollow', as: :curricula_unfollow
-
-
-  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
-
-  get 'users/:username' => 'users#show', as: :user
+  
+  
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

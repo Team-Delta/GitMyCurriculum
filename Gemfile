@@ -52,6 +52,8 @@ group :development do
         puts 'OSX detected'
         gem 'growl_notify'
     end
+
+    gem 'bullet'
 end
 
 group :development, :production do
