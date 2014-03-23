@@ -15,6 +15,5 @@ class Comment < ActiveRecord::Base
   has_many :comments, foreign_key: 'parent_comment_id'
 
   class << self
-    
   end
 end
