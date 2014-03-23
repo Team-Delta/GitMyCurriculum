@@ -1,5 +1,4 @@
 # create_table "notifications", force: true do |t|
-#   t.text     "message"
 #   t.datetime "created_at",    null: false
 #   t.datetime "updated_at",    null: false
 #   t.integer  "author_id"
@@ -18,6 +17,7 @@ class Notification < ActiveRecord::Base
   N_COMMENT = 4          # comment on repo
   N_REQUEST_APPROVE = 5  # if a request gets approved
   N_REQUEST_DENY = 6     # if a request gets denied
+  N_SAVE_DELETED = 7     # if a commit gets deleted
 
   belongs_to :curricula
   belongs_to :author, class_name: 'User'

@@ -12,6 +12,9 @@
 class Curricula < ActiveRecord::Base
   belongs_to :creator, foreign_key: 'creator_id', class_name: 'User'
 
+  has_one :forked_curricula, foreign_key: 'forked_to_curriculum_id'
+  has_one :forked_from_curriculum, through: :forked_curricula
+
   has_many :notifications, dependent: :destroy
   has_many :user_curriculas
   has_many :users, through: :user_curriculas
