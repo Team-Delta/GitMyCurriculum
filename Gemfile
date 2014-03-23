@@ -44,6 +44,10 @@ group :development do
     # used for development seeding of database
     gem 'seed-fu', github: 'mbleigh/seed-fu'
 
+    #better error printing
+    gem "better_errors"
+    gem "binding_of_caller"
+
     # Easy solution for os dependant dependancies 
     require 'os'
 
