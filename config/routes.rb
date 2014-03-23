@@ -7,6 +7,8 @@ GitMyCurriculum::Application.routes.draw do
     root to: 'dashboard#dashboard_main', as: 'authenticated_root'
   end
 
+  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
+  
   root 'splash#load'
 
   get 'users/show'
@@ -40,7 +42,7 @@ GitMyCurriculum::Application.routes.draw do
   post 'subscriptions/curricula_follow' => 'curricula#curricula_follow', as: :curricula_follow
   post 'subscriptions/curricula_unfollow' => 'curricula#curricula_unfollow', as: :curricula_unfollow
   
-  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
+  
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
