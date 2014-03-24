@@ -17,7 +17,6 @@ class SubscriptionsController < ApplicationController
     redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab])
   end
 
-
   private
 
   def set_relation(substatus, curricula, user, type)
@@ -41,7 +40,6 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-
   private
 
   # validates user's login state when attempting to follow or unfollow a user
@@ -56,7 +54,7 @@ class SubscriptionsController < ApplicationController
     end
     @boolean
   end
-  
+
   # redirects based user to
   # +redirect+:: redirects user to either
   # * "dashboard: shows the dashboard

@@ -42,7 +42,6 @@ class Curricula < ActiveRecord::Base
       UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ?', contributor, contributor)
     end
 
-
     # def is_user_a_contributor(curricula)
     #   UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ? AND curricula_id = ?', current_user.id, current_user.id, curricula.id)
     # end
@@ -50,7 +49,6 @@ class Curricula < ActiveRecord::Base
     def find_curricula_by_cur_name(name)
       where('curricula.cur_name = ?', name).first
     end
-
 
     # finds curricula based on a follower
     #
