@@ -2,7 +2,7 @@
 class ProfileController < ApplicationController
   def load
     if !params[:username]
-      @user=current_user
+      @user = current_user
     else
       @user = User.find_by_username(params[:username])
     end

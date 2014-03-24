@@ -12,6 +12,9 @@
 class Curricula < ActiveRecord::Base
   belongs_to :creator, foreign_key: 'creator_id', class_name: 'User'
 
+  has_one :forked_curricula, foreign_key: 'forked_to_curriculum_id'
+  has_one :forked_from_curriculum, through: :forked_curricula
+
   has_many :notifications, dependent: :destroy
   has_many :user_curriculas
   has_many :users, through: :user_curriculas
@@ -33,9 +36,9 @@ class Curricula < ActiveRecord::Base
       UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ?', contributor, contributor)
     end
 
-    def is_user_a_contributor(curricula)
-      UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ? AND curricula_id = ?', current_user.id, current_user.id, curricula.id)
-    end
+    # def is_user_a_contributor(curricula)
+    #   UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ? AND curricula_id = ?', current_user.id, current_user.id, curricula.id)
+    # end
 
     def find_curricula_by_cur_name(name)
       where('curricula.cur_name = ?', name).first

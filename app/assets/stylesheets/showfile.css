@@ -1,0 +1,11 @@
+#span-b {
+  float: right;
+}
+
+div.divider {
+  display: inline-block;
+  width: 2px;
+  height: 18px;
+  vertical-align: middle;
+  border-left: 1px solid rgb(0, 0, 0);
+}

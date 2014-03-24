@@ -1,29 +1,28 @@
 # Controller to manage follows/unfollows
 class SubscriptionsController < ApplicationController
-
   def subscription
     if !params[:cur_name]
-      @object_type='user'
+      @object_type = 'user'
       @user = User.find_by_username(params[:username]) if params[:username]
-      @to_follow=@user.name
+      @to_follow = @user.name
     else
-      @object_type='curriculum'
+      @object_type = 'curriculum'
       @curricula = Curricula.find_by cur_name: params[:cur_name]
-      @to_follow=@curricula.cur_name
+      @to_follow = @curricula.cur_name
     end
-    @signin=validate_login(@to_follow, params[:sub_status])
-    if @signin==true
+    @signin = validate_login(@to_follow, params[:sub_status])
+    if @signin
       case
-      when @object_type=='user' && params[:sub_status]=='follow'
+      when @object_type == 'user' && params[:sub_status] == 'follow'
         Watching.create_follow_relationship_for current_user, @user
         flash[:success] = "You are now following #{@user.name}."
-      when @object_type=='user' && params[:sub_status]=='unfollow'
+      when @object_type == 'user' && params[:sub_status] == 'unfollow'
         Watching.delete_follow_relationship_for current_user, @user
         flash[:success] = "You are no longer following #{@user.name}."
-      when @object_type=='curriculum' && params[:sub_status]=='follow'
+      when @object_type == 'curriculum' && params[:sub_status] == 'follow'
         FollowingCurricula.create(user_id: current_user.id, curricula_id: @curricula.id)
         flash[:success] = "You are now following #{@curricula.cur_name}."
-      when @object_type=='curriculum' && params[:sub_status]=='unfollow'
+      when @object_type == 'curriculum' && params[:sub_status] == 'unfollow'
         FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, @curricula.id).destroy_all
         flash[:success] = "You are no longer following #{@curricula.cur_name}."
       end
@@ -50,7 +49,7 @@ class SubscriptionsController < ApplicationController
     else
       if function == 'unfollow'
         flash[:error] = "You must login to unfollow #{name}.".html_safe
-      elsif function == 'follow'
+      else
         flash[:error] = "You must login to follow #{name}.".html_safe
       end
       @boolean = false

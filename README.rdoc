@@ -14,7 +14,7 @@ Curriculum management for the average academic that leverages git.
 5. sudo apt-get install mysql-server
 6. <code>sudo apt-get install openjdk-7-jre</code>
 7. <code>sudo apt-get install nodejs</code>
-8. run budler <code>bundle install</code>
+8. run bundler <code>bundle install</code>
 
 === Ruby version:
 This project is running ruby 2.1.0

@@ -1,7 +1,7 @@
 # controller for creating, loading, and editing a curricula
 class CurriculaController < ApplicationController
   include GitFunctionality
-
+  include NotificationManager
   # where to put the user to auto assign the creater/owner
   def show
     @curriculum = Curricula.find_by_id(params[:id])
@@ -49,9 +49,8 @@ class CurriculaController < ApplicationController
     if request.post?
       @user = current_user
       @curriculum = Curricula.new(curricula_params)
-      @curriculum.creator = @user
+      @curriculum.attributes = { creator: @user, path: "repos/#{@user.username}/#{@curriculum.cur_name}/.git" }
       @curriculum.users << @user
-      @curriculum.path = "repos/#{@user.username}/#{@curriculum.cur_name}/.git"
 
       create_bare_repo(@curriculum)
       create_working_directory(@curriculum, @user)
@@ -64,7 +63,7 @@ class CurriculaController < ApplicationController
 
   def edit
     @curricula = Curricula.find(params[:id])
-    @contributors=UserCurricula.get_contributors @curricula
+    @contributors = UserCurricula.get_contributors @curricula
     if request.post?
       @curricula.update_attributes(curricula_params)
       redirect_to dashboard_dashboard_main_path
@@ -76,15 +75,14 @@ class CurriculaController < ApplicationController
     @creator = @forked.creator
 
     @fork = Curricula.new
-    @fork.cur_name = @forked.cur_name
-    @fork.cur_description = @forked.cur_description
-    @fork.creator = current_user
+    @fork.attributes = { cur_name: @forked.cur_name, cur_description: @forked.cur_description,
+                         path: "repos/#{current_user.username}/#{@forked.cur_name}/.git", creator: current_user }
     @fork.users << current_user
-    @fork.path = "repos/#{current_user.username}/#{@forked.cur_name}/.git"
 
     fork_repo(@forked, @fork)
     create_working_directory(@fork, current_user)
     create_initial_save(@fork, true)
+    create_notificaiton_for(3, @creator, @forked)
 
     flash[:success] = 'Successfully forked curriculum' if @fork.save
     redirect_to dashboard_dashboard_main_path
@@ -99,7 +97,7 @@ class CurriculaController < ApplicationController
   def revert_save
     @curriculum = Curricula.find_by_id(params[:id])
     delete_save @curriculum, params[:commit_id]
-
+    create_notification_for(7, current_user, @curriculum)
     redirect_to c_commit_path(id: @curriculum.id)
   end
 

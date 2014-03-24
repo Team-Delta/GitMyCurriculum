@@ -2,10 +2,8 @@
   <div class="col-md-5">
     <h2>Notifications:</h2>
     <hr>
-    <% for n in @notifications %>
-      <p class="<%= n[:css_class] %>">
-        <%= n[:message] %>
-      </p>
+    <% @notifications.each do |n| %>
+      <%= construct_notification_message_for(n) %>
     <% end %>
   </div>
 
@@ -21,8 +19,7 @@
               <h4 class="list-group-item-heading"><%=c.curricula.cur_name%></h4>
             <% end %>
           <% end %>
-        </div>
-            
+        </div>            
       </div>
     <% end %>
 

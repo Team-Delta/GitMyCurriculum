@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
   class << self
     def find_user_by_email(email)
-      where('users.email = ?', email).first
+      find_by('users.email = ?', email)
     end
 
     def find_user_by_username(username)
