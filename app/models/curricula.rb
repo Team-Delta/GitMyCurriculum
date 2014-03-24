@@ -28,13 +28,20 @@ class Curricula < ActiveRecord::Base
   end
 
   class << self
+    # finds curricula based on author
+    #
+    # +creator+:: user object who owns curricula
     def find_curricula_for_creator(creator)
       where('curriculas.creator_id = ?', creator)
     end
 
+    # finds curricula based on contributer
+    #
+    # +contributer+:: user object who does not own, but has contributed to a curricula
     def find_curricula_for_contributor(contributor)
       UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ?', contributor, contributor)
     end
+
 
     # def is_user_a_contributor(curricula)
     #   UserCurricula.joins(:curricula).where('user_curriculas.user_id = ? AND curriculas.creator_id != ? AND curricula_id = ?', current_user.id, current_user.id, curricula.id)
@@ -43,6 +50,11 @@ class Curricula < ActiveRecord::Base
     def find_curricula_by_cur_name(name)
       where('curricula.cur_name = ?', name).first
     end
+
+
+    # finds curricula based on a follower
+    #
+    # +follower+:: user object who has followed curricula, but does not own it
 
     def find_curricula_for_follower(follower)
       FollowingCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', follower, follower)

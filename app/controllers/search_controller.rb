@@ -2,6 +2,8 @@
 # Create instance variable @search set to the return of the query
 # Set instance variable @users to the results and render @users in the view
 class SearchController < ApplicationController
+  # takes in a search string as "query" get param
+  # and returns a page of similar users and curricula
   def uc_search
     @all_search = Sunspot.search(User, Curricula) do
       fulltext params[:query] do

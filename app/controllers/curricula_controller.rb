@@ -2,7 +2,7 @@
 class CurriculaController < ApplicationController
   include GitFunctionality
   include NotificationManager
-  # where to put the user to auto assign the creater/owner
+  # show curriculum based on curriculum id from uri param
   def show
     @curriculum = Curricula.find_by_id(params[:id])
 
@@ -36,6 +36,7 @@ class CurriculaController < ApplicationController
     end
   end
 
+  # shows a file based on get file "id" uri param
   def showfile
     @curriculum = Curricula.find_by_id(params[:id])
 
@@ -45,6 +46,7 @@ class CurriculaController < ApplicationController
     @blob = @git.gblob(params[:blob])
   end
 
+  # creats a new curriculum
   def create
     if request.post?
       @user = current_user
@@ -61,6 +63,7 @@ class CurriculaController < ApplicationController
     end
   end
 
+  # updates the information of a curriculum
   def edit
     @curricula = Curricula.find(params[:id])
     @contributors = UserCurricula.get_contributors @curricula
@@ -70,6 +73,7 @@ class CurriculaController < ApplicationController
     end
   end
 
+  # generates a fork of a curriculum
   def fork
     @forked = Curricula.find_by_id(params[:id])
     @creator = @forked.creator
@@ -88,12 +92,14 @@ class CurriculaController < ApplicationController
     redirect_to dashboard_dashboard_main_path
   end
 
+  # list all the commits for a curriculum
   def commits
     @curriculum = Curricula.find_by_id(params[:id])
     @git = get_bare_repo @curriculum
     @commits = @git.log
   end
 
+  # reverts a curriculum to a previous save
   def revert_save
     @curriculum = Curricula.find_by_id(params[:id])
     delete_save @curriculum, params[:commit_id]
@@ -101,6 +107,7 @@ class CurriculaController < ApplicationController
     redirect_to c_commit_path(id: @curriculum.id)
   end
 
+  # compares two saves in a curriculum
   def compare
     @curriculum = Curricula.find_by_id(params[:id])
     @git = get_bare_repo @curriculum

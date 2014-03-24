@@ -17,16 +17,6 @@ class SubscriptionsController < ApplicationController
     redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab])
   end
 
-# #Temporary contributor function until I solve the JSON issue
-#   def contributor
-#     if params[:task]=='add'
-#       @user=Users.find_user_by_username params[:to_add]
-#       UserCurricula.new(:user_id => @user.id, :curricula_id => :return)
-#     else
-#       UserCurricula.where('user_id = ? AND curricula_id = ?', @user.id, :return).destroy_all
-#     end
-#     redirect_to edit_curricula_path(:id => :return)
-#   end
 
   private
 
@@ -51,20 +41,29 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+
+  private
+
+  # validates user's login state when attempting to follow or unfollow a user
+  # +name+:: of the user attempting to subscribe
+  # +function+:: either "follow" or "unfollow"
   def validate_login(name, function)
     if current_user
       @boolean = true
     else
-      if function == 'unfollow'
-        flash[:error] = "You must login to unfollow #{name}.".html_safe
-      else
-        flash[:error] = "You must login to follow #{name}.".html_safe
-      end
+      flash[:error] = "You must login to #{function} #{name}.".html_safe
       @boolean = false
     end
     @boolean
   end
-
+  
+  # redirects based user to
+  # +redirect+:: redirects user to either
+  # * "dashboard: shows the dashboard
+  # * "profile" shows current user profile, following view
+  # * "search" shows a search based on a "query"
+  # * "user_curricula" shows a list curriculum for a specific "username"
+  # * "user_info" shows the info of a specific "username"
   def redirect_to_place(redirect, username, query, tab)
     case redirect
     when 'dashboard'

@@ -7,7 +7,7 @@ gem 'rails', '4.0.2'
 # Faster debug for Rails
 # gem 'debugger'
 
-# Easy solution for os dependant dependancies 
+# Easy solution for os dependant dependancies
 require 'os'
 
 # User authentication
@@ -27,8 +27,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 gem 'sprockets', '2.11.0'
-gem 'sass-rails', '>= 4.0.0' 
-gem 'bootstrap-sass', '~> 3.1.1'    
+gem 'sass-rails', '>= 4.0.0'
+gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
@@ -44,7 +44,7 @@ group :development do
     # used for development seeding of database
     gem 'seed-fu', github: 'mbleigh/seed-fu'
 
-    # Easy solution for os dependant dependancies 
+    # Easy solution for os dependant dependancies
     require 'os'
 
     if OS.mac? then
@@ -68,7 +68,7 @@ end
 group :test, :development do
     # ruby bindings for git framework
     gem 'git'
-    
+
     # Ruby and Rails formatter. To install on sublime run package control and search rubocop and install it as well.
     gem 'rubocop'
 
@@ -83,6 +83,9 @@ group :test, :development do
 
     # Search with Sunspot Solr
     gem 'sunspot_test'
+
+    # test documentation
+    gem "inch"
 end
 
 group :production do

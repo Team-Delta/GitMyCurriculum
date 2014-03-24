@@ -1,5 +1,6 @@
 # Controller for the profile
 class ProfileController < ApplicationController
+  # Load a user's profile
   def load
     if !params[:username]
       @user = current_user
@@ -16,6 +17,7 @@ class ProfileController < ApplicationController
     @followed_curricula = Curricula.find_curricula_for_follower @user
   end
 
+  # Store updated user information
   def edit
     @info = User.all
   end
