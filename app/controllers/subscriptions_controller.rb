@@ -12,20 +12,7 @@ class SubscriptionsController < ApplicationController
     end
     @signin = validate_login(@to_follow, params[:sub_status])
     if @signin
-      case
-      when @object_type == 'user' && params[:sub_status] == 'follow'
-        Watching.create_follow_relationship_for current_user, @user
-        flash[:success] = "You are now following #{@user.name}."
-      when @object_type == 'user' && params[:sub_status] == 'unfollow'
-        Watching.delete_follow_relationship_for current_user, @user
-        flash[:success] = "You are no longer following #{@user.name}."
-      when @object_type == 'curriculum' && params[:sub_status] == 'follow'
-        FollowingCurricula.create(user_id: current_user.id, curricula_id: @curricula.id)
-        flash[:success] = "You are now following #{@curricula.cur_name}."
-      when @object_type == 'curriculum' && params[:sub_status] == 'unfollow'
-        FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, @curricula.id).destroy_all
-        flash[:success] = "You are no longer following #{@curricula.cur_name}."
-      end
+      set_relation(params[:sub_status], @curricula, @user, @object_type)
     end
     redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab])
   end
@@ -42,6 +29,27 @@ class SubscriptionsController < ApplicationController
 #   end
 
   private
+
+  def set_relation(substatus, curricula, user, type)
+    case
+    when type == 'user'
+      if substatus == 'follow'
+        Watching.create_follow_relationship_for current_user, user
+        flash[:success] = "You are now following #{user.name}."
+      else
+        Watching.delete_follow_relationship_for current_user, @user
+        flash[:success] = "You are no longer following #{user.name}."
+      end
+    when type == 'curriculum'
+      if substatus == 'follow'
+        FollowingCurricula.create(user_id: current_user.id, curricula_id: curricula.id)
+        flash[:success] = "You are now following #{curricula.cur_name}."
+      else
+        FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, curricula.id).destroy_all
+        flash[:success] = "You are no longer following #{curricula.cur_name}."
+      end
+    end
+  end
 
   def validate_login(name, function)
     if current_user
