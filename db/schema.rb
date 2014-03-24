@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323012005) do
+ActiveRecord::Schema.define(version: 20140323212016) do
+
+  create_table "comments", force: true do |t|
+    t.integer  "creator_id",        null: false
+    t.integer  "join_request_id",   null: false
+    t.integer  "parent_comment_id"
+    t.text     "message",           null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "curriculas", force: true do |t|
     t.string   "cur_name",        default: "*subject to change*", null: false
@@ -35,6 +44,18 @@ ActiveRecord::Schema.define(version: 20140323012005) do
     t.integer  "forked_from_curriculum_id", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "join_requests", force: true do |t|
+    t.integer  "creator_id",                    null: false
+    t.integer  "curriculum_id",                 null: false
+    t.string   "target_stream",                 null: false
+    t.string   "source_stream",                 null: false
+    t.boolean  "closed",        default: false, null: false
+    t.boolean  "status"
+    t.text     "message"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "notifications", force: true do |t|
