@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20140323212016) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
+  
+ActiveRecord::Schema.define(version: 20140322230810) do
 
   create_table "curriculas", force: true do |t|
     t.string   "cur_name",        default: "*subject to change*", null: false
@@ -32,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140323212016) do
     t.integer  "creator_id"
     t.integer  "namespace_id"
     t.boolean  "can_merge",       default: true,                  null: false
+    t.boolean  "featured",        default: false,                 null: false
   end
 
   create_table "following_curriculas", force: true do |t|

@@ -55,7 +55,7 @@
                     <li> 
                         <a href=<%= open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1])%>> 
                             <h5 class="glyphicon glyphicon-folder-close"> 
-                                <%= t[0] %>
+                              <%= t[0] %>
                             </h5>
                         </a>
                     </li>
@@ -67,7 +67,7 @@
                       <li> 
                         <a href=<%= open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1])%>> 
                             <h5 class="glyphicon glyphicon-file"> 
-                                <%= b[0]%>
+                              <%= b[0]%>
                             </h5>
                         </a>
                       </li>
@@ -97,6 +97,12 @@
       <div class="row" style="padding: 10px;">
           <a href='' class="btn btn-success">
               Sources
+          </a>
+      </div>
+
+      <div class="row" style="padding: 10px;">
+          <a href='' class="btn btn-success">
+              Feature It
           </a>
       </div>
 
