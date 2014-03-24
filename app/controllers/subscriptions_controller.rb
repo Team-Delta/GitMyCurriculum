@@ -1,51 +1,43 @@
 # Controller to manage follows/unfollows
 class SubscriptionsController < ApplicationController
-  # takes in a get param of "username"
-  # and sets current user to follow said user
-  def user_follow
-    @user = User.find_by_username(params[:username])
-    @signin = validate_login(@user.name, 'follow')
-    if @signin == 'true'
-      Watching.create_follow_relationship_for current_user, @user
-      flash[:success] = "You are now following #{@user.name}."
+  def subscription
+    if !params[:cur_name]
+      @object_type = 'user'
+      @user = User.find_by_username(params[:username]) if params[:username]
+      @to_follow = @user.name
+    else
+      @object_type = 'curriculum'
+      @curricula = Curricula.find_by cur_name: params[:cur_name]
+      @to_follow = @curricula.cur_name
     end
-    redirect_to_place(params[:redirect], params[:username], params[:query])
+    @signin = validate_login(@to_follow, params[:sub_status])
+    if @signin
+      set_relation(params[:sub_status], @curricula, @user, @object_type)
+    end
+    redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab])
   end
 
-  # takes in a get param of username
-  # and removes follow of said user from current user
-  def user_unfollow
-    @user = User.find_by_username(params[:username])
-    @signin = validate_login(@user.name, 'unfollow')
-    if @signin == 'true'
-      Watching.delete_follow_relationship_for current_user, @user
-      flash[:success] = "You are no longer following #{@user.name}."
-    end
-    redirect_to_place(params[:redirect], params[:username], params[:query])
-  end
+  private
 
-  # takes in a get param of curriculum name
-  # and sets current user to follow said curriculum
-  def curricula_follow
-    @curricula = Curricula.find_by cur_name: params[:curname]
-    @signin = validate_login(params[:curname], 'follow')
-    if @signin == 'true'
-      FollowingCurricula.create(user_id: current_user.id, curricula_id: @curricula.id)
-      flash[:success] = "You are now following #{@curricula.cur_name}."
+  def set_relation(substatus, curricula, user, type)
+    case
+    when type == 'user'
+      if substatus == 'follow'
+        Watching.create_follow_relationship_for current_user, user
+        flash[:success] = "You are now following #{user.name}."
+      else
+        Watching.delete_follow_relationship_for current_user, @user
+        flash[:success] = "You are no longer following #{user.name}."
+      end
+    when type == 'curriculum'
+      if substatus == 'follow'
+        FollowingCurricula.create(user_id: current_user.id, curricula_id: curricula.id)
+        flash[:success] = "You are now following #{curricula.cur_name}."
+      else
+        FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, curricula.id).destroy_all
+        flash[:success] = "You are no longer following #{curricula.cur_name}."
+      end
     end
-    redirect_to_place(params[:redirect], params[:username], params[:query])
-  end
-
-  # takes in a get param of curriculum name
-  # and removes said curriculum from current user's follow list
-  def curricula_unfollow
-    @curricula = Curricula.find_by cur_name: params[:curname]
-    @signin = validate_login(params[:curname], 'unfollow')
-    if @signin == 'true'
-      FollowingCurricula.where('user_id=? AND curricula_id=?', current_user.id, @curricula.id).destroy_all
-      flash[:success] = "You are no longer following #{@curricula.cur_name}."
-    end
-    redirect_to_place(params[:redirect], params[:username], params[:query])
   end
 
   private
@@ -55,10 +47,10 @@ class SubscriptionsController < ApplicationController
   # +function+:: either "follow" or "unfollow"
   def validate_login(name, function)
     if current_user
-      @boolean = 'true'
+      @boolean = true
     else
       flash[:error] = "You must login to #{function} #{name}.".html_safe
-      @boolean = 'false'
+      @boolean = false
     end
     @boolean
   end
@@ -70,18 +62,14 @@ class SubscriptionsController < ApplicationController
   # * "search" shows a search based on a "query"
   # * "user_curricula" shows a list curriculum for a specific "username"
   # * "user_info" shows the info of a specific "username"
-  def redirect_to_place(redirect, username, query)
+  def redirect_to_place(redirect, username, query, tab)
     case redirect
     when 'dashboard'
       redirect_to dashboard_dashboard_main_path
     when 'profile'
-      redirect_to profile_load_path(tab: 'following')
+      redirect_to profile_load_path(username: username, tab: tab)
     when 'search'
       redirect_to search_uc_search_path(query: query)
-    when 'user_curricula'
-      redirect_to users_show_path(username: username, tab: 'curricula')
-    when'user_info'
-      redirect_to users_show_path(username: username, tab: 'info')
     end
   end
 end
