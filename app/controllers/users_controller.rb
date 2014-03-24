@@ -1,5 +1,7 @@
 # controller for users
 class UsersController < ApplicationController
+  # loads all of the related information of any user
+  # based on url "username" param
   def show
     @user = User.find_by_username(params[:username])
     @peers = @user.peers
