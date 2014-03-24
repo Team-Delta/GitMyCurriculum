@@ -21,13 +21,16 @@ class Watching < ActiveRecord::Base
 
     # destroys the uni directional join between users
     #
-    # +user+:: user who is unfollowing their peer
-    # +peer+:: user that is being unfollowed
+    # +user+:: user object who is unfollowing their peer
+    # +peer+:: user object that is being unfollowed
     def delete_follow_relationship_for(user, peer)
       where('user_id = ? AND peer_id = ?', user, peer).destroy_all
     end
 
-    # TODO: what does this do?
+    # find the a specific peer for a specific user
+    #
+    # +user+:: user object to start from
+    # +peer+:: user object to search for
     def find_peers_for(user, peer)
       where('user_id=? AND peer_id=?', user, peer)
     end

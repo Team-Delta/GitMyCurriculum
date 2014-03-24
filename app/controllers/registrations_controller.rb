@@ -10,8 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  #
-  # create a new user
   def create
     build_resource(sign_up_params)
 
@@ -33,8 +31,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  #
-  # edit user's information
   def edit
     render :edit
   end
@@ -62,8 +58,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # DELETE /resource
-  #
-  # delete a user from database
   def destroy
     resource.destroy
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)

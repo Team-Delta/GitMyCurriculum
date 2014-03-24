@@ -1,6 +1,6 @@
 # Controller to manage follows/unfollows
 class SubscriptionsController < ApplicationController
-  # takes in a get param of username
+  # takes in a get param of "username"
   # and sets current user to follow said user
   def user_follow
     @user = User.find_by_username(params[:username])

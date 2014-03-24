@@ -2,15 +2,15 @@
 module NotificationHelper
   # creates link to an author
   #
-  # +author+:: user to link to
+  # +author+:: user object to link to
   def link_to_author(author)
     link_to author.username, users_show_path(username: author.username), class: 'no-link'
   end
 
   # create link to a curriculum
   #
-  # +curriculum+:: name of the curriculum
-  # +author+:: user that owns repo
+  # +curriculum+:: curriculum object being linked to
+  # +author+:: user object that owns repo
   def link_to_curriculum(curriculum, author)
     link_to "#{author.username}/#{curriculum.cur_name}", curricula_path(id: curriculum.id), class: 'no-link'
   end
@@ -18,15 +18,15 @@ module NotificationHelper
   # creates a link to a commit message
   #
   # +commit+:: id of commit to link to
-  # +curriculum+:: curriculum that commit is on
+  # +curriculum+:: curriculum object that commit is on
   def link_to_commit(commit, curriculum)
     link_to commit, compare_path(id: curriculum.id, commit: commit), class: 'no-link'
   end
 
   # creates a message for a given type of notification
   #
-  # +n+:: type of notification
-  # +types+
+  # +n+:: notification object
+  # +types of notification object+
   # * 0 user has saved to stream
   # * 3 user has forked
   # * 7 user has deleted a commit

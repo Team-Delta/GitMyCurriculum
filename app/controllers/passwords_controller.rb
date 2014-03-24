@@ -10,8 +10,6 @@ class PasswordsController < Devise::PasswordsController
   end
 
   # POST /resource/password
-  #
-  # Allows a new user to set their password
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
     yield resource if block_given?
@@ -24,16 +22,12 @@ class PasswordsController < Devise::PasswordsController
   end
 
   # GET /resource/password/edit?reset_password_token=abcdef
-  #
-  # allows user to reset their password to a new password
   def edit
     self.resource = resource_class.new
     resource.reset_password_token = params[:reset_password_token]
   end
 
   # PUT /resource/password
-  #
-  # allows user to change their password to a new password
   def update
     self.resource = resource_class.reset_password_by_token(resource_params)
     yield resource if block_given?

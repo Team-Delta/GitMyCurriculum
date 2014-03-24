@@ -2,12 +2,12 @@
 module GitFunctionality
   # generates a bare repository
   #
-  # +curriculum+:: name for new repository
+  # +curriculum+:: name for new curriculum
   def create_bare_repo(curriculum)
     Git.init("repos/#{curriculum.creator.username}/#{curriculum.cur_name}", bare: true)
   end
 
-  # creates directory for repository
+  # creates working directory for curriculum
   #
   # +curriculum+:: to create directory for
   # +user+:: who owns working dir
@@ -19,8 +19,8 @@ module GitFunctionality
 
   # creates a fork of a curriculum
   #
-  # +original+:: name of the original curriculum
-  # +fork+:: location of the new forked repository
+  # +original+:: original curriculum object
+  # +fork+:: new forked curriculum object
   def fork_repo(original, fork)
     Git.clone(get_bare_path(original), get_bare_path(fork), bare: true)
     fork.build_forked_curricula(forked_to_curriculum_id: fork.id, forked_from_curriculum_id: original.id)
@@ -28,8 +28,8 @@ module GitFunctionality
 
   # creates an initial save
   #
-  # +curriculum+:: name of the curriculum to save to
-  # +fork+:: TODO: what does this param do?
+  # +curriculum+:: curriculum object to save to
+  # +fork+:: boolean is for save [true] forked or [false] new repo
   def create_initial_save(curriculum, fork)
     case fork
     when true
@@ -58,31 +58,31 @@ module GitFunctionality
     system("cd /repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}; git push origin master --force")
   end
 
-  # get the path to the curriculum
+  # get the path to the bare curriculum
   #
-  # +curriculum+:: name of curriculum to find path for
+  # +curriculum+:: curriculum object to find path for
   def get_bare_path(curriculum)
     Rails.root + curriculum.path
   end
 
-  # get the path to the curriculum
+  # get the path to the working curriculum
   #
-  # +curriculum+:: name of curriculum to find path for
+  # +curriculum+:: curriculum object to find path for
   def get_working_path(curriculum)
     "#{Rails.root}/repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}"
   end
 
-  # load curriculum path
+  # load the bare curriculum
   #
-  # +curriculum+:: name of curriculum
+  # +curriculum+:: curriculum object
   def get_bare_repo(curriculum)
     path = get_bare_path curriculum
     Git.bare(path)
   end
 
-  # load curriculum working path
+  # load working curriculum
   #
-  # +curriculum+:: name of curriculum
+  # +curriculum+:: curriculum object
   def get_working_repo(curriculum)
     working = get_working_path curriculum
     Git.open(working)

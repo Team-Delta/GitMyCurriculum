@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
   include NotificationManager
   include GitFunctionality
 
-  # gets current user's information
+  # loads dashboard for current user
   def dashboard_main
     # gets a list of all of the current user's curricula
     begin

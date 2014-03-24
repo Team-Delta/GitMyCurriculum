@@ -5,12 +5,12 @@ module SplashHelper
     :user
   end
 
-  # TODO: what does this do?
+  # stores a user hash
   def resource
     @resource ||= User.new
   end
 
-  # TODO: what does this do?
+  # map the user hash
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
