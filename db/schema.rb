@@ -21,8 +21,6 @@ ActiveRecord::Schema.define(version: 20140323212016) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
-  
-ActiveRecord::Schema.define(version: 20140322230810) do
 
   create_table "curriculas", force: true do |t|
     t.string   "cur_name",        default: "*subject to change*", null: false
