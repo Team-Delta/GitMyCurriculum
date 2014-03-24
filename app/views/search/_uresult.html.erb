@@ -10,7 +10,7 @@
       </a>
       <div class="media-body">
         <h4 class="media-heading">
-          <%= link_to(u.username, users_show_path(:username => u.username))%>
+          <%= link_to(u.username, profile_load_path(:username => u.username))%>
           <br>
           <%= u.name %>
         </h4>
@@ -25,20 +25,25 @@
       </a>
       <div class="media-body">
         <h4 class="media-heading">
-          <%= link_to(u.username, users_show_path(:username => u.username))%>
+          <%= link_to(u.username, profile_load_path(:username => u.username))%>
           <br>
           <%= u.name %>
         </h4>
-        <button class="btn btn-primary btn-no-padding pull-right" >
-          <% if current_user %>
+        
+          <% if current_user && current_user.id!=u.id%>
+          
             <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, u.id) %>
             <% if !@is_peer.blank? %>
-              <%= link_to "Unfollow", subscriptions_user_unfollow_path(:username => u.username, :query => params[:query], :redirect => 'search'), :class => "no-link-white" %>
+            <button class="btn btn-danger btn-no-padding pull-right" >
+              <%= link_to "Unfollow", subscriptions_subscription_path(:username => u.username, :query => params[:query], :sub_status => 'unfollow', :redirect => 'search'), :class => "no-link-white"  %>
+            </button>
             <% else %>
-              <%= link_to "Follow", subscriptions_user_follow_path(:username => u.username, :query => params[:query], :redirect => 'search'), :class => "no-link-white" %>
+            <button class="btn btn-primary btn-no-padding pull-right" >
+              <%= link_to "Follow", subscriptions_subscription_path(:username => u.username, :query => params[:query], :sub_status =>'follow', :redirect => 'search'), :class => "no-link-white" %>
+            </button>
             <% end %>
           <% end %>
-        </button>
+        
       </div>
     </div>
   <hr>

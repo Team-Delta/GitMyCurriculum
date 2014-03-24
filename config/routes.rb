@@ -34,18 +34,20 @@ GitMyCurriculum::Application.routes.draw do
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
   get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
   get '/curricula/compare/:id/:commit', to: 'curricula#compare', as: :compare
-  get 'curriculua/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
-  get 'subscriptions/user_follow'
-  get 'subscriptions/user_unfollow'
-  get 'subscriptions/curricula_follow'
-  get 'subscriptions/curricula_unfollow'
-  post 'subscriptions/user_follow' => 'curricula#user_follow', as: :user_follow
-  post 'subscriptions/user_unfollow' => 'curricula#user_unfollow', as: :user_unfollow
-  post 'subscriptions/curricula_follow' => 'curricula#curricula_follow', as: :curricula_follow
-  post 'subscriptions/curricula_unfollow' => 'curricula#curricula_unfollow', as: :curricula_unfollow
-  
-  
+  get 'splash/load'
+
+  get 'dashboard/dashboard_main'
+
+  get 'subscriptions/subscription'
+  post 'subscriptions/subscription' => 'subscriptions#subscription', as: :subscription
+
+  #Temp function for contributors until JSON is solved
+  get 'subscriptions/contributor'
+  post 'subscriptions/contributor' => 'subscriptions#contributor', as: :contributor
+
+  get 'curricula/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
+
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
