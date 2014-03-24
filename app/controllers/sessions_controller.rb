@@ -12,6 +12,8 @@ class SessionsController < Devise::SessionsController
   end
 
   # POST /resource/sign_in
+  #
+  # generates a new session
   def create
     auth_options = { recall: 'splash#load', scope: :user }
     self.resource = warden.authenticate!(auth_options)
@@ -22,6 +24,8 @@ class SessionsController < Devise::SessionsController
   end
 
   # DELETE /resource/sign_out
+  #
+  # ends the current session
   def destroy
     redirect_path = after_sign_out_path_for(resource_name)
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))

@@ -11,14 +11,23 @@ class Watching < ActiveRecord::Base
   belongs_to :peer, class_name: 'User'
 
   class << self
+    # creates a uni directional join between users
+    #
+    # +user+:: user who is following their peer
+    # +peer+:: user that is being followed
     def create_follow_relationship_for(user, peer)
       create(user_id: user.id, peer_id: peer.id)
     end
 
+    # destroys the uni directional join between users
+    #
+    # +user+:: user who is unfollowing their peer
+    # +peer+:: user that is being unfollowed
     def delete_follow_relationship_for(user, peer)
       where('user_id = ? AND peer_id = ?', user, peer).destroy_all
     end
 
+    # TODO WHAT DOES THIS DO?
     def find_peers_for(user, peer)
       where('user_id=? AND peer_id=?', user, peer)
     end

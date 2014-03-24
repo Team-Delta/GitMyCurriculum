@@ -10,6 +10,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
+  #
+  # create a new user
   def create
     build_resource(sign_up_params)
 
@@ -31,11 +33,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
+  #
+  # edit user's information
   def edit
     render :edit
   end
 
   # PUT /resource
+  #
   # We need to use a copy of the resource because we don't want to change
   # the current user in place.
   def update
@@ -57,6 +62,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # DELETE /resource
+  #
+  # delete a user from database
   def destroy
     resource.destroy
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
@@ -66,6 +73,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/cancel
+  #
   # Forces the session data which is usually expired after sign
   # in to be expired now. This is useful if the user wants to
   # cancel oauth signing in/up in the middle of the process,
@@ -77,6 +85,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  # User needs to confirm their account
   def update_needs_confirmation?(resource, previous)
     resource.respond_to?(:pending_reconfirmation?) &&
       resource.pending_reconfirmation? &&

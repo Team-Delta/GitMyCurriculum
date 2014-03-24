@@ -3,7 +3,9 @@ class DashboardController < ApplicationController
   include NotificationManager
   include GitFunctionality
 
+  # gets current user's information
   def dashboard_main
+    # gets a list of all of the current user's curricula
     begin
       @created_curricula = Curricula.find_curricula_for_creator current_user
       @contributed_curricula = Curricula.find_curricula_for_contributor current_user
@@ -13,6 +15,7 @@ class DashboardController < ApplicationController
       logger.error e.message
     end
 
+    # get a list of the current user's latest notifications
     @notifications = []
     @created_curricula.each do |c|
       c.notifications.includes(:curricula, :author).find_each do |n|
@@ -20,12 +23,14 @@ class DashboardController < ApplicationController
       end
     end
 
+    # gets a list of the off the curricula that a user has contributed to
     @contributed_curricula.each do |c|
       c.curricula.notifications.includes(:curricula, :author).find_each do |n|
         @notifications.push(n)
       end
     end
 
+    # sort notifications by most recent
     @notifications = @notifications.sort_by { |n| n[:created_at] }
     @notifications = @notifications.reverse
   end

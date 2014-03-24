@@ -1,5 +1,7 @@
 # Controller to manage follows/unfollows
 class SubscriptionsController < ApplicationController
+  # takes in a get param of username
+  # and sets current user to follow said user
   def user_follow
     @user = User.find_by_username(params[:username])
     @signin = validate_login(@user.name, 'follow')
@@ -10,6 +12,8 @@ class SubscriptionsController < ApplicationController
     redirect_to_place(params[:redirect], params[:username], params[:query])
   end
 
+  # takes in a get param of username
+  # and removes follow of said user from current user
   def user_unfollow
     @user = User.find_by_username(params[:username])
     @signin = validate_login(@user.name, 'unfollow')
@@ -20,6 +24,8 @@ class SubscriptionsController < ApplicationController
     redirect_to_place(params[:redirect], params[:username], params[:query])
   end
 
+  # takes in a get param of curriculum name
+  # and sets current user to follow said curriculum
   def curricula_follow
     @curricula = Curricula.find_by cur_name: params[:curname]
     @signin = validate_login(params[:curname], 'follow')
@@ -30,6 +36,8 @@ class SubscriptionsController < ApplicationController
     redirect_to_place(params[:redirect], params[:username], params[:query])
   end
 
+  # takes in a get param of curriculum name
+  # and removes said curriculum from current user's follow list
   def curricula_unfollow
     @curricula = Curricula.find_by cur_name: params[:curname]
     @signin = validate_login(params[:curname], 'unfollow')
@@ -42,20 +50,26 @@ class SubscriptionsController < ApplicationController
 
   private
 
+  # validates user's login state when attempting to follow or unfollow a user
+  # +name+:: of the user attempting to subscribe
+  # +function+:: either "follow" or "unfollow"
   def validate_login(name, function)
     if current_user
       @boolean = 'true'
     else
-      if function == 'unfollow'
-        flash[:error] = "You must login to unfollow #{name}.".html_safe
-      elsif function == 'follow'
-        flash[:error] = "You must login to follow #{name}.".html_safe
-      end
+      flash[:error] = "You must login to #{function} #{name}.".html_safe
       @boolean = 'false'
     end
     @boolean
   end
 
+  # redirects based user to
+  # +redirect+:: redirects user to either
+  # * "dashboard: shows the dashboard
+  # * "profile" shows current user profile, following view
+  # * "search" shows a search based on a "query"
+  # * "user_curricula" shows a list curriculum for a specific "username"
+  # * "user_info" shows the info of a specific "username"
   def redirect_to_place(redirect, username, query)
     case redirect
     when 'dashboard'

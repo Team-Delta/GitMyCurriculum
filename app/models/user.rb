@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many :watching
   has_many :peers, through: :watching
 
+  # TODO WHAT DOES THIS DO?
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)
@@ -55,6 +56,9 @@ class User < ActiveRecord::Base
   end
 
   class << self
+    # finds a user by their email
+    #
+    # +email+:: of user being searched for
     def find_user_by_email(email)
       find_by('users.email = ?', email)
     end

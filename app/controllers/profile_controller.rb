@@ -1,5 +1,6 @@
 # Controller for the profile
 class ProfileController < ApplicationController
+  # Load a user's profile
   def load
     @email = Digest::MD5.hexdigest(current_user.email.strip.downcase)
     @peers = current_user.peers
@@ -11,6 +12,7 @@ class ProfileController < ApplicationController
     @followed_curricula = Curricula.find_curricula_for_follower current_user
   end
 
+  # Store updated user information
   def edit
     @info = User.all
   end
