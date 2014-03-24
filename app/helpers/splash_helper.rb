@@ -5,12 +5,12 @@ module SplashHelper
     :user
   end
 
-  # TODO WHAT DOES THIS DO?
+  # TODO: what does this do?
   def resource
     @resource ||= User.new
   end
 
-  # TODO WHAT DOES THIS DO?
+  # TODO: what does this do?
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end

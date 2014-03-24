@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :watching
   has_many :peers, through: :watching
 
-  # TODO WHAT DOES THIS DO?
+  # TODO: what does this do?
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)

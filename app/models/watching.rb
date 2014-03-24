@@ -27,7 +27,7 @@ class Watching < ActiveRecord::Base
       where('user_id = ? AND peer_id = ?', user, peer).destroy_all
     end
 
-    # TODO WHAT DOES THIS DO?
+    # TODO: what does this do?
     def find_peers_for(user, peer)
       where('user_id=? AND peer_id=?', user, peer)
     end

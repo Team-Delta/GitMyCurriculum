@@ -29,7 +29,7 @@ module GitFunctionality
   # creates an initial save
   #
   # +curriculum+:: name of the curriculum to save to
-  # +fork+:: TODO WHAT DOES THIS PARAM DO???
+  # +fork+:: TODO: what does this param do?
   def create_initial_save(curriculum, fork)
     case fork
     when true
