@@ -1,0 +1,15 @@
+<% for f in @featured_curriculua %>
+  <div class="media">
+    <a class="pull-left" href='#'>
+      <span class="glyphicon glyphicon-book glyphicon-2x"></span>
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">
+          <%=link_to("#{f.creator.username}/#{f.cur_name}", curricula_path(:id => f.id))%>
+        <br>
+        <%= f.cur_description %>
+      </h4>
+    </div>
+  </div>
+  <hr>
+<% end %>

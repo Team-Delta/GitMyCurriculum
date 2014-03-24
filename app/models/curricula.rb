@@ -8,6 +8,7 @@
 #   t.integer  'creator_id'
 #   t.integer  'namespace_id'
 #   t.boolean  'can_merge',       default: true,                  null: false
+#   t.boolean  'featured',        default: false,                 null: false
 # end
 class Curricula < ActiveRecord::Base
   belongs_to :creator, foreign_key: 'creator_id', class_name: 'User'
@@ -56,6 +57,10 @@ class Curricula < ActiveRecord::Base
 
     def find_curricula_for_follower(follower)
       FollowingCurricula.joins(:curricula).where('user_id=? AND curriculas.creator_id!=?', follower, follower)
+    end
+
+    def find_curricula_for_featured(featured)
+      where('curriculas.featured = ?', featured)
     end
   end
 end

@@ -13,6 +13,9 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'users/show'
   get 'splash/load'
+
+  get 'featured/show'
+
   get 'profile/edit'
   get 'profile/load'
   get 'dashboard/dashboard_main'

@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140323212016) do
     t.integer  "creator_id"
     t.integer  "namespace_id"
     t.boolean  "can_merge",       default: true,                  null: false
+    t.boolean  "featured",        default: false,                 null: false
   end
 
   create_table "following_curriculas", force: true do |t|
