@@ -1,14 +1,24 @@
 <div class="container">
   <div class="col-md-4">
-      <center>
-        <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
-      </center>
-      <center>
-      <h3><%= current_user.username %></h3>
-      <h4><%= current_user.name %></h4>
-      <h5>Member since: <%=@month%> <%=@day%>, <%=@year%></h5>
-      </center>
-    </div>
+    <center>
+      <img id="avatar" src="http://www.gravatar.com/avatar/<%= @email %>?s=200px" />
+    </center>
+    <center>
+      <h3><%= @user.username %></h3>
+      <h5> Member since: <%=@month%> <%=@day%>, <%=@year%></h5>
+      <div class="panel-heading" style="padding-bottom: 20px;">
+        <% if current_user && @user.id!=current_user.id %>
+          <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) %>
+          <% if !@is_peer.blank? %>
+            <%= link_to "Unfollow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'unfollow', :tab => 'info'), class:"btn btn-danger btn-lg btn-block" %>
+          <% else %>
+            <%= link_to "Follow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'follow', :tab => 'info'), class:"btn btn-primary btn-lg btn-block" %>
+          <% end %>
+        <% end %>
+      </div>  
+    </center>
+  </div>
+
   <div class="col-md-8">
     <ul class="nav nav-pills nav-justified">
       <li class="<%= if (params[:tab] == 'info' || !params[:tab])then 'active'  else '' end%>">
@@ -17,14 +27,14 @@
           Info
         </a>
       </li>
-      <li>
+      <li class="<%= if params[:tab] == 'curricula' then 'active'  else '' end%>">
         <a href="#curricula" data-toggle="tab">
           <span class="glyphicon glyphicon-list-alt"></span>
           Curricula
         </a>
       </li>
-      <li>
-        <a href="#messages" data-toggle="tab">
+      <li class="<%= if params[:tab] == 'contributed' then 'active'  else '' end%>">
+        <a href="#contributed" data-toggle="tab">
           <span class="glyphicon glyphicon-pencil"></span>
           Curricula Contributed To
         </a>
@@ -51,39 +61,46 @@
       <div class="<%= if (params[:tab] == 'info' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="info"> 
         <div class="panel panel-default">
           <div class="panel-heading" style="padding-bottom: 20px;">
-            <%= current_user.username %>
-            <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-default pull-right" %> 
+            <%= @user.username %>
+            <%if @user.id==current_user.id%>
+              <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-default pull-right" %> 
+            <%end%>
           </div>
 
           <div class="panel-body">
             <h4>Description</h4>
-            <%= current_user.description %>
+            <%= @user.description %>
             <hr>
             <h4>Occupation</h4>
-            <%= current_user.occupation %>
+            <%= @user.occupation %>
           </div>
         </div>
       </div>
 
-      <div class="tab-pane" id="curricula">
+     <div class="<%= if params[:tab] == 'curricula' then 'tab-pane active'  else 'tab-pane' end%>" id="curricula">
         <div class="panel panel-default">
           <div class="panel-heading" style="padding-bottom: 20px;">
             Curricula
-            <a href="/curricula/create">
-              <button class="btn btn-default pull-right" >
-                Create Curriculum 
-              </button>
-            </a>
           </div> 
           <div class="list-group">
             <%if @created_curricula.blank?%>
               <a class="list-group-item">
-                <h4 class="list-group-item-heading">No Curricula</h4>
+                <h4 class="list-group-item-heading">No Curriculum</h4>
               </a>
             <%else%>
               <% for c in @created_curricula %>
                 <div class="list-group-item">
                   <%= link_to(c.cur_name, curricula_path(:id => c.id))%>
+                  <% if current_user && current_user.id!=@user.id%>
+                    <button class="btn btn-primary btn-no-padding pull-right" >
+                      <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
+                      <% if !@followed_curricula.blank? %>
+                        <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'unfollow', :tab => 'curricula'), :class => "no-link-white" %>
+                      <% else %>
+                        <%= link_to "Follow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'follow', :tab => 'curricula'), :class => "no-link-white" %>
+                      <% end %>
+                    </button>
+                  <% end %>
                 </div>
               <%end%>
             <%end%>
@@ -91,22 +108,38 @@
         </div> 
       </div>
 
-      <div class="tab-pane" id="messages"> 
-        <% if !@contributed_curricula.blank? %>      
+      <div class="<%= if params[:tab] == 'contributed' then 'tab-pane active'  else 'tab-pane' end%>" id="contributed">
+             
           <div class="panel panel-default">
             <div class="panel-heading" style="padding-bottom: 20px;">
               Curricula Contributed To
             </div>   
+
             <div class="list-group">
+              <% if @contributed_curricula.blank? %> 
+              <a class="list-group-item">
+                <h4 class="list-group-item-heading">No Curriculum</h4>
+              </a>
+              <%else%>
               <% for c in @contributed_curricula %>
                 <div class="list-group-item">
                   <%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%>
+                  <% if current_user && current_user.id!=@user.id%>
+                    <button class="btn btn-primary btn-no-padding pull-right" >
+                      <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
+                      <% if !@followed_curricula.blank? %>
+                        <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'unfollow', :tab => 'contributed'), :class => "no-link-white" %>
+                      <% else %>
+                        <%= link_to "Follow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'follow', :tab => 'contributed'), :class => "no-link-white" %>
+                      <% end %>
+                    </button>
+                  <% end %>
                 </div>
               <%end%>
+              <%end%>
             </div>
-
-          </div>
-        <%end%>
+         </div>
+        
       </div>
 
       <div class="<%= if params[:tab] == 'following' then 'tab-pane active'  else 'tab-pane' end%>" id="following">
@@ -124,7 +157,7 @@
                 <div class="list-group-item">
                   <%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%>
                   <button class="btn btn-primary btn-no-padding pull-right" >
-                    <%= link_to "Unfollow", subscriptions_curricula_unfollow_path(:curname => c.curricula.cur_name, :redirect => 'profile'), :class => "no-link-white" %>
+                    <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.curricula.cur_name, :redirect => 'profile', :username =>@user.username, :tab => 'following'), :class => "no-link-white" %>
                 </button>
                 </div>
               <%end%>
@@ -139,9 +172,15 @@
             Peers
           </div>
           <div class="list-group">
+            <%if @peers.blank?%>
+            <a class="list-group-item">
+                <h4 class="list-group-item-heading">No Peers</h4>
+              </a>
+            <%else%>
             <%@peers.each do |peer| %>
-              <div class="list-group-item"><%= link_to(peer.name, users_show_path(:username => peer.username))%></div>
+              <div class="list-group-item"><%= link_to(peer.name, profile_load_path(:username => peer.username))%></div>
             <% end %>
+            <%end%>
           </div>
         </div>
       </div>

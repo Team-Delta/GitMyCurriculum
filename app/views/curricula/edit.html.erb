@@ -1,3 +1,5 @@
+
+
 <div>
   <%= form_for :edit_curriculum, :url => edit_curriculum_path, :role => "form", :method => :post do |f| %>
   <div class="col-md-4">
@@ -11,57 +13,34 @@
 
     <%= submit_tag "Submit", class:"btn btn-primary btn-no-padding"%>
   </div>
-  <div class "">
+  
+  <!-- <div class "">
     <%=f.label ""%>
     <div class="input-group col-md-4 col-md-offset-9">
-      <input type="text" class="form-control" placeholder="Add User" id="user_textfield">
+      <input type="text" class="form-control" placeholder="Add User" id="user_textfield" value="#@to_add">
       <span class="input-group-btn">
-      <button class="btn btn-default" type="button" id="add_button">Go!</button>
-        <script type="text/javascript">
-          $("#add_button").click(function(){ 
-
-              @contributors.push('jfk21');
-              document.write("add contributor complete");
-                      //var html = '<ul id="hellolist" data-role="listview"><li><h3>This is a test</h3></li></ul>';            
-                      //$('#content').append($(html));
-                      //$('#hellolist').listview('refresh');
-              //$('#content').load($('contributor_list'));           
-              //$('#contributor_list').trigger('create');
-          });
-        </script>
+      <%= link_to "+", subscriptions_contributor_path(:contributor => @user_textfield, :task => 'add', :return =>@curricula.id), :class => "btn btn-default pull-right" %>
       </span>
     </div>
     <div> <%=f.label ""%></div>
 
-    <div class="panel panel-default col-md-4 col-md-offset-2" id="contributor_list">
+    <div class="panel panel-default col-md-4 col-md-offset-2" >
         <div class="panel-heading" style="padding-bottom: 20px;">
           Curriculum Contributors
         </div>   
-        <div class="list-group">
+        <div class="list-group" id="contributor_list">
             <%if @contributors.blank?%>
               <div class="list-group-item">No Contributors</div>
             <%else%>
               <%@contributors.each do |c| %>
                 <div class="list-group-item">
-                  <%=c%>
-                  <button class="btn btn-default" type="button" id="remove_button">Go!</button>
-                  <script type="text/javascript">
-                    $("#remove_button").click(function(){
-                      @contributors.remove(c);
-                      $('#content').load($('contributor_list'));           
-                      $('#contributor_list').trigger('create');
-                    });
-                  </script>
+                  <h4><%= link_to(c.user.username, users_show_path(:username => c.user.username))%><%= link_to "Remove", subscriptions_contributor_path(:contributor => c.user.id, :task => 'remove', :return =>@curricula.id), :class => "btn btn-default pull-right" %></h4>
                 </div>
               <% end %>
             <%end%>
           </div>
       </div>
 
-      <div id="content" data-role="content">       
-      </div><!-- /content -->
-
-  </div>
+  </div> -->
   <% end %>
 </div>
-

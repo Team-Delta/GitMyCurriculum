@@ -64,13 +64,8 @@ class CurriculaController < ApplicationController
 
   def edit
     @curricula = Curricula.find(params[:id])
-    @contributors=Curricula.get_contributors @curricula
+    @contributors=UserCurricula.get_contributors @curricula
     if request.post?
-      UserCurricula.where('curricula_id=?', params[:id]).destroy_all
-      for c in contributors
-        @to_enter=Users.find_user_by_username c
-        UserCurricula.create(user_id: @to_enter.id, curricula_id: @curricula.id)
-      end
       @curricula.update_attributes(curricula_params)
       redirect_to dashboard_dashboard_main_path
     end

@@ -7,5 +7,5 @@ end
 UserCurricula.seed do |c|
   c.id=2
   c.user_id = 3
-  c.curricula_id = 3
+  c.curricula_id = 1
 end

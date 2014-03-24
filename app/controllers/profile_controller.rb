@@ -1,14 +1,19 @@
 # Controller for the profile
 class ProfileController < ApplicationController
   def load
-    @email = Digest::MD5.hexdigest(current_user.email.strip.downcase)
-    @peers = current_user.peers
-    @month = Date::MONTHNAMES[current_user.created_at.month]
-    @year =  current_user.created_at.year
-    @day =   current_user.created_at.day
-    @created_curricula = Curricula.find_curricula_for_creator current_user
-    @contributed_curricula = Curricula.find_curricula_for_contributor current_user
-    @followed_curricula = Curricula.find_curricula_for_follower current_user
+    if !params[:username]
+      @user=current_user
+    else
+      @user = User.find_by_username(params[:username])
+    end
+    @email = Digest::MD5.hexdigest(@user.email.strip.downcase)
+    @peers = @user.peers
+    @month = Date::MONTHNAMES[@user.created_at.month]
+    @year =  @user.created_at.year
+    @day =   @user.created_at.day
+    @created_curricula = Curricula.find_curricula_for_creator @user
+    @contributed_curricula = Curricula.find_curricula_for_contributor @user
+    @followed_curricula = Curricula.find_curricula_for_follower @user
   end
 
   def edit
