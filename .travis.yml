@@ -14,4 +14,5 @@ before_script:
 
 script:
   - rubocop -R
+  - inch
   - rake test_setup:run_all
