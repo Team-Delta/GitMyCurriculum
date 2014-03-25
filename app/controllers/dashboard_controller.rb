@@ -45,7 +45,7 @@ class DashboardController < ApplicationController
 
     @contributed_curricula.each do |c|
       @git = get_bare_repo c.curricula
-      check_for_subfunction(c, @git)
+      check_for_subfunction(c.curricula, @git)
     end
   end
 # Subfunction to get rid of duplication
