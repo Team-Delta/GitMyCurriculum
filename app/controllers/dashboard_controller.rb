@@ -47,9 +47,8 @@ class DashboardController < ApplicationController
       @git = get_bare_repo c.curricula
       check_for_subfunction(c, @git)
     end
-    
   end
-
+# Subfunction to get rid of duplication
   def check_for_subfunction(c, git)
     @log = git.log
     @log.each do |l|
