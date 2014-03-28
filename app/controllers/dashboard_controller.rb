@@ -17,15 +17,9 @@ class DashboardController < ApplicationController
 
     # get a list of the current user's latest notifications
     @notifications = []
-    @created_curricula.each do |c|
+    @all_curricula_involved = @created_curricula + @contributed_curricula
+    @all_curricula_involved.each do |c|
       c.notifications.includes(:curricula, :author).find_each do |n|
-        @notifications.push(n)
-      end
-    end
-
-    # gets a list of the off the curricula that a user has contributed to
-    @contributed_curricula.each do |c|
-      c.curricula.notifications.includes(:curricula, :author).find_each do |n|
         @notifications.push(n)
       end
     end

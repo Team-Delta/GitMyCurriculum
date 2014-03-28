@@ -53,6 +53,9 @@ group :development do
         gem 'growl_notify'
     end
 
+    gem "better_errors"
+    gem "binding_of_caller"
+
     gem 'bullet'
 end
 
