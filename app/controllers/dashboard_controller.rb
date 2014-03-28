@@ -32,18 +32,9 @@ class DashboardController < ApplicationController
   private
 
   def check_for_new_commits
-    @created_curricula.each do |c|
+    @all_curricula_involved = @created_curricula + @contributed_curricula
+    @all_curricula_involved.each do |c|
       @git = get_bare_repo c
-      @log = @git.log
-      @log.each do |l|
-        notification = c.notifications.where('commit_id = ?', l.sha[0..8]).first
-        @user = User.find_user_by_email l.author.email
-        create_notification_for(0, @user, c, @git.branch.to_s, l) if notification.nil?
-      end
-    end
-
-    @contributed_curricula.each do |c|
-      @git = get_bare_repo c.curricula
       @log = @git.log
       @log.each do |l|
         notification = c.notifications.where('commit_id = ?', l.sha[0..8]).first
