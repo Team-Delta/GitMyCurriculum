@@ -33,5 +33,5 @@ GitMyCurriculum::Application.configure do
     Bullet.enable = true
     Bullet.alert = true
     Bullet.console = true
-  end 
+  end
 end

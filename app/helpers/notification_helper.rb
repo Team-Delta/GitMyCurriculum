@@ -4,7 +4,7 @@ module NotificationHelper
   #
   # +author+:: user object to link to
   def link_to_author(author)
-    link_to author.username, users_show_path(username: author.username), class: 'no-link'
+    link_to author.username, profile_load_path(username: author.username), class: 'no-link'
   end
 
   # create link to a curriculum

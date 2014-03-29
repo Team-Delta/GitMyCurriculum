@@ -16,8 +16,6 @@ Watching.seed do |s|
   s.peer_id = 3
 end
 
-
-
 Watching.seed do |s|
   s.id = 6
   s.user_id = 2

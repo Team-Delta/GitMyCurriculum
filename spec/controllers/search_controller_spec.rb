@@ -26,5 +26,4 @@ describe SearchController do
     end
   end
 
-  
 end

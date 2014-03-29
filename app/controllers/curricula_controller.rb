@@ -91,8 +91,13 @@ class CurriculaController < ApplicationController
   # reverts a curriculum to a previous save
   def revert_save
     @curriculum = Curricula.find_by_id(params[:id])
-    delete_save @curriculum, params[:commit_id]
-    create_notification_for(7, current_user, @curriculum)
+    begin
+      delete_save @curriculum, params[:commit_id]
+      create_notification_for(7, current_user, @curriculum)
+    rescue => e
+      logger.error e.message
+      flash[:error] = 'It appears that save has no parents.'
+    end
     redirect_to c_commit_path(id: @curriculum.id)
   end
 
