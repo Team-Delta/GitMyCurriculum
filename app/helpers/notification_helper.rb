@@ -37,9 +37,13 @@ module NotificationHelper
                   "#{link_to_author(n.author)} has saved to stream #{n.stream} on #{link_to_curriculum(n.curricula, n.author)}<br>#{link_to_commit(n.commit_id, n.curricula)} #{n.message}".html_safe,
                   class: 'bg-info text-primary')
     when 3
-      content_tag(:p, "#{link_to_author(n.author)} has forked #{link_to_curriculum(n.curricula, n.author)}".html_safe, class: 'bg-info text-info')
+      content_tag(:p,
+                  "#{link_to_author(n.author)} has forked #{link_to_curriculum(n.curricula, n.author)}".html_safe,
+                  class: 'bg-info text-info')
     when 7
-      content_tag(:p, "#{link_to_author(n.author)} has deleted a save on #{link_to_curriculum(n.curricula, n.author)}".html_safe, class: 'bg-danger text-danger')
+      content_tag(:p,
+                  "#{link_to_author(n.author)} has deleted a save on #{link_to_curriculum(n.curricula, n.author)}".html_safe,
+                  class: 'bg-danger text-danger')
     end
   end
 end
