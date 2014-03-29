@@ -5,12 +5,15 @@ class CurriculaController < ApplicationController
   # show curriculum based on curriculum id from uri param
   def show
     @curriculum = Curricula.find_by_id(params[:id])
-
     @git = get_bare_repo @curriculum
     @git_working = get_working_repo @curriculum
     @git_working.pull
     @log = @git.log
     @branches = @git.branches
+    path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
+    path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }
+    @path = []
+    @path.push << path_properties << path_properties2
 
     begin
       if params.key?(:branch)
@@ -21,11 +24,7 @@ class CurriculaController < ApplicationController
         @branch = 'master'
       end
 
-      if params.key?(:tree)
-        tree = @git.gtree(params[:tree])
-      else
-        tree = @git.gtree(commit[0..-2])
-      end
+      tree = @git.gtree(commit[0..-2])
 
       @child_trees = tree.trees
       @child_blobs = tree.blobs
@@ -34,16 +33,6 @@ class CurriculaController < ApplicationController
       flash[:error] = 'It appears that your project does not have any commits. You have no branches or objects to display.'
       @branch = 'master'
     end
-  end
-
-  # shows a file based on get file "id" uri param
-  def showfile
-    @curriculum = Curricula.find_by_id(params[:id])
-
-    @git = get_bare_repo @curriculum
-
-    @branches = @git.branches
-    @blob = @git.gblob(params[:blob])
   end
 
   # creats a new curriculum
@@ -119,6 +108,36 @@ class CurriculaController < ApplicationController
       @difftree.each { |i| @array.push(i) }
     rescue => e
       logger.error e.message
+    end
+  end
+
+  def grab_tree_folder
+    @counter = 0
+    @curriculum = Curricula.find_by_id(params[:id])
+    @git = get_bare_repo @curriculum
+    @branch = params[:branch]
+    tree = @git.gtree(params[:tree])
+    @child_trees = tree.trees
+    @child_blobs = tree.blobs
+    path_properties = { name: "#{params[:name]}", path: ajax_open_folder_path(id: @curriculum.id, branch: @branch, tree: params[:tree], path: params[:path], name: params[:name]) }
+    @path = params[:path]
+    @path.append(path_properties)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def grab_file_contents
+    @counter = 0
+    @curriculum = Curricula.find_by_id(params[:id])
+    @git = get_bare_repo @curriculum
+    @blob = @git.gblob(params[:blob])
+    @name = params[:name]
+    path_properties = { name: "#{@name}", path: open_file_path(params) }
+    @path = params[:path]
+    @path.push(path_properties)
+    respond_to do |format|
+      format.js
     end
   end
 

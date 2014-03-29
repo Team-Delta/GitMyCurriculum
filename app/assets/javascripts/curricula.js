@@ -1,3 +1,7 @@
-document.ready ->
-  alert "page has loaded!"
-//console.log $('#contributor_list').data('url')
+$(function() {
+  $('.folder a').on('click', function() { getContentsForFolder(); });
+});
+
+function getContentsForFolder() {
+  alert($('.folder a').text);
+}
