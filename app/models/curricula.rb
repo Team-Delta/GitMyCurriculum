@@ -17,6 +17,7 @@ class Curricula < ActiveRecord::Base
   has_one :forked_from_curriculum, through: :forked_curricula
 
   has_many :notifications, dependent: :destroy
+  has_many :sources, dependent: :destroy
   has_many :user_curriculas
   has_many :users, through: :user_curriculas
 

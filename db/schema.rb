@@ -70,6 +70,17 @@ ActiveRecord::Schema.define(version: 20140323212016) do
     t.string   "stream"
   end
 
+  create_table "sources", force: true do |t|
+    t.integer  "curricula_id", null: false
+    t.integer  "creator_id",   null: false
+    t.string   "author"
+    t.string   "title"
+    t.string   "source_tag"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.datetime "written_at"
+  end
+
   create_table "user_curriculas", force: true do |t|
     t.integer "user_id"
     t.integer "curricula_id"
