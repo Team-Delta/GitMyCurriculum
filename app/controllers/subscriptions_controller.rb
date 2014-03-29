@@ -11,9 +11,9 @@ class SubscriptionsController < ApplicationController
       @to_follow = @curricula.cur_name
     end
     @signin = validate_login(@to_follow, params[:sub_status])
-    if @signin
-      set_relation(params[:sub_status], @curricula, @user, @object_type)
-    end
+
+    set_relation(params[:sub_status], @curricula, @user, @object_type) if @signin
+
     redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab])
   end
 

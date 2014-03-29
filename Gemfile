@@ -32,7 +32,14 @@ gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
 
+# make diffs look nicer
 gem 'diffy'
+
+# passing data to javascript
+gem 'gon'
+
+# render breadcrumb
+gem 'breadcrumbs_on_rails'
 
 group :development do
     # automated test running on development machines
@@ -53,7 +60,12 @@ group :development do
         gem 'growl_notify'
     end
 
+    # looks for n + 1 queries
     gem 'bullet'
+
+    # gives a better stack trace for errors
+    gem 'better_errors'
+    gem 'binding_of_caller'
 end
 
 group :development, :production do

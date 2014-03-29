@@ -22,8 +22,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'users/:username' => 'users#show', as: :user
   get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/show/:id/:branch' => 'curricula#show', as: :switch
-  get 'curricula/show/:id/:branch/:tree' => 'curricula#show', as: :open_folder
-  get 'curricula/:id/:branch/blob/:name/:blob' => 'curricula#showfile', as: :open_file, :name => /(\w+)(\D+)(\w)/
+  get 'curricula/:id/:branch/:tree/:name' => 'curricula#grab_tree_folder', as: :ajax_open_folder
+  get 'curricula/:id/:branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
   
   get 'curricula/create'
   get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
@@ -33,7 +33,7 @@ GitMyCurriculum::Application.routes.draw do
   get 'curricula/fork/:id' => 'curricula#fork', as: :fork
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
   get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
-  get '/curricula/compare/:id/:commit', to: 'curricula#compare', as: :compare
+  get '/curricula/compare/:id/:commit' => 'curricula#compare', as: :compare
 
   get 'splash/load'
 
