@@ -38,9 +38,6 @@ gem 'diffy'
 # passing data to javascript
 gem 'gon'
 
-# render breadcrumb
-gem 'breadcrumbs_on_rails'
-
 group :development do
     # automated test running on development machines
     gem 'guard-rspec'

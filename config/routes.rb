@@ -1,17 +1,16 @@
 GitMyCurriculum::Application.routes.draw do
 
-  get "search/uc_search"
+  get 'search/uc_search'
   get 'user_root' => 'profile#load'
 
   authenticated :user do
     root to: 'dashboard#dashboard_main', as: 'authenticated_root'
   end
 
-  devise_for :users, :controllers => {:confirmations => "confirmations", :passwords => "passwords", :registrations => "registrations", :sessions => "sessions"}
-  
+  devise_for :users, controllers: { confirmations: 'confirmations', passwords: 'passwords', registrations: 'registrations', sessions: 'sessions' }
+
   root 'splash#load'
 
-  get 'users/show'
   get 'splash/load'
 
   get 'featured/show'
@@ -19,12 +18,11 @@ GitMyCurriculum::Application.routes.draw do
   get 'profile/edit'
   get 'profile/load'
   get 'dashboard/dashboard_main'
-  get 'users/:username' => 'users#show', as: :user
   get 'curricula/show/:id' => 'curricula#show', as: :curricula
   get 'curricula/show/:id/:branch' => 'curricula#show', as: :switch
   get 'curricula/:id/:branch/:tree/:name' => 'curricula#grab_tree_folder', as: :ajax_open_folder
   get 'curricula/:id/:branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
-  
+
   get 'curricula/create'
   get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
   post '/curricula/edit/:id', to: 'curricula#edit', as: :edit_curriculum
@@ -42,13 +40,12 @@ GitMyCurriculum::Application.routes.draw do
   get 'subscriptions/subscription'
   post 'subscriptions/subscription' => 'subscriptions#subscription', as: :subscription
 
-  #Temp function for contributors until JSON is solved
+  # Temp function for contributors until JSON is solved
   get 'subscriptions/contributor'
   post 'subscriptions/contributor' => 'subscriptions#contributor', as: :contributor
 
   get 'curricula/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
- 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

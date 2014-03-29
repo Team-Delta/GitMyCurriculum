@@ -55,7 +55,7 @@ module GitFunctionality
     commit = working_repo.gcommit(commit_id)
     Notification.where('commit_id = ?', short_sha(commit.sha)).destroy_all
     working_repo.reset_hard(commit.parent.sha)
-    system("cd /repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}; git push origin master --force")
+    system("cd #{Rails.root}/repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}; git push origin master --force")
   end
 
   # get the path to the bare curriculum

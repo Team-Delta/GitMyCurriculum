@@ -14,6 +14,5 @@ class UpdateCurriculumAndAddTables < ActiveRecord::Migration
     # adding columns for user
     add_column :users, :can_create_team, :boolean, default: true, null: false
     add_column :users, :can_create_organization, :boolean, default: true, null: false
-    
   end
 end
