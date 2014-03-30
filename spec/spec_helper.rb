@@ -1,7 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
-require 'coveralls'
-Coveralls.wear!('rails')
+# require 'coveralls'
+# Coveralls.wear!('rails')
 require 'simplecov'
 SimpleCov.start :rails do
   add_filter '/spec/'
@@ -25,6 +25,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'database_cleaner'
 
 # any test where you want to run search must have ', search => true do' in method address
 require 'sunspot_test/rspec'
@@ -57,10 +58,12 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Capybara::DSL
+  Capybara.javascript_driver = :selenium
+  Capybara.default_wait_time = 40
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
