@@ -60,7 +60,7 @@ end
 User.seed do |s|
   s.id = 8
   s.username = 'lestewar'
-  s.email = 'lestewar@asu.edu'
-  s.name = 'Lincoln Stewart'
+  s.email = 'fsdefes@sef.com'
+  s.name = 'LES'
   s.password = '12345'
 end

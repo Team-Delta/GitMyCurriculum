@@ -46,6 +46,9 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'curricula/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
+  get 'source/show/:id' => 'source#show', as: :source_show
+  post 'source/edit' => 'source#edit', as: :source_edit
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
