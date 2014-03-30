@@ -9,6 +9,12 @@
 #   t.datetime "written_at"
 # end
 class Source < ActiveRecord::Base
-  belongs_to :curricula, foreign_key: 'curriculum_id'
-  belongs_to :creator, foreign_key: 'creator_id', class_name: 'User'
+  belongs_to :curricula
+  belongs_to :creator, class_name: 'User'
+
+  class << self
+    def grab_sources_for_curriculum(curriculum)
+      where('sources.curricula_id = ?', curriculum)
+    end
+  end
 end
