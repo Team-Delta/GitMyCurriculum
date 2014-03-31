@@ -15,7 +15,9 @@ feature 'add sources' do
   scenario 'make a new source correctly', :js => true do
     click_link 'project'
     click_link 'Sources'
+    sleep(2.0)
     make_source_with 'http://getbootstrap.com/css/#top', 'This is awesome'
+    sleep(2.0)
     expect(page).to have_content('Success')
     expect(page).to have_content('This is awesome')
   end
