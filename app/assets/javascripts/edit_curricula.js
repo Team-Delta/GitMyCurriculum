@@ -1,5 +1,5 @@
 $(function(){
-  $("#users").on("click","button", function(){
+  $("#users").on("click","a", function(){
     $("#user").val($(this).attr("value"));
     $("#users").html("");
   });    
