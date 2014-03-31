@@ -11,7 +11,7 @@ namespace :test_setup do
     puts '#############################################'
     puts ''
 
-    system('bundle')
+    system('bundle install')
 
   end
   
@@ -53,8 +53,8 @@ namespace :test_setup do
 
     Rails.env = "test"
 
-    system('rubocop -R')
     Rake::Task['test_setup:install'].invoke
+    system('rubocop -R')
     Rake::Task['test_setup:migrate'].invoke
     Rake::Task['test_setup:tests'].invoke
 
