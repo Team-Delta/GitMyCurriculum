@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature 'Breadcrumb' do
 
-  background do
+ background do
     create(:user)
     sign_in_with 'bammons123', '12345678'
     create_curriculum 'project', 'some description'

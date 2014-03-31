@@ -8,9 +8,9 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each, :js => true) do
-    Capybara.current_driver = :poltergeist
-  end
+  # config.before(:each, :js => true) do
+  #   Capybara.current_driver = :poltergeist
+  # end
 
   config.before(:each) do
     DatabaseCleaner.start
@@ -20,8 +20,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.after(:each, :js => true) do
-    Capybara.use_default_driver
-  end
+  # config.after(:each, :js => true) do
+  #   Capybara.use_default_driver
+  # end
 
 end
