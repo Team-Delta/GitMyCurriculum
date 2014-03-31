@@ -1,6 +1,5 @@
 $(function(){
   $("#users").on("click","button", function(){
-    alert($(this).attr("value"));
     $("#user").val($(this).attr("value"));
     $("#users").html("");
   });    

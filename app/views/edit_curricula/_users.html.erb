@@ -1,8 +1,8 @@
-<div class="btn-group-vertical col-md-4 col-md-offset-2">
+<div class="btn-group-vertical">
   <% unless @users.blank? %>
     <% @users.each do |u| %>
       <% @name = u.username %>
-      <button type="button" class="btn btn-default" value="%#{u.username}%">
+      <button type="button" class="btn btn-default" value="<%= u.username %>">
         <%= u.username %>
       </button>
     <% end %>
