@@ -94,7 +94,13 @@ group :test, :development do
     gem 'sunspot_test'
 
     # test documentation
-    gem "inch"
+    gem 'inch'
+
+    # javascript driver for capybara
+    gem 'poltergeist'
+
+    # required to allow test database sharing with selenium
+    gem 'database_cleaner'
 end
 
 group :production do

@@ -8,6 +8,10 @@ feature 'Revert Save' do
     create_curriculum 'revert', 'some description'
   end
 
+  after(:each) do
+    FileUtils.rm_rf('repos/bammons123/revert')
+  end
+
   scenario 'fail to revert initial commit' do
     click_link 'revert'
     click_link 'Change History'
@@ -22,10 +26,6 @@ feature 'Revert Save' do
     click_link 'Change History'
     first(:link, 'Delete Save').click
     expect(page).to have_no_content('second commit')
-  end
-
-  after(:each) do
-    FileUtils.rm_rf('repos/bammons123/revert')
   end
 
   def commit_push
