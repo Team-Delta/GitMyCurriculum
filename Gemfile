@@ -97,7 +97,7 @@ group :test, :development do
     gem 'inch'
 
     # javascript driver for capybara
-    gem 'selenium-webdriver'
+    gem 'poltergeist'
 
     # required to allow test database sharing with selenium
     gem 'database_cleaner'

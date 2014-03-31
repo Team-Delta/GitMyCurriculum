@@ -11,11 +11,6 @@ before_script:
   - sudo ln -s /run/mysqld/mysqld.sock /tmp/mysql.sock
   - rake db:create
   - rake sunspot:solr:start
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-  - rackup
-  - sleep 3
 
 script:
   - rubocop -R

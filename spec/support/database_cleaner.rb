@@ -9,7 +9,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js => true) do
-    Capybara.current_driver = :selenium 
+    Capybara.current_driver = :poltergeist
   end
 
   config.before(:each) do
@@ -20,12 +20,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:each) do
-    Capybara.current_driver = :selenium if options[:js]
-  end
- 
-  config.after(:each) do
-    Capybara.use_default_driver if options[:js]
+  config.after(:each, :js => true) do
+    Capybara.use_default_driver
   end
 
 end
