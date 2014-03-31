@@ -17,23 +17,17 @@ feature 'add sources' do
     click_link 'Sources'
     make_source_with 'http://getbootstrap.com/css/#top', 'This is awesome'
     expect(page).to have_content('Success')
-  end
- 
-  scenario 'make a new source correctly', :js => true do
-    click_link 'project'
-    click_link 'Sources'
-    make_source_with 'http://getbootstrap.com/css/#top', 'This is awesome'
     expect(page).to have_content('This is awesome')
   end
-
-   def sign_in_with(email, password)
+ 
+  def sign_in_with(email, password)
     visit splash_load_path
     fill_in 'email or username', with: email
     fill_in 'password', with: password
     click_button 'Sign In'
-   end
+  end
 
-   def create_curriculum(name, description)
+  def create_curriculum(name, description)
     visit curricula_create_path
     fill_in 'name', with: name
     fill_in 'description', with: description
