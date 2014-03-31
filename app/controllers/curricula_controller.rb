@@ -35,7 +35,7 @@ class CurriculaController < ApplicationController
     end
   end
 
-  # creats a new curriculum
+  # creates a new curriculum
   def create
     if request.post?
       @user = current_user
