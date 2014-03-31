@@ -52,6 +52,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'source/show/:id' => 'source#show', as: :source_show
   post 'source/edit' => 'source#edit', as: :source_edit
 
+  get 'curricula/show/:id/', to: 'curricula#merge', as: :merge
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

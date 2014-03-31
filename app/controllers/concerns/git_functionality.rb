@@ -88,6 +88,23 @@ module GitFunctionality
     Git.open(working)
   end
 
+  # joins 2 streams
+  #
+  # loads the working
+  # pulls on master then the other branch for commit history
+  # merges the 2 branches
+  # pushes the code up
+  def join_stream(curriculum, merging_from)
+    work = get_working_repo(curriculum)
+    work.fetch
+    work.pull
+    work.checkout(merging_from)
+    work.pull
+    work.checkout('master')
+    work.merge(merging_from)
+    work.push
+  end
+
   # shortens 32 character id to 8 characters
   #
   # +commit_id+:: id to shorten
