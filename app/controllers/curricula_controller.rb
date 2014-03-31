@@ -52,16 +52,6 @@ class CurriculaController < ApplicationController
     end
   end
 
-  # updates the information of a curriculum
-  def edit
-    @curricula = Curricula.find(params[:id])
-    @contributors = UserCurricula.get_contributors @curricula
-    if request.post?
-      @curricula.update_attributes(curricula_params)
-      redirect_to dashboard_dashboard_main_path
-    end
-  end
-
   # generates a fork of a curriculum
   def fork
     @forked = Curricula.find_by_id(params[:id])

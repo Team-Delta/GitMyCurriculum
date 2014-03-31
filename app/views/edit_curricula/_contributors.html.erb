@@ -1,0 +1,12 @@
+<%if @contributors.blank?%>
+  <div class="list-group-item">No Contributors</div>
+<%else%>
+  <%@contributors.each do |c| %>
+    <div class="list-group-item" >
+      <h4><%=c.user.username%><%= link_to update_contributors_path(:user => c.user.username, :curriculum => @curricula.id, :task =>'remove'), :remote => true do %>
+          <h5 class="glyphicon glyphicon-minus pull-right"></h5>
+        <% end %> 
+      </h4>
+    </div>
+  <% end %>
+<%end%>
