@@ -24,14 +24,17 @@ GitMyCurriculum::Application.routes.draw do
   get 'curricula/:id/:branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
 
   get 'curricula/create'
-  get 'curricula/edit/:id', to: 'curricula#edit', as: :edit_curricula
-  post '/curricula/edit/:id', to: 'curricula#edit', as: :edit_curriculum
+  get 'edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curricula
+  post '/edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curriculum
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum
 
   get 'curricula/fork/:id' => 'curricula#fork', as: :fork
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
   get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
   get '/curricula/compare/:id/:commit' => 'curricula#compare', as: :compare
+
+  get 'edit_curricula/update_contributors' => 'edit_curricula#update_contributors', as: :update_contributors
+  get 'edit_curricula/search_results' => 'edit_curricula#search_results', as: :search_results
 
   get 'splash/load'
 

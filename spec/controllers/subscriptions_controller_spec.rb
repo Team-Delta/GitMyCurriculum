@@ -7,10 +7,6 @@ describe SubscriptionsController do
       user = create(:user)
       sign_in user
       user_2 = create(:user_2)
-      # Sunspot.commit
-      # user_search - User.search { keywords 'tc' }
-      # user_results=user_search.results
-      # redirect_to search_s_unfollow_path(:username => u.username, :query => params[:query])
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'follow' },  'query' => 'ta')
       assert_redirected_to search_uc_search_path
       assert_equal 'You are now following Taylor Cavaletto.', flash[:success]
@@ -18,14 +14,10 @@ describe SubscriptionsController do
   end
 
   describe 'user unfollow search', search: true do
-    it 'returns user followed' do
+    it 'returns user unfollowed' do
       user = create(:user)
       sign_in user
       user_2 = create(:user_2)
-      # Sunspot.commit
-      # user_search - User.search { keywords 'tc' }
-      # user_results=user_search.results
-      # redirect_to search_s_unfollow_path(:username => u.username, :query => params[:query])
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'follow' },  'query' => 'ta')
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'unfollow' },  'query' => 'ta')
       assert_redirected_to search_uc_search_path
@@ -33,13 +25,32 @@ describe SubscriptionsController do
     end
   end
 
+  describe 'curriculum_follow_search', search: true do
+    it 'returns with curriculum followed' do
+      user = create(:user)
+      sign_in user
+      cur = create(:curricula)
+      get(:subscription, {'cur_name' => cur.cur_name, 'redirect' => 'search', 'sub_status' => 'follow'}, 'query' => 'te')
+      assert_redirected_to search_uc_search_path
+      assert_equal 'You are now following test-curriculum.', flash[:success]
+    end
+  end
+
+  describe 'curricula_unfollow_search', search: true do
+    it 'returns with curriculum unfollowed' do
+      user = create(:user)
+      sign_in user
+      cur = create(:curricula)
+      get(:subscription, {'cur_name' => cur.cur_name, 'redirect' => 'search', 'sub_status' => 'follow'}, 'query' => 'te')
+      get(:subscription, { 'cur_name' => cur.cur_name, 'redirect' => 'search', 'sub_status' => 'unfollow' },  'query' => 'te')
+      assert_redirected_to search_uc_search_path
+      assert_equal 'You are no longer following test-curriculum.', flash[:success]
+    end
+  end
+
   describe 'user follow failed no current user search', search: true do
     it 'returns user followed' do
       user_2 = create(:user_2)
-      # Sunspot.commit
-      # user_search - User.search { keywords 'tc' }
-      # user_results=user_search.results
-      # redirect_to search_s_unfollow_path(:username => u.username, :query => params[:query])
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'follow' },  'query' => 'ta')
       assert_redirected_to search_uc_search_path
       assert_equal 'You must login to follow Taylor Cavaletto.', flash[:error]
@@ -49,10 +60,6 @@ describe SubscriptionsController do
   describe 'user unfollow failed no current user search', search: true do
     it 'returns user followed' do
       user_2 = create(:user_2)
-      # Sunspot.commit
-      # user_search - User.search { keywords 'tc' }
-      # user_results=user_search.results
-      # redirect_to search_s_unfollow_path(:username => u.username, :query => params[:query])
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'follow' },  'query' => 'ta')
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'unfollow' },  'query' => 'ta')
       assert_redirected_to search_uc_search_path
