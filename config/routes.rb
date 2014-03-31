@@ -33,7 +33,8 @@ GitMyCurriculum::Application.routes.draw do
   get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
   get '/curricula/compare/:id/:commit' => 'curricula#compare', as: :compare
 
-   get 'edit_curricula/update_contributors' => 'edit_curricula#update_contributors', as: :update_contributors
+  get 'edit_curricula/update_contributors' => 'edit_curricula#update_contributors', as: :update_contributors
+  get 'edit_curricula/search_results' => 'edit_curricula#search_results', as: :search_results
 
   get 'splash/load'
 

@@ -28,7 +28,7 @@ class EditCurriculaController < ApplicationController
   end
 
   def search_results
-    @users = Users.where('name LIKE ?', params[:users])
+    @users = User.where('lower(name) LIKE :query OR lower(email) LIKE :query OR lower(username) LIKE :query', query: "%#{params[:user]}%")
     respond_to do |format|
       format.js
     end

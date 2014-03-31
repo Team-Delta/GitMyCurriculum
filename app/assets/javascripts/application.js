@@ -14,14 +14,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-$(function() {
-  //Click on results => curricula_user.val()
-    //Make partial disappear
-  $("#curricula_user input").keyup(function() {
-    if ($("#curricula_user").val().length>4)
-     $.get($("#curricula_user").attr("action"), $("#curricula_user").serialize(), null, "script");
-
-    return false;
-  });
-});
