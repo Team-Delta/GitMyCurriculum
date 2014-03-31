@@ -136,6 +136,13 @@ class CurriculaController < ApplicationController
     end
   end
 
+  # merges 2 branches
+  def merge
+    curriculum = Curricula.find_by_id(params[:id])
+    merging_from = params[:branch]                  # noticed the failed dyamic call
+    join_stream(curriculum, merging_from)
+  end
+
   private
 
   def curricula_params
