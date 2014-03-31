@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :curricula do
+    cur_name 'test-curriculum'
   end
 end
