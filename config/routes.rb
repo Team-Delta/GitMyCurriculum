@@ -43,10 +43,6 @@ GitMyCurriculum::Application.routes.draw do
   get 'subscriptions/subscription'
   post 'subscriptions/subscription' => 'subscriptions#subscription', as: :subscription
 
-  # Temp function for contributors until JSON is solved
-  get 'subscriptions/contributor'
-  post 'subscriptions/contributor' => 'subscriptions#contributor', as: :contributor
-
   get 'curricula/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
   get 'source/show/:id' => 'source#show', as: :source_show
