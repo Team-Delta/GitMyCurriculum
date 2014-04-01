@@ -13,11 +13,11 @@ class EditCurriculaController < ApplicationController
   def update_contributors
     @curricula = Curricula.find_by_id(params[:curriculum])
     @contributor = User.find_user_by_username(params[:user])
-    # @does_exist = UserCurricula.does_user_exist(@curricula, @contributor.id)
+    @does_exist = UserCurricula.does_user_exist(@curricula, @contributor.id)
     if params[:task] == 'remove'
       UserCurricula.remove_contributor(@curricula, @contributor)
     else
-      unless @contributor.blank?
+      unless @contributor.blank? || !@does_exist.blank?
         UserCurricula.create(user_id: @contributor.id, curricula_id:  @curricula.id)
       end
     end
@@ -32,5 +32,11 @@ class EditCurriculaController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  private
+
+  def curricula_params
+    params.require(:edit_curriculum).permit(:cur_name, :cur_description, :creator_id, :path)
   end
 end

@@ -2,7 +2,7 @@
   <% unless @users.blank? %>
     <% @users.each do |u| %>
       <% @name = u.username %>
-      <a href="#" class="list-group-item" value="<%= u.username %>">
+      <a href="#" class="list-group-item" value="<%= u.username %>"  id="<%= u.username %>">
         <%= u.username %>
       </a>
     <% end %>

@@ -1,16 +1,15 @@
 # Controller to manage follows/unfollows
 class SubscriptionsController < ApplicationController
   def subscription
-    @curricula = Curricula.find(params[:cur_id]) if params[:cur_id]
     @user = User.find_by_username(params[:username]) if params[:username]
     if !params[:cur_id]
       @to_follow = @user.name
     else
+      @curricula = Curricula.find(params[:cur_id])
       @to_follow = @curricula.cur_name
     end
-    @signin = validate_login(@to_follow, params[:sub_status])
 
-    set_relation(params[:sub_status], @curricula, @user) if @signin
+    set_relation(params[:sub_status], @curricula, @user) if validate_login(@to_follow, params[:sub_status])
 
     redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab], params[:cur_id])
   end
@@ -23,7 +22,7 @@ class SubscriptionsController < ApplicationController
       Watching.create_follow_relationship_for current_user, user
       flash[:success] = "You are now following #{user.name}."
     when 'user_unfollow'
-      Watching.delete_follow_relationship_for current_user, @user
+      Watching.delete_follow_relationship_for current_user, user
       flash[:success] = "You are no longer following #{user.name}."
     when 'curricula_follow'
       FollowingCurricula.create(user_id: current_user.id, curricula_id: curricula.id)
