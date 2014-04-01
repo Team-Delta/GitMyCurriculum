@@ -3,8 +3,6 @@ namespace :test_setup do
   desc "Install project dependancies"
   task install: :environment do
 
-    Rails.env = "test"
-
     puts ''
     puts '#############################################'
     puts 'getting project dependancies...'
@@ -51,13 +49,10 @@ namespace :test_setup do
   desc "Run all test dependancies"
   task run_all: :environment do
 
-    Rails.env = "test"
-
     Rake::Task['test_setup:install'].invoke
+    Rails.env = "test"
     system('rubocop -R')
     Rake::Task['test_setup:migrate'].invoke
     Rake::Task['test_setup:tests'].invoke
-
-  end
-  
+  end  
 end
