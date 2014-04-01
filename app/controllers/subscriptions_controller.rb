@@ -43,7 +43,7 @@ class SubscriptionsController < ApplicationController
     if current_user
       @boolean = true
     else
-      flash[:error] = "You must login to #{function} #{name}.".html_safe
+      flash[:error] = "You must login to follow or unfollow #{name}.".html_safe
       @boolean = false
     end
     @boolean

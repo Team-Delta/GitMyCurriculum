@@ -53,7 +53,7 @@ describe SubscriptionsController do
       user_2 = create(:user_2)
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'user_follow' },  'query' => 'ta')
       assert_redirected_to search_uc_search_path
-      assert_equal 'You must login to follow Taylor Cavaletto.', flash[:error]
+      assert_equal 'You must login to follow or unfollow Taylor Cavaletto.', flash[:error]
     end
   end
 
@@ -63,7 +63,7 @@ describe SubscriptionsController do
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'user_follow' },  'query' => 'ta')
       get(:subscription, { 'username' => user_2.username, 'redirect' => 'search', 'sub_status' => 'user_unfollow' },  'query' => 'ta')
       assert_redirected_to search_uc_search_path
-      assert_equal 'You must login to unfollow Taylor Cavaletto.', flash[:error]
+      assert_equal 'You must login to follow or unfollow Taylor Cavaletto.', flash[:error]
     end
   end
 end
