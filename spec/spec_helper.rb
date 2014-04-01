@@ -12,6 +12,7 @@ SimpleCov.start :rails do
   add_filter '/app/controllers/confirmations_controller.rb'
   add_filter '/app/controllers/sessions_controller.rb'
   add_filter '/app/controllers/passwords_controller.rb'
+  add_filter '/repos/'
 
   add_group 'Controllers', 'app/controllers'
   add_group 'Models', 'app/models'
@@ -25,8 +26,10 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/rails'
-require 'database_cleaner'
+require 'support/share_db_connection'
+
 require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 
 # any test where you want to run search must have ', search => true do' in method address
 require 'sunspot_test/rspec'
@@ -59,12 +62,10 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Capybara::DSL
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_wait_time = 40
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
