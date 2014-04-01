@@ -65,7 +65,7 @@ class CurriculaController < ApplicationController
     fork_repo(@forked, @fork)
     create_working_directory(@fork, current_user)
     create_initial_save(@fork, true)
-    create_notificaiton_for(3, @creator, @forked)
+    create_notification_for(3, @fork.creator, @forked)
 
     flash[:success] = 'Successfully forked curriculum' if @fork.save
     redirect_to dashboard_dashboard_main_path

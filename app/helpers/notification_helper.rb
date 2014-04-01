@@ -38,8 +38,8 @@ module NotificationHelper
                   class: 'bg-info text-primary')
     when 3
       content_tag(:p,
-                  "#{link_to_author(n.author)} has forked #{link_to_curriculum(n.curricula, n.author)}".html_safe,
-                  class: 'bg-info text-info')
+                  "#{link_to_author(n.author)} has forked #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
+                  class: 'bg-info text-primary')
     when 7
       content_tag(:p,
                   "#{link_to_author(n.author)} has deleted a save on #{link_to_curriculum(n.curricula, n.author)}".html_safe,
