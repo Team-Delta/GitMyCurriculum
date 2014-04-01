@@ -10,9 +10,9 @@
         <% if current_user && @user.id!=current_user.id %>
           <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'unfollow', :tab => 'info'), class:"btn btn-danger btn-lg btn-block" %>
+            <%= link_to "Unfollow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'user_unfollow', :tab => 'info'), class:"btn btn-danger btn-lg btn-block" %>
           <% else %>
-            <%= link_to "Follow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'follow', :tab => 'info'), class:"btn btn-primary btn-lg btn-block" %>
+            <%= link_to "Follow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'user_follow', :tab => 'info'), class:"btn btn-primary btn-lg btn-block" %>
           <% end %>
         <% end %>
       </div>  
@@ -95,9 +95,9 @@
                     <button class="btn btn-primary btn-no-padding pull-right" >
                       <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
                       <% if !@followed_curricula.blank? %>
-                        <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'unfollow', :tab => 'curricula'), :class => "no-link-white" %>
+                        <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => c.id, :username => @user.username, :redirect => 'profile', :sub_status => 'curricula_unfollow', :tab => 'curricula'), :class => "no-link-white" %>
                       <% else %>
-                        <%= link_to "Follow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'follow', :tab => 'curricula'), :class => "no-link-white" %>
+                        <%= link_to "Follow", subscriptions_subscription_path(:cur_id => c.id, :username => @user.username, :redirect => 'profile', :sub_status => 'curricula_follow', :tab => 'curricula'), :class => "no-link-white" %>
                       <% end %>
                     </button>
                   <% end %>
@@ -128,9 +128,9 @@
                     <button class="btn btn-primary btn-no-padding pull-right" >
                       <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
                       <% if !@followed_curricula.blank? %>
-                        <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'unfollow', :tab => 'contributed'), :class => "no-link-white" %>
+                        <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => c.id, :username => @user.username, :redirect => 'profile', :sub_status => 'curricula_unfollow', :tab => 'contributed'), :class => "no-link-white" %>
                       <% else %>
-                        <%= link_to "Follow", subscriptions_subscription_path(:cur_name => c.cur_name, :username => @user.username, :redirect => 'profile', :sub_status => 'follow', :tab => 'contributed'), :class => "no-link-white" %>
+                        <%= link_to "Follow", subscriptions_subscription_path(:cur_id => c.id, :username => @user.username, :redirect => 'profile', :sub_status => 'curricula_follow', :tab => 'contributed'), :class => "no-link-white" %>
                       <% end %>
                     </button>
                   <% end %>
@@ -157,7 +157,7 @@
                 <div class="list-group-item">
                   <%= link_to(c.curricula.cur_name, curricula_path(:id => c.id))%>
                   <button class="btn btn-primary btn-no-padding pull-right" >
-                    <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.curricula.cur_name, :redirect => 'profile', :username =>@user.username, :tab => 'following'), :class => "no-link-white" %>
+                    <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => c.curricula.id, :redirect => 'profile', :username =>@user.username, :sub_status => 'curricula_unfollow', :tab => 'following'), :class => "no-link-white" %>
                 </button>
                 </div>
               <%end%>
