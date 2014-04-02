@@ -33,10 +33,6 @@ class DashboardController < ApplicationController
     # sort notifications by most recent
     @notifications = @notifications.sort_by { |n| n[:created_at] }
     @notifications = @notifications.reverse
-
-    @notifications.each do |n|
-      puts "#{n.notification_type}"
-    end
   end
 
   private
