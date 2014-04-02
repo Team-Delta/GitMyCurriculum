@@ -9,7 +9,9 @@
     <ul class = 'dropdown-menu'>
       <% for b in @branches %>
         <li>
-          <%= link_to b.name, switch_path(:id => @curriculum.id, :branch => b.name) %>
+          <%= link_to switch_branch_path(:id => @curriculum.id, :branch => b.name), :remote => true do %>
+            <%= b.name %>
+          <% end %>
         </li>
       <% end %>
     </ul>

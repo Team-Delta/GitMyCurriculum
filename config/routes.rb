@@ -19,7 +19,7 @@ GitMyCurriculum::Application.routes.draw do
   get 'profile/load'
   get 'dashboard/dashboard_main'
   get 'curricula/show/:id' => 'curricula#show', as: :curricula
-  get 'curricula/show/:id/:branch' => 'curricula#show', as: :switch
+  get 'curricula/show/:id/:branch' => 'curricula#switch_branch', as: :switch_branch
   get 'curricula/:id/:branch/:tree/:name' => 'curricula#grab_tree_folder', as: :ajax_open_folder
   get 'curricula/:id/:branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
 
