@@ -53,7 +53,7 @@ class Curricula < ActiveRecord::Base
     end
 
     def find_curricula_for_featured(featured)
-      where('curriculas.featured = ?', featured)
+      where('curriculas.featured = ?', featured).includes(:creator)
     end
   end
 end
