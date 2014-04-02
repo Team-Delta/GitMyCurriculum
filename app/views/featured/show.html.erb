@@ -1,15 +1,28 @@
-<% for f in @featured_curriculua %>
-  <div class="media">
-    <a class="pull-left" href='#'>
-      <span class="glyphicon glyphicon-book glyphicon-2x"></span>
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading">
-          <%=link_to("#{f.creator.username}/#{f.cur_name}", curricula_path(:id => f.id))%>
-        <br>
-        <%= f.cur_description %>
-      </h4>
-    </div>
+<div class="content col-md-10 col-md-offset-1">
+  <h1>Featured Curricula</h1> <br>
+  <div class="row">
+    <% unless @featured_curricula.blank? %>
+      <% for f in @featured_curricula %>
+        <div class="media">
+          <div class="col-md-1">
+            <a class="pull-left" href='#'>
+              <span class="glyphicon glyphicon-book glyphicon-2x"></span>
+            </a>
+          </div>
+
+          <div class="media-body">
+            <div class="col-md-9">
+              <h4 class="media-heading">
+                <%=link_to("#{f.creator.username}/#{f.cur_name}", curricula_path(:id => f.id))%>
+              </h4>
+              <%= f.cur_description %>
+            </div> 
+            <div class="col-md-2">
+              <%= link_to "Check It Out", curricula_path(:id => f.id), class: "btn btn-primary pull-right" %>
+            </div>
+          </div>
+        <hr>
+      <% end %>
+    <% end %>
   </div>
-  <hr>
-<% end %>
+</div>
