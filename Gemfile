@@ -99,8 +99,6 @@ group :test, :development do
     # javascript driver for capybara
     gem 'poltergeist'
 
-    # required to allow test database sharing with selenium
-    gem 'database_cleaner'
 end
 
 group :production do
