@@ -14,9 +14,7 @@ feature 'notification tests' do
     FileUtils.rm_rf('repos/bammons123/project')
   end
 
-  scenario 'forking should create notification', js: true, search: true do
-    expect(page).to have_content('project')
-    Sunspot.commit
+  scenario 'forking should create notification', js: true do
     click_link 'project'
     click_link 'Edit Curriculum'
     fill_in 'user', with: 'tcav'
