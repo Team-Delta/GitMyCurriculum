@@ -14,21 +14,18 @@
         </h4>
         <%= c.cur_description %>
 
-        
-          <% if current_user && c.creator_id!=current_user.id%>
+        <% if current_user && c.creator_id!=current_user.id%>
           <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
-            <% if !@followed_curricula.blank? %>
+          <% if !@followed_curricula.blank? %>
             <button class="btn btn-danger btn-no-padding pull-right" >
-              <%= link_to "Unfollow", subscriptions_subscription_path(:cur_name => c.cur_name, :query => params[:query], :sub_status => 'unfollow', :redirect => 'search'), :class => "no-link-white" %>
+              <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => c.id, :query => params[:query], :sub_status => 'curricula_unfollow', :redirect => 'search'), :class => "no-link-white" %>
             </button>
-            <% else %>
+          <% else %>
             <button class="btn btn-primary btn-no-padding pull-right" >
-              <%= link_to "Follow", subscriptions_subscription_path(:cur_name => c.cur_name, :query => params[:query], :sub_status => 'follow', :redirect => 'search'), :class => "no-link-white" %>
+              <%= link_to "Follow", subscriptions_subscription_path(:cur_id => c.id, :query => params[:query], :sub_status => 'curricula_follow', :redirect => 'search'), :class => "no-link-white" %>
             </button>
-            <% end %>
-            
           <% end %>
-        
+        <% end %> 
       </div>
     </div>
     <hr>

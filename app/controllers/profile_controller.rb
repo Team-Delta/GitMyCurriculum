@@ -16,15 +16,4 @@ class ProfileController < ApplicationController
     @contributed_curricula = Curricula.find_curricula_for_contributor @user
     @followed_curricula = Curricula.find_curricula_for_follower @user
   end
-
-  # Store updated user information
-  def edit
-    @info = User.all
-  end
-
-  private
-
-  def post_params
-    params.require(:description, :occupation).permit(:description, :occupation)
-  end
 end

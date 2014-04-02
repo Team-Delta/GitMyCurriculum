@@ -35,11 +35,11 @@
             <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, u.id) %>
             <% if !@is_peer.blank? %>
             <button class="btn btn-danger btn-no-padding pull-right" >
-              <%= link_to "Unfollow", subscriptions_subscription_path(:username => u.username, :query => params[:query], :sub_status => 'unfollow', :redirect => 'search'), :class => "no-link-white"  %>
+              <%= link_to "Unfollow", subscriptions_subscription_path(:username => u.username, :query => params[:query], :sub_status => 'user_unfollow', :redirect => 'search'), :class => "no-link-white"  %>
             </button>
             <% else %>
             <button class="btn btn-primary btn-no-padding pull-right" >
-              <%= link_to "Follow", subscriptions_subscription_path(:username => u.username, :query => params[:query], :sub_status =>'follow', :redirect => 'search'), :class => "no-link-white" %>
+              <%= link_to "Follow", subscriptions_subscription_path(:username => u.username, :query => params[:query], :sub_status =>'user_follow', :redirect => 'search'), :class => "no-link-white" %>
             </button>
             <% end %>
           <% end %>
