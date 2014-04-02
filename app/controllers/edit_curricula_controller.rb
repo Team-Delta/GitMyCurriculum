@@ -17,9 +17,7 @@ class EditCurriculaController < ApplicationController
     if params[:task] == 'remove'
       UserCurricula.remove_contributor(@curricula, @contributor)
     else
-      unless @contributor.blank? || !@does_exist.blank?
-        UserCurricula.create(user_id: @contributor.id, curricula_id:  @curricula.id)
-      end
+      UserCurricula.create(user_id: @contributor.id, curricula_id:  @curricula.id) unless @contributor.blank? || !@does_exist.blank?
     end
     @contributors = UserCurricula.get_contributors @curricula
     respond_to do |format|
