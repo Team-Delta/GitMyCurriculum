@@ -22,7 +22,7 @@ describe ProfileController do
   describe "GET 'load'" do
     it 'returns http success' do
       user = create(:user_2)
-      get 'load', {:username => user.username}
+      get 'load', username: user.username
 
       response.should be_success
     end

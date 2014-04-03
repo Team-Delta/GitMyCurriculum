@@ -9,34 +9,33 @@ feature 'edit_curricula' do
     create_curriculum 'project', 'some description'
   end
 
- 
-   after(:each) do
-      FileUtils.rm_rf('repos/bammons123/project')
-      FileUtils.rm_rf('repos/bammons123/cst314')
-   end
+  after(:each) do
+    FileUtils.rm_rf('repos/bammons123/project')
+    FileUtils.rm_rf('repos/bammons123/cst314')
+  end
 
-  scenario 'edit curriculum correctly', :js => true do
+  scenario 'edit curriculum correctly', js: true do
 
     visit dashboard_dashboard_main_path
     click_link 'project'
     click_link 'Edit Curriculum'
-    page.should have_css("#edit_curriculum_cur_description")
+    page.should have_css('#edit_curriculum_cur_description')
 
     fill_in 'edit_curriculum_cur_description', with: 'this is a thing'
     click_button 'submit'
-    
+
     click_link 'project'
     click_link 'Edit Curriculum'
-    page.should have_css("#edit_curriculum_cur_description", :text => 'this is a thing')
+    page.should have_css('#edit_curriculum_cur_description', text: 'this is a thing')
 
   end
 
-  scenario 'add and remove a contributor correctly', :js => true do
+  scenario 'add and remove a contributor correctly', js: true do
 
     visit dashboard_dashboard_main_path
     click_link 'project'
     click_link 'Edit Curriculum'
-    page.should have_css("#edit_curriculum_cur_description")
+    page.should have_css('#edit_curriculum_cur_description')
 
     fill_in 'user', with: 'tcav'
     find('#tcavalet123').click
@@ -48,12 +47,12 @@ feature 'edit_curricula' do
 
   end
 
-  scenario 'test prevention of adding creator as contributor', :js => true do
+  scenario 'test prevention of adding creator as contributor', js: true do
 
     visit dashboard_dashboard_main_path
     click_link 'project'
     click_link 'Edit Curriculum'
-    page.should have_css("#edit_curriculum_cur_description")
+    page.should have_css('#edit_curriculum_cur_description')
 
     fill_in 'user', with: 'bamm'
     find('#bammons123').click
@@ -61,7 +60,7 @@ feature 'edit_curricula' do
     expect(page).to have_content('No Contributors')
 
   end
- 
+
   def sign_in_with(email, password)
     visit splash_load_path
     fill_in 'email or username', with: email

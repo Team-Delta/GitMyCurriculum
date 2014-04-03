@@ -12,7 +12,7 @@ feature 'check file contents' do
     FileUtils.rm_rf('repos/bammons123/project')
   end
 
-  scenario 'check to see if there is a file size and words', :js => true do
+  scenario 'check to see if there is a file size and words', js: true do
     commit_push
     click_link 'project'
     click_link 'another.txt'
@@ -34,7 +34,7 @@ feature 'check file contents' do
     fill_in 'description', with: description
     click_button 'Create'
   end
-  
+
   def commit_push
     working_repo = Git.open("#{Rails.root}/repos/bammons123/project/working/project")
     working_repo.pull
