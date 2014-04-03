@@ -2,7 +2,7 @@ LineLength:
   Max: 200
 
 AllCops:
-  Excludes:
+  Exclude:
     - db/**
     - config/**
     - spec/**
