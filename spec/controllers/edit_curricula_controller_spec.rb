@@ -7,7 +7,7 @@ describe EditCurriculaController do
       cur = create(:curricula)
       user = create(:user)
       sign_in user
-      get 'edit',{:id => cur.id}
+      get 'edit', id: cur.id
       response.should be_success
     end
   end

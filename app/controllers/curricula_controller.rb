@@ -8,7 +8,7 @@ class CurriculaController < ApplicationController
     @git = get_bare_repo @curriculum
     @git_working = get_working_repo @curriculum
     @git_working.pull
-    @log = @git.log
+    # @log = @git.log
     @branches = @git.branches
     path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
     path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }
@@ -16,13 +16,8 @@ class CurriculaController < ApplicationController
     @path.push << path_properties << path_properties2
 
     begin
-      if params.key?(:branch)
-        commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
-        @branch = params[:branch]
-      else
-        commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
-        @branch = 'master'
-      end
+      commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+      @branch = 'master'
 
       tree = @git.gtree(commit[0..-2])
 
@@ -103,6 +98,24 @@ class CurriculaController < ApplicationController
       @difftree.each { |i| @array.push(i) }
     rescue => e
       logger.error e.message
+    end
+  end
+
+  def switch_branch
+    @counter = 0
+    @curriculum = Curricula.find_by_id(params[:id])
+    @git = get_bare_repo @curriculum
+    @branch = params[:branch]
+    commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
+    tree = @git.gtree(commit[0..-2])
+    @child_trees = tree.trees
+    @child_blobs = tree.blobs
+    path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
+    path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }
+    @path = []
+    @path.push << path_properties << path_properties2
+    respond_to do |format|
+      format.js
     end
   end
 

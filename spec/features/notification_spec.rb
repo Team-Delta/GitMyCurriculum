@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 feature 'notification tests' do
 
   background do

@@ -2,7 +2,7 @@ LineLength:
   Max: 200
 
 AllCops:
-  Excludes:
+  Exclude:
     - db/**
     - config/**
     - spec/**
@@ -12,4 +12,4 @@ MethodLength:
   Max: 30
 
 ClassLength:
-  Max: 130  
+  Max: 135  

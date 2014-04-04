@@ -2,19 +2,19 @@ require 'spec_helper'
 
 feature 'Forking' do
 
- before(:each) do
-    create(:user)
-    create(:user_2)
-    sign_in_with 'bammons123', '12345678'
-    create_curriculum 'project', 'some description'
-  end
+  before(:each) do
+     create(:user)
+     create(:user_2)
+     sign_in_with 'bammons123', '12345678'
+     create_curriculum 'project', 'some description'
+   end
 
   after(:each) do
     FileUtils.rm_rf('repos/bammons123/project')
     FileUtils.rm_rf('repos/tcavalet123/project')
   end
 
-  scenario 'fork a curriculum', :js => true do
+  scenario 'fork a curriculum', js: true do
     click_link 'project'
     click_link 'Edit Curriculum'
     fill_in 'user', with: 'tcav'

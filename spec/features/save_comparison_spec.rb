@@ -26,8 +26,8 @@ feature 'Save comparison' do
     click_link 'comparison'
     click_link 'Change History'
     click_link 'second commit'
-    page.should have_css(".del", :text => "Temporary document: can be deleted.")
-    page.should have_css(".ins", :text => "New content.")
+    page.should have_css('.del', text: 'Temporary document: can be deleted.')
+    page.should have_css('.ins', text: 'New content.')
   end
 
   def commit_push

@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 feature 'add sources' do
- 
-   after(:each) do
-      FileUtils.rm_rf('repos/bammons123/project')
-   end
 
-  scenario 'make a new source correctly', :js => true do
+  after(:each) do
+    FileUtils.rm_rf('repos/bammons123/project')
+  end
+
+  scenario 'make a new source correctly', js: true do
     create(:user)
     sign_in_with 'bammons123', '12345678'
     create_curriculum 'project', 'some description'
@@ -17,7 +17,7 @@ feature 'add sources' do
     expect(page).to have_content('Success')
     find('#source-list').find('div').should have_content('This is awesome')
   end
- 
+
   def sign_in_with(email, password)
     visit splash_load_path
     fill_in 'email or username', with: email
