@@ -1,7 +1,6 @@
 # Controller the dashboard features
 class DashboardController < ApplicationController
   include NotificationManager
-  include GitFunctionality
 
   # loads dashboard for current user
   def dashboard_main
@@ -39,7 +38,7 @@ class DashboardController < ApplicationController
 
   def check_for_new_commits
     @created_curricula.each do |c|
-      @git = get_bare_repo c
+      @git = ::GitFunctionality::Repo.new.get_bare_repo c
       @log = @git.log
       @log.each do |l|
         notification = c.notifications.where('commit_id = ?', l.sha[0..8]).first
@@ -49,7 +48,7 @@ class DashboardController < ApplicationController
     end
 
     @contributed_curricula.each do |c|
-      @git = get_bare_repo c.curricula
+      @git = ::GitFunctionality::Repo.new.get_bare_repo c.curricula
       @log = @git.log
       @log.each do |l|
         notification = c.notifications.where('commit_id = ?', l.sha[0..8]).first

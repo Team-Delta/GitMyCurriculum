@@ -33,8 +33,6 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  private
-
   # validates user's login state when attempting to follow or unfollow a user
   # +name+:: of the user attempting to subscribe
   # +function+:: either "follow" or "unfollow"

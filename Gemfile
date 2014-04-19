@@ -30,8 +30,6 @@ gem 'sprockets', '2.11.0'
 gem 'sass-rails', '>= 4.0.0'
 gem 'bootstrap-sass', '~> 3.1.1'
 
-gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
-
 # make diffs look nicer
 gem 'diffy'
 
@@ -108,6 +106,8 @@ end
 
 group :ci do
     gem 'coveralls'
+    gem 'simplecov', '~> 0.7.1', :require => false, :group => :test
+    gem 'codeclimate-test-reporter'
 end
 
 group :doc do
