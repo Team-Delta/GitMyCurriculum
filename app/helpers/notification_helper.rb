@@ -44,6 +44,10 @@ module NotificationHelper
       content_tag(:p,
                   "#{link_to_author(n.author)} has deleted a save on #{link_to_curriculum(n.curricula, n.author)}".html_safe,
                   class: 'bg-danger text-danger')
+    when 8
+      content_tag(:p,
+                  "#{link_to_author(n.author)} has been added as a contributor to #{link_to_curriculum(n.curricula, n.author)}".html_safe,
+                  class: 'bg-info text-primary')
     end
   end
 end

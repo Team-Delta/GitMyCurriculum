@@ -1,5 +1,6 @@
 # edits curricula
 class EditCurriculaController < ApplicationController
+  include NotificationManager
   # updates the information of a curriculum
   def edit
     @curricula = Curricula.find(params[:id])
@@ -18,6 +19,7 @@ class EditCurriculaController < ApplicationController
       UserCurricula.remove_contributor(@curricula, @contributor)
     else
       UserCurricula.create(user_id: @contributor.id, curricula_id:  @curricula.id) unless @contributor.blank? || !@does_exist.blank?
+      create_notification_for(8, @contributor, @curricula)
     end
     @contributors = UserCurricula.get_contributors @curricula
     respond_to do |format|

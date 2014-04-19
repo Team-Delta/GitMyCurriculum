@@ -3,10 +3,10 @@ require 'spec_helper'
 feature 'Breadcrumb' do
 
   background do
-     create(:user)
-     sign_in_with 'bammons123', '12345678'
-     create_curriculum 'project', 'some description'
-   end
+    create(:user)
+    sign_in_with 'bammons123', '12345678'
+    create_curriculum 'project', 'some description'
+  end
 
   after(:each) do
     FileUtils.rm_rf('repos/bammons123/project')
