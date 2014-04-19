@@ -7,7 +7,6 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 
 module GitMyCurriculum
-    # Filler Comment here
   class Application < Rails::Application
     # config.force_ssl = true
     # Settings in config/environments/* take precedence over those specified here.
