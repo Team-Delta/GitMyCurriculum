@@ -3,11 +3,11 @@ require 'spec_helper'
 feature 'Forking' do
 
   before(:each) do
-     create(:user)
-     create(:user_2)
-     sign_in_with 'bammons123', '12345678'
-     create_curriculum 'project', 'some description'
-   end
+    create(:user)
+    create(:user_2)
+    sign_in_with 'bammons123', '12345678'
+    create_curriculum 'project', 'some description'
+  end
 
   after(:each) do
     FileUtils.rm_rf('repos/bammons123/project')
