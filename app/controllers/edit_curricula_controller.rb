@@ -1,5 +1,6 @@
 # edits curricula
 class EditCurriculaController < ApplicationController
+  include NotificationManager
   # updates the information of a curriculum
   def edit
     @curricula = Curricula.find(params[:id])
