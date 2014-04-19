@@ -18,6 +18,7 @@ class Notification < ActiveRecord::Base
   N_REQUEST_APPROVE = 5  # if a request gets approved
   N_REQUEST_DENY = 6     # if a request gets denied
   N_SAVE_DELETED = 7     # if a commit gets deleted
+  N_ADDED_CONTRIBUTOR = 8# if a contributor is added
 
   belongs_to :curricula
   belongs_to :author, class_name: 'User'
