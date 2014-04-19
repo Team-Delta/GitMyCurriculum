@@ -1,12 +1,11 @@
 # controller for creating, loading, and editing a curricula
 class CurriculaController < ApplicationController
-  include GitFunctionality
   include NotificationManager
   # show curriculum based on curriculum id from uri param
   def show
     @curriculum = Curricula.find_by_id(params[:id])
-    @git = get_bare_repo @curriculum
-    @git_working = get_working_repo @curriculum
+    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
+    @git_working = ::GitFunctionality::Repo.new.get_working_repo @curriculum
     @git_working.pull
     # @log = @git.log
     @branches = @git.branches
@@ -38,9 +37,9 @@ class CurriculaController < ApplicationController
       @curriculum.attributes = { creator: @user, path: "repos/#{@user.username}/#{@curriculum.cur_name}/.git" }
       @curriculum.users << @user
 
-      create_bare_repo(@curriculum)
-      create_working_directory(@curriculum, @user)
-      create_initial_save(@curriculum, false)
+      ::GitFunctionality::CreateRepo.new.create_bare_repo(@curriculum)
+      ::GitFunctionality::CreateRepo.new.create_working_directory(@curriculum, @user)
+      ::GitFunctionality::CreateInitialCommit.new.create_initial_commit(@curriculum, false)
 
       flash[:success] = 'Successfully created curriculum' if @curriculum.save
       redirect_to dashboard_dashboard_main_path
@@ -57,9 +56,9 @@ class CurriculaController < ApplicationController
                          path: "repos/#{current_user.username}/#{@forked.cur_name}/.git", creator: current_user }
     @fork.users << current_user
 
-    fork_repo(@forked, @fork)
-    create_working_directory(@fork, current_user)
-    create_initial_save(@fork, true)
+    ::GitFunctionality::ForkRepo.new.fork_repo(@forked, @fork)
+    ::GitFunctionality::CreateRepo.new.create_working_directory(@fork, current_user)
+    ::GitFunctionality::CreateInitialCommit.new.create_initial_commit(@fork, true)
     create_notification_for(3, @fork.creator, @forked)
 
     flash[:success] = 'Successfully forked curriculum' if @fork.save
@@ -69,7 +68,7 @@ class CurriculaController < ApplicationController
   # list all the commits for a curriculum
   def commits
     @curriculum = Curricula.find_by_id(params[:id])
-    @git = get_bare_repo @curriculum
+    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
     @commits = @git.log
   end
 
@@ -77,7 +76,7 @@ class CurriculaController < ApplicationController
   def revert_save
     @curriculum = Curricula.find_by_id(params[:id])
     begin
-      delete_save @curriculum, params[:commit_id]
+      ::GitFunctionality::DeleteCommit.new.delete_commit @curriculum, params[:commit_id]
       create_notification_for(7, current_user, @curriculum)
     rescue => e
       logger.error e.message
@@ -89,7 +88,7 @@ class CurriculaController < ApplicationController
   # compares two saves in a curriculum
   def compare
     @curriculum = Curricula.find_by_id(params[:id])
-    @git = get_bare_repo @curriculum
+    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
     @commit = @git.gcommit(params[:commit])
 
     begin
@@ -122,7 +121,7 @@ class CurriculaController < ApplicationController
   def grab_tree_folder
     @counter = 0
     @curriculum = Curricula.find_by_id(params[:id])
-    @git = get_bare_repo @curriculum
+    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
     @branch = params[:branch]
     tree = @git.gtree(params[:tree])
     @child_trees = tree.trees
@@ -138,7 +137,7 @@ class CurriculaController < ApplicationController
   def grab_file_contents
     @counter = 0
     @curriculum = Curricula.find_by_id(params[:id])
-    @git = get_bare_repo @curriculum
+    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
     @blob = @git.gblob(params[:blob])
     @name = params[:name]
     path_properties = { name: "#{@name}", path: open_file_path(params) }
