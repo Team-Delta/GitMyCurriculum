@@ -2,7 +2,7 @@
   <div class="btn-group col-md-2">
 
     <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>
-      Choose Branch 
+      Choose Branch
       <span class = 'caret'></span>
     </button>
 
@@ -33,7 +33,7 @@
     <div class="panel panel-default" id="stream-contents">
       <div class="panel-heading">
         <div class="panel-title">
-          <%= @branch %> 
+          <%= @branch %>
         </div>
       </div>
 
@@ -41,27 +41,27 @@
         <ul class="list-unstyled">
           <% unless @child_trees.nil? %>
             <% for t in @child_trees %>
-              <li> 
-                <%= link_to ajax_open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1], :path => @path, :name => t[0]), :remote => true do %> 
-                  <h5 class="glyphicon glyphicon-folder-close"> 
+              <li>
+                <%= link_to ajax_open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => t[1], :path => @path, :name => t[0]), :remote => true do %>
+                  <h5 class="glyphicon glyphicon-folder-close">
                     <%= t[0] %>
                   </h5>
                 <% end %>
               </li>
-            <% end %> 
+            <% end %>
           <% end %>
 
-          <% unless @child_blobs.nil? %> 
+          <% unless @child_blobs.nil? %>
             <% for b in @child_blobs %>
-              <li> 
+              <li>
                 <%= link_to open_file_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1], :path => @path), action: :get_file_contents, :remote => true do %>
-                  <h5 class="glyphicon glyphicon-file"> 
+                  <h5 class="glyphicon glyphicon-file">
                     <%= b[0]%>
                   </h5>
                 <% end %>
               </li>
-            <% end %>  
-          <% end %>    
+            <% end %>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -102,17 +102,7 @@
     </div>
 
     <div class="row" style="padding: 10px;">
-        <button href="#" class="btn btn-success">Join Stream</button>
+      <%= link_to "Download", download_zip_path(:id => @curriculum.id), class: "btn btn-success" %>
     </div>
-
-    <% if @curriculum.featured == true %>
-      <div class="row" style="padding: 10px;">
-        <%= link_to "UnFeature It", remove_featured_path(:id => @curriculum.id), class: "btn btn-success" %>
-      </div>
-    <% else %>
-      <div class="row" style="padding: 10px;">
-        <%= link_to "Feature It", add_featured_path(:id => @curriculum.id), class: "btn btn-success" %>
-      </div>
-    <%end%>
   </div>
 </div>

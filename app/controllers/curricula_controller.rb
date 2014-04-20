@@ -7,7 +7,6 @@ class CurriculaController < ApplicationController
     @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
     @git_working = ::GitFunctionality::Repo.new.get_working_repo @curriculum
     @git_working.pull
-    # @log = @git.log
     @branches = @git.branches
     path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
     path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }

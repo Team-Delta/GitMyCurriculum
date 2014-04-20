@@ -25,6 +25,7 @@ GitMyCurriculum::Application.routes.draw do
   get 'edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curricula
   post '/edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curriculum
   post '/curricula/create', to: 'curricula#create', as: :create_curriculum
+  get '/download/download', to: 'download#download', as: :download_zip
 
   get 'curricula/fork/:id' => 'curricula#fork', as: :fork
   get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
