@@ -6,8 +6,6 @@ class CurriculaController < ApplicationController
     @curriculum = Curricula.find_by_id(params[:id])
     @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
     @git_working = ::GitFunctionality::Repo.new.get_working_repo @curriculum
-    file_path = "#{Rails.root}/repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/working/#{@curriculum.cur_name}/#{@curriculum.cur_name}.zip"
-    File.delete(file_path)
     @git_working.pull
     @branches = @git.branches
     path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
