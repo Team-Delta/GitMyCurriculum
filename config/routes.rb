@@ -4,7 +4,7 @@ GitMyCurriculum::Application.routes.draw do
   get 'user_root' => 'profile#load'
 
   authenticated :user do
-    root to: 'dashboard#dashboard_main', as: 'authenticated_root'
+    root to: 'dashboard#show', as: 'authenticated_root'
   end
 
   devise_for :users, controllers: { confirmations: 'confirmations', passwords: 'passwords', registrations: 'registrations', sessions: 'sessions' }
@@ -15,33 +15,45 @@ GitMyCurriculum::Application.routes.draw do
 
   get 'profile/edit'
   get 'profile/load'
-  get 'dashboard/dashboard_main'
-  get 'curricula/show/:id' => 'curricula#show', as: :curricula
-  get 'curricula/show/:id/:branch' => 'curricula#switch_branch', as: :switch_branch
-  get 'curricula/:id/:branch/:tree/:name' => 'curricula#grab_tree_folder', as: :ajax_open_folder
-  get 'curricula/:id/:branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
+  get 'dashboard/show'
 
-  get 'curricula/create'
-  get 'edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curricula
+  resources :curricula do
+    
+    member do
+      get 'show/:id/:branch' => 'curricula#switch_branch', as: :switch_branch
+      get ':branch/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
+      get ':branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
+      get 'fork/:id' => 'curricula#fork', as: :fork
+    end
+
+    scope module: :curricula do
+
+      resource :exchange do 
+        member do
+          get 'upload'
+          post 'upload'
+        end
+      end
+
+
+      get 'show' => 'history#show', as: :history
+      get 'compare/:commit' => 'history#compare', as: :compare
+      get 'revert/:commit' => 'history#revert', as: :revert
+
+    end
+
+  end
+
+  get 'edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :curricula_edit
   post '/edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curriculum
-  post '/curricula/create', to: 'curricula#create', as: :create_curriculum
-
-  get 'curricula/fork/:id' => 'curricula#fork', as: :fork
-  get 'curricula/commits/:id' => 'curricula#commits', as: :c_commit
-  get 'curricula/clone/:username/:curriculum_name' => 'curricula#clone'
-  get '/curricula/compare/:id/:commit' => 'curricula#compare', as: :compare
 
   get 'edit_curricula/update_contributors' => 'edit_curricula#update_contributors', as: :update_contributors
   get 'edit_curricula/search_results' => 'edit_curricula#search_results', as: :search_results
 
   get 'splash/load'
 
-  get 'dashboard/dashboard_main'
-
   get 'subscriptions/subscription'
   post 'subscriptions/subscription' => 'subscriptions#subscription', as: :subscription
-
-  get 'curricula/revert_save/:id/:commit_id', to: 'curricula#revert_save', as: :revert_save
 
   get 'source/show/:id' => 'source#show', as: :source_show
   post 'source/edit' => 'source#edit', as: :source_edit

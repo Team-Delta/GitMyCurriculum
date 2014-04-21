@@ -35,13 +35,13 @@ feature 'notification tests' do
     click_link 'project'
     click_link 'Change History'
     first(:link, 'Delete Save').click
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     expect(page).to have_content('bammons123 has deleted a save on bammons123/project')
   end
 
   scenario 'making commit should create notification' do
     commit_push
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     expect(page).to have_content('bammons123 has saved to stream master on bammons123/project')
   end
 
@@ -62,7 +62,7 @@ feature 'notification tests' do
   end
 
   def create_curriculum(name, description)
-    visit curricula_create_path
+    visit new_curricula_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

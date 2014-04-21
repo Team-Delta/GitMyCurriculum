@@ -56,7 +56,7 @@ class SubscriptionsController < ApplicationController
   def redirect_to_place(redirect, username, query, tab, id)
     case redirect
     when 'dashboard'
-      redirect_to dashboard_dashboard_main_path
+      redirect_to dashboard_show_path
     when 'profile'
       redirect_to profile_load_path(username: username, tab: tab)
     when 'search'

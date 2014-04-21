@@ -8,6 +8,7 @@ AllCops:
     - spec/**
     - app/controllers/application_controller.rb
     - phantomjs/**
+    - app/controllers/curricula/**
 
 MethodLength:
   Max: 30

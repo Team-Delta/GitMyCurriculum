@@ -7,7 +7,7 @@ class EditCurriculaController < ApplicationController
     @contributors = UserCurricula.get_contributors @curricula
     if request.post?
       @curricula.update_attributes(curricula_params)
-      redirect_to dashboard_dashboard_main_path
+      redirect_to dashboard_show_path
     end
   end
 

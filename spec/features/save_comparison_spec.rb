@@ -21,7 +21,7 @@ feature 'Save comparison' do
   end
 
   scenario 'File difference check ' do
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     commit_push
     click_link 'comparison'
     click_link 'Change History'
@@ -48,7 +48,7 @@ feature 'Save comparison' do
   end
 
   def create_curriculum(name, description)
-    visit curricula_create_path
+    visit new_curricula_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

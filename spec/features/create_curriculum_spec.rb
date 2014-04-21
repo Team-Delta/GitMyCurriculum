@@ -20,7 +20,7 @@ feature 'CRUD for a curriculum' do
   end
 
   def make_curriculum_with(name, description)
-    visit create_curriculum_path
+    visit new_curricula_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

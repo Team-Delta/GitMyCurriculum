@@ -8,13 +8,13 @@ class FeaturedController < ApplicationController
     curriculum = Curricula.find_by_id(params[:id])
     curriculum.featured = true
     curriculum.save
-    redirect_to dashboard_dashboard_main_path
+    redirect_to dashboard_show_path
   end
 
   def remove_featured
     curriculum = Curricula.find_by_id(params[:id])
     curriculum.featured = false
     curriculum.save
-    redirect_to dashboard_dashboard_main_path
+    redirect_to dashboard_show_path
   end
 end
