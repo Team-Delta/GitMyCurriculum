@@ -41,9 +41,9 @@
         <ul class="list-unstyled">
           <% unless @child_trees.nil? %>
             <% for t in @child_trees %>
-              <li> 
-                <%= link_to open_folder_curricula_path(:id => @curriculum.id, :branch => @branch, :tree => t[1], :path => @path, :name => t[0]), :remote => true do %> 
-                  <h5 class="glyphicon glyphicon-folder-close"> 
+              <li>
+                <%= link_to open_folder_curricula_path(:id => @curriculum.id, :branch => @branch, :tree => t[1], :path => @path, :name => t[0]), :remote => true do %>
+                  <h5 class="glyphicon glyphicon-folder-close">
                     <%= t[0] %>
                   </h5>
                 <% end %>
@@ -53,9 +53,9 @@
 
           <% unless @child_blobs.nil? %>
             <% for b in @child_blobs %>
-              <li> 
+              <li>
                 <%= link_to open_file_curricula_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1], :path => @path), action: :get_file_contents, :remote => true do %>
-                  <h5 class="glyphicon glyphicon-file"> 
+                  <h5 class="glyphicon glyphicon-file">
                     <%= b[0]%>
                   </h5>
                 <% end %>
@@ -99,6 +99,14 @@
 
     <div class="row" style="padding: 10px;">
       <%= link_to "Sources", source_show_path(:id => @curriculum.id), class: "btn btn-success" %>
+    </div>
+
+    <div class="row" style="padding: 10px;">
+      <%= link_to "Upload", upload_curricula_exchange_path(:curricula_id => @curriculum.id), class: "btn btn-success" %>
+    </div>
+
+    <div class="row" style="padding: 10px;">
+      <%= link_to "Download", download_curricula_exchange_path(:curricula_id => @curriculum.id), class: "btn btn-success" %>
     </div>
 
   </div>

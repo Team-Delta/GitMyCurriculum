@@ -18,7 +18,7 @@ GitMyCurriculum::Application.routes.draw do
   get 'dashboard/show'
 
   resources :curricula do
-    
+
     member do
       get 'show/:id/:branch' => 'curricula#switch_branch', as: :switch_branch
       get ':branch/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
@@ -28,10 +28,11 @@ GitMyCurriculum::Application.routes.draw do
 
     scope module: :curricula do
 
-      resource :exchange do 
+      resource :exchange do
         member do
           get 'upload'
           post 'upload'
+          get 'download'
         end
       end
 
