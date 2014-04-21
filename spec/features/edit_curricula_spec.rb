@@ -16,7 +16,7 @@ feature 'edit_curricula' do
 
   scenario 'edit curriculum correctly', js: true do
 
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     click_link 'project'
     click_link 'Edit Curriculum'
     page.should have_css('#edit_curriculum_cur_description')
@@ -32,7 +32,7 @@ feature 'edit_curricula' do
 
   scenario 'add and remove a contributor correctly', js: true do
 
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     click_link 'project'
     click_link 'Edit Curriculum'
     page.should have_css('#edit_curriculum_cur_description')
@@ -49,7 +49,7 @@ feature 'edit_curricula' do
 
   scenario 'test prevention of adding creator as contributor', js: true do
 
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     click_link 'project'
     click_link 'Edit Curriculum'
     page.should have_css('#edit_curriculum_cur_description')
@@ -69,7 +69,7 @@ feature 'edit_curricula' do
   end
 
   def create_curriculum(name, description)
-    visit curricula_create_path
+    visit new_curricula_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

@@ -42,11 +42,7 @@
     <div class="panel panel-default" id="created-curricula">
       <div class="panel-heading" style="padding-bottom: 20px;">
         Curricula
-        <a href="/curricula/create">
-          <button class="btn btn-success pull-right" >
-              Create Curriculum 
-          </button>
-        </a>
+        <%= link_to "Create Curriculum", new_curricula_path, class: "btn btn-success pull-right" %>
       </div>   
       <div class="list-group">
 

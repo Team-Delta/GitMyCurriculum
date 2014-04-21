@@ -28,21 +28,52 @@ class CurriculaController < ApplicationController
     end
   end
 
+  def grab_tree_folder
+    @counter = 0
+    @curriculum = Curricula.find_by_id(params[:id])
+    @git = ::GitFunctionality::Repo.new.get_bare_repo(@curriculum)
+    @branch = params[:branch]
+    tree = @git.gtree(params[:tree])
+    @child_trees = tree.trees
+    @child_blobs = tree.blobs
+    path_properties = { name: "#{params[:name]}", path: open_folder_curricula_path(id: @curriculum.id, branch: @branch, tree: params[:tree], path: params[:path], name: params[:name]) }
+    @path = params[:path]
+    @path.append(path_properties)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def grab_file_contents
+    @counter = 0
+    @curriculum = Curricula.find_by_id(params[:id])
+    @git = ::GitFunctionality::Repo.new.get_bare_repo(@curriculum)
+    @blob = @git.gblob(params[:blob])
+    @name = params[:name]
+    path_properties = { name: "#{@name}", path: open_file_curricula_path(params) }
+    @path = params[:path]
+    @path.push(path_properties)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def new
+  end
+
   # creates a new curriculum
   def create
-    if request.post?
-      @user = current_user
-      @curriculum = Curricula.new(curricula_params)
-      @curriculum.attributes = { creator: @user, path: "repos/#{@user.username}/#{@curriculum.cur_name}/.git" }
-      @curriculum.users << @user
+    @user = current_user
+    @curriculum = Curricula.new(curricula_params)
+    @curriculum.attributes = { creator: @user, path: "repos/#{@user.username}/#{@curriculum.cur_name}/.git" }
+    @curriculum.users << @user
 
-      ::GitFunctionality::CreateRepo.new.create_bare_repo(@curriculum)
-      ::GitFunctionality::CreateRepo.new.create_working_directory(@curriculum, @user)
-      ::GitFunctionality::CreateInitialCommit.new.create_initial_commit(@curriculum, false)
+    ::GitFunctionality::CreateRepo.new.create_bare_repo(@curriculum)
+    ::GitFunctionality::CreateRepo.new.create_working_directory(@curriculum, @user)
+    ::GitFunctionality::CreateInitialCommit.new.create_initial_commit(@curriculum, false)
 
-      flash[:success] = 'Successfully created curriculum' if @curriculum.save
-      redirect_to dashboard_dashboard_main_path
-    end
+    flash[:success] = 'Successfully created curriculum' if @curriculum.save
+    redirect_to dashboard_show_path
   end
 
   # generates a fork of a curriculum
@@ -61,42 +92,7 @@ class CurriculaController < ApplicationController
     create_notification_for(3, @fork.creator, @forked)
 
     flash[:success] = 'Successfully forked curriculum' if @fork.save
-    redirect_to dashboard_dashboard_main_path
-  end
-
-  # list all the commits for a curriculum
-  def commits
-    @curriculum = Curricula.find_by_id(params[:id])
-    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
-    @commits = @git.log
-  end
-
-  # reverts a curriculum to a previous save
-  def revert_save
-    @curriculum = Curricula.find_by_id(params[:id])
-    begin
-      ::GitFunctionality::DeleteCommit.new.delete_commit @curriculum, params[:commit_id]
-      create_notification_for(7, current_user, @curriculum)
-    rescue => e
-      logger.error e.message
-      flash[:error] = 'It appears that save has no parents.'
-    end
-    redirect_to c_commit_path(id: @curriculum.id)
-  end
-
-  # compares two saves in a curriculum
-  def compare
-    @curriculum = Curricula.find_by_id(params[:id])
-    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
-    @commit = @git.gcommit(params[:commit])
-
-    begin
-      @difftree = @git.gtree(@commit.parents.first).diff(@commit)
-      @array = []
-      @difftree.each { |i| @array.push(i) }
-    rescue => e
-      logger.error e.message
-    end
+    redirect_to dashboard_show_path
   end
 
   def switch_branch
@@ -112,36 +108,6 @@ class CurriculaController < ApplicationController
     path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }
     @path = []
     @path.push << path_properties << path_properties2
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def grab_tree_folder
-    @counter = 0
-    @curriculum = Curricula.find_by_id(params[:id])
-    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
-    @branch = params[:branch]
-    tree = @git.gtree(params[:tree])
-    @child_trees = tree.trees
-    @child_blobs = tree.blobs
-    path_properties = { name: "#{params[:name]}", path: ajax_open_folder_path(id: @curriculum.id, branch: @branch, tree: params[:tree], path: params[:path], name: params[:name]) }
-    @path = params[:path]
-    @path.append(path_properties)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def grab_file_contents
-    @counter = 0
-    @curriculum = Curricula.find_by_id(params[:id])
-    @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
-    @blob = @git.gblob(params[:blob])
-    @name = params[:name]
-    path_properties = { name: "#{@name}", path: open_file_path(params) }
-    @path = params[:path]
-    @path.push(path_properties)
     respond_to do |format|
       format.js
     end

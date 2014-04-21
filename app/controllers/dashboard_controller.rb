@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
   include NotificationManager
 
   # loads dashboard for current user
-  def dashboard_main
+  def show
     # gets a list of all of the current user's curricula
     begin
       @created_curricula = Curricula.find_curricula_for_creator current_user

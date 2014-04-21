@@ -41,7 +41,7 @@ feature 'Forking' do
   end
 
   def create_curriculum(name, description)
-    visit curricula_create_path
+    visit new_curricula_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

@@ -9,7 +9,7 @@
     <% unless @child_trees.nil? %>
       <% for child_tree in @child_trees %>
         <li>
-          <%= link_to ajax_open_folder_path(:id => @curriculum.id, :branch => @branch, :tree => child_tree[1], :path => @path, :name => child_tree[0]), :remote => true do %> 
+          <%= link_to ajax_open_folder_curricula_path(:id => @curriculum.id, :branch => @branch, :tree => child_tree[1], :path => @path, :name => child_tree[0]), :remote => true do %> 
             <h5 class="glyphicon glyphicon-folder-close"> 
               <%= child_tree[0] %>
             </h5>
@@ -21,7 +21,7 @@
     <% unless @child_blobs.nil? %> 
       <% for child_blob in @child_blobs %>
         <li>
-          <%= link_to open_file_path(:id => @curriculum.id, :branch => @branch, :name => child_blob[0], :blob => child_blob[1], :path => @path), action: :get_file_contents, :remote => true do %>
+          <%= link_to open_file_curricula_path(:id => @curriculum.id, :branch => @branch, :name => child_blob[0], :blob => child_blob[1], :path => @path), action: :get_file_contents, :remote => true do %>
             <h5 class="glyphicon glyphicon-file"> 
               <%= child_blob[0]%>
             </h5>

@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_for :curricula, :url => curricula_create_path, :role => "form", :class => "form", :method => :post do |f| %>
+  <%= form_for :curricula, :url => '/curricula', :role => "form", :class => "form", :method => :post do |f| %>
 
     <div class="form-group">
       <%= f.text_field :cur_name, type:"text", placeholder:"name", class:"form-control", :autofocus => true %>

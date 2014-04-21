@@ -10,7 +10,7 @@ feature 'add sources' do
     create(:user)
     sign_in_with 'bammons123', '12345678'
     create_curriculum 'project', 'some description'
-    visit dashboard_dashboard_main_path
+    visit dashboard_show_path
     click_link 'project'
     click_link 'Sources'
     make_source_with 'http://getbootstrap.com/css/#top', 'This is awesome'
@@ -26,7 +26,7 @@ feature 'add sources' do
   end
 
   def create_curriculum(name, description)
-    visit curricula_create_path
+    visit new_curricula_path
     fill_in 'name', with: name
     fill_in 'description', with: description
     click_button 'Create'

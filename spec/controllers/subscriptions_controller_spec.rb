@@ -53,7 +53,7 @@ describe SubscriptionsController do
       sign_in user
       cur = create(:curricula)
       get(:subscription, 'cur_id' => cur.id, 'redirect' => 'dashboard', 'sub_status' => 'curricula_follow')
-      assert_redirected_to dashboard_dashboard_main_path
+      assert_redirected_to dashboard_show_path
       assert_equal 'You are now following test-curriculum.', flash[:success]
     end
   end
