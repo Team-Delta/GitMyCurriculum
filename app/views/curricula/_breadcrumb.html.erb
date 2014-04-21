@@ -1,11 +1,11 @@
 <% @path.each do |p| %>
   <% if @counter > 1 %>
     <li>
-      <%= link_to "#{p[:name]}", p[:path], :remote => true %>
+      <%= link_to "#{p[:name]}", p[:path],title:"Click this to go back to it", rel:"tooltip", :remote => true %>
     </li>
   <% else %>
     <li>
-      <%= link_to "#{p[:name]}", p[:path] %>
+      <%= link_to "#{p[:name]}", p[:path], title:"Click this to go back to it", rel:"tooltip" %>
     </li>
   <% end %>
   <% @counter = @counter + 1 %>

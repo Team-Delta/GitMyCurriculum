@@ -9,7 +9,7 @@
     <ul class = 'dropdown-menu'>
       <% for b in @branches %>
         <li>
-          <%= link_to switch_branch_curricula_path(:id => @curriculum.id, :branch => b.name), :remote => true do %>
+          <%= link_to switch_branch_curricula_path(:id => @curriculum.id, :branch => b.name),title:"Click this to choose your branch", rel:"tooltip",  :remote => true do %>
             <%= b.name %>
           <% end %>
         </li>
@@ -21,7 +21,7 @@
   <ol id="breadcrumb" class="breadcrumb col-md-8">
     <% @path.each do |p| %>
       <li>
-        <%= link_to "#{p[:name]}", p[:path] %>
+        <%= link_to "#{p[:name]}", p[:path], title:"Click this to go back to it", rel:"tooltip" %>
       </li>
     <% end %>
   </ol>
@@ -31,7 +31,7 @@
 <div class="row col-md-offset-1">
   <div class="col-md-8">
     <div class="panel panel-default" id="stream-contents">
-      <div class="panel-heading">
+      <div class="panel-heading" title="This shows your curriculum">
         <div class="panel-title">
           <%= @branch %>
         </div>
@@ -42,7 +42,7 @@
           <% unless @child_trees.nil? %>
             <% for t in @child_trees %>
               <li>
-                <%= link_to open_folder_curricula_path(:id => @curriculum.id, :branch => @branch, :tree => t[1], :path => @path, :name => t[0]), :remote => true do %>
+                <%= link_to open_folder_curricula_path(:id => @curriculum.id, :branch => @branch, :tree => t[1], :path => @path, :name => t[0]), title:"Click this open your folder", rel:"tooltip", :remote => true do %>
                   <h5 class="glyphicon glyphicon-folder-close">
                     <%= t[0] %>
                   </h5>
@@ -54,7 +54,7 @@
           <% unless @child_blobs.nil? %>
             <% for b in @child_blobs %>
               <li>
-                <%= link_to open_file_curricula_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1], :path => @path), action: :get_file_contents, :remote => true do %>
+                <%= link_to open_file_curricula_path(:id => @curriculum.id, :branch => @branch, :name => b[0], :blob => b[1], :path => @path), action: :get_file_contents, title:"Click this to look at your file", rel:"tooltip", :remote => true do %>
                   <h5 class="glyphicon glyphicon-file">
                     <%= b[0]%>
                   </h5>
@@ -69,25 +69,25 @@
 
   <div class="col-md-3" style="text-align:center;">
     <div class="row" style="padding: 10px;">
-      <%= link_to "Change History", curricula_history_path(:curricula_id => @curriculum.id), class: "btn btn-success" %>
+      <%= link_to "Change History", curricula_history_path(:curricula_id => @curriculum.id), title:"Click this to look at your curricula changes", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
-        <%= link_to "Fork", fork_curricula_path(:id => @curriculum.id), class: "btn btn-success" %>
+        <%= link_to "Fork", fork_curricula_path(:id => @curriculum.id), title:"Click this to make a copy of the curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Edit Curriculum", curricula_edit_path(:id => @curriculum.id), class: "btn btn-success" %>
+      <%= link_to "Edit Curriculum", curricula_edit_path(:id => @curriculum.id), title:"Click this to edit your curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
       <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, @curriculum.id) %>
       <% if !@followed_curricula.blank? %>
         <div class="row" style="padding: 10px;">
-          <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => @curriculum.id, :sub_status => 'curricula_unfollow', :redirect => 'curricula'), class: "btn btn-success" %>
+          <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => @curriculum.id, :sub_status => 'curricula_unfollow', :redirect => 'curricula'), title:"Click this to unfollow the curricula", rel:"tooltip", class: "btn btn-success" %>
         </div>
       <% else %>
         <div class="row" style="padding: 10px;">
-          <%= link_to "Follow", subscriptions_subscription_path(:cur_id => @curriculum.id, :sub_status => 'curricula_follow', :redirect => 'curricula'), class: "btn btn-success" %>
+          <%= link_to "Follow", subscriptions_subscription_path(:cur_id => @curriculum.id, :sub_status => 'curricula_follow', :redirect => 'curricula'), title:"Click this follow the curricula", rel:"tooltip", class: "btn btn-success" %>
         </div>
       <% end %>
 
@@ -98,15 +98,15 @@
     </div> -->
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Sources", source_show_path(:id => @curriculum.id), class: "btn btn-success" %>
+      <%= link_to "Sources", source_show_path(:id => @curriculum.id), title:"Click this to view the curricula's sources", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Upload", upload_curricula_exchange_path(:curricula_id => @curriculum.id), class: "btn btn-success" %>
+      <%= link_to "Upload", upload_curricula_exchange_path(:curricula_id => @curriculum.id), title:"Click this to upload your changes to the curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Download", download_curricula_exchange_path(:curricula_id => @curriculum.id), class: "btn btn-success" %>
+      <%= link_to "Download", download_curricula_exchange_path(:curricula_id => @curriculum.id), title:"Click this to download the curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
   </div>

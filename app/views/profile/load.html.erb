@@ -10,9 +10,9 @@
         <% if current_user && @user.id!=current_user.id %>
           <% @is_peer = Watching.where('user_id=? AND peer_id=?', current_user.id, @user.id) %>
           <% if !@is_peer.blank? %>
-            <%= link_to "Unfollow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'user_unfollow', :tab => 'info'), class:"btn btn-danger btn-lg btn-block" %>
+            <%= link_to "Unfollow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'user_unfollow', :tab => 'info'), title:"Click this to follow this user", rel:"tooltip", class:"btn btn-danger btn-lg btn-block" %>
           <% else %>
-            <%= link_to "Follow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'user_follow', :tab => 'info'), class:"btn btn-primary btn-lg btn-block" %>
+            <%= link_to "Follow", subscriptions_subscription_path(:username => @user.username, :redirect => 'profile', :sub_status => 'user_follow', :tab => 'info'), title:"Click this to unfollow this user", rel:"tooltip", class:"btn btn-primary btn-lg btn-block" %>
           <% end %>
         <% end %>
       </div>  
@@ -22,31 +22,31 @@
   <div class="col-md-8">
     <ul class="nav nav-pills nav-justified">
       <li class="<%= if (params[:tab] == 'info' || !params[:tab])then 'active'  else '' end%>">
-        <a href="#info" data-toggle="tab">
+        <a href="#info" data-toggle="tab" title="User information">
           <span class="glyphicon glyphicon-th"></span>
           Info
         </a>
       </li>
       <li class="<%= if params[:tab] == 'curricula' then 'active'  else '' end%>">
-        <a href="#curricula" data-toggle="tab">
+        <a href="#curricula" data-toggle="tab" title="Curricula owned by user">
           <span class="glyphicon glyphicon-list-alt"></span>
           Curricula
         </a>
       </li>
       <li class="<%= if params[:tab] == 'contributed' then 'active'  else '' end%>">
-        <a href="#contributed" data-toggle="tab">
+        <a href="#contributed" data-toggle="tab" title="Curricula user is a contributor of">
           <span class="glyphicon glyphicon-pencil"></span>
           Contributing
         </a>
       </li>
       <li class="<%= if params[:tab] == 'following' then 'active'  else '' end%>">
-        <a href="#following" data-toggle="tab">
+        <a href="#following" data-toggle="tab" title="Curricula user is following">
           <span class="glyphicon glyphicon-eye-open"></span>
           Following
         </a>
       </li>
       <li>
-        <a href="#peers" data-toggle="tab">
+        <a href="#peers" data-toggle="tab" title="User's peers">
           <span class="glyphicon glyphicon-user"></span>
           <span class="glyphicon glyphicon-user"></span>
           Peers
@@ -63,7 +63,7 @@
           <div class="panel-heading" style="padding-bottom: 20px;">
             <%= @user.username %>
             <%if @user.id==current_user.id%>
-              <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-default pull-right" %> 
+              <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-default pull-right", title:"Click this to edit your profile", rel:"tooltip" %> 
             <%end%>
           </div>
 

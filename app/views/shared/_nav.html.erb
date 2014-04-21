@@ -13,7 +13,7 @@
 
     <%= form_tag "/search/uc_search/", :id => "nav-search", :class => "navbar-form navbar-left", :role => "search", :method => :get do %>
       <div class="form-group">
-        <%= text_field_tag :query, params[:query], class:"form-control", placeholder:"Search!" %>
+        <%= text_field_tag :query, params[:query], class:"form-control", placeholder:"Search!", title:"Search using this bar", rel:"tooltip" %>
       </div>
     <% end %>
     
@@ -21,7 +21,7 @@
       <ul class='nav navbar-nav navbar-right'>
         <li class=''>
           <% if user_signed_in? %>
-            <%= link_to(current_user.username, profile_load_path, :method => :get) %>
+            <%= link_to(current_user.username, profile_load_path, title:"Click this to view your profile", rel:"tooltip", :method => :get) %>
           <% end %>
         </li>
         <li class=''>
