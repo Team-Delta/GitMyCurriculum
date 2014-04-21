@@ -35,7 +35,6 @@ GitMyCurriculum::Application.routes.draw do
         end
       end
 
-
       get 'show' => 'history#show', as: :history
       get 'compare/:commit' => 'history#compare', as: :compare
       get 'revert/:commit' => 'history#revert', as: :revert
