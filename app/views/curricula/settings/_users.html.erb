@@ -2,7 +2,7 @@
   <% unless @users.blank? %>
     <% @users.each do |u| %>
       <% @name = u.username %>
-      <a href="#" class="list-group-item" value="<%= u.username %>"  id="<%= u.username %>">
+      <a href="#" class="list-group-item" value="<%= u.username %>" title="Click to select user"  id="<%= u.username %>">
         <%= u.username %>
       </a>
     <% end %>
