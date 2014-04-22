@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="panel panel-info">
+    <ul class="list-group">
+      <% for r in @requests %>
+        <li class="list-group-item">
+          <%= r.creator %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

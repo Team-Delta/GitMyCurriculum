@@ -1,0 +1,44 @@
+<div class="container">
+  <ul class="nav nav-pills nav-justified">
+    <li class="<%= if params[:tab] == 'conversation' then 'active'  else '' end%>">
+      <a href="#conversation" data-toggle="tab">
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Conversation
+      </a>
+    </li>
+    <li class="<%= if params[:tab] == 'changes' then 'active'  else '' end%>">
+      <a href="#changes" data-toggle="tab">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Changes
+      </a>
+    </li>
+  </ul><!--creating tabs-->
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <hr class="hr-margins">
+
+    <div class="<%= if (params[:tab] == 'conversation' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="conversation">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding-bottom: 20px;">
+          Conversation Garbage here
+        </div>
+
+        <div class="panel-body">
+          Conversation content here
+        </div>
+      </div>
+    </div>
+
+   <div class="<%= if params[:tab] == 'changes' then 'tab-pane active'  else 'tab-pane' end%>" id="changes">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding-bottom: 20px;">
+          Changes
+        </div>
+        <div class="panel-heading" style="padding-bottom 20px;">
+          Changes content here
+        </div>
+      </div>
+    </div>
+  </div> <!--end of tab panes-->
+</div>

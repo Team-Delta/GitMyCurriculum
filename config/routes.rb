@@ -20,7 +20,7 @@ GitMyCurriculum::Application.routes.draw do
   # Curricula area
 
   resources :curricula do
-    
+
     member do
       get ':branch/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
       get ':branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
@@ -37,6 +37,10 @@ GitMyCurriculum::Application.routes.draw do
     get 'settings/contributors' => 'settings#update_contributors', as: :contributors
     get 'settings/search' => 'settings#search_results', as: :settings_search
 
+    get 'show_requests/:curriculum_id' => 'pull_request#show_requests', as: :requests
+    get 'pull_request/:join_request_id' => 'pull_request#pull_request', as: :pull_request
+    get 'merge_request/:join_request_id' => 'pull_request#merge_request', as: :merge
+
     get ':id/download' => 'exchanges#download', as: :download
     get ':id/upload' => 'exchanges#upload', as: :show_upload
     post ':id/upload' => 'exchanges#upload', as: :post_upload
@@ -46,8 +50,6 @@ GitMyCurriculum::Application.routes.draw do
     get ':id/revert/:commit' => 'history#revert', as: :revert
 
   end
-
-  #
 
   get 'splash/load'
 
