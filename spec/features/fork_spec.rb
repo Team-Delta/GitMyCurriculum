@@ -16,7 +16,7 @@ feature 'Forking' do
 
   scenario 'fork a curriculum', js: true do
     click_link 'project'
-    click_link 'Edit Curriculum'
+    click_link 'Settings'
     fill_in 'user', with: 'tcav'
     find('#tcavalet123').click
     click_button '+'

@@ -1,7 +1,7 @@
 # controller for exchanging files between client and server
 class Curricula::ExchangesController < ApplicationController
   def upload
-    @curriculum = Curricula.find_by_id(params[:curricula_id])
+    @curriculum = Curricula.find_by_id(params[:id])
     if request.post?
       uploaded_io = params[:zip]
       begin
@@ -21,7 +21,7 @@ class Curricula::ExchangesController < ApplicationController
   end
 
   def download
-    curriculum = Curricula.find_by_id(params[:curricula_id])
+    curriculum = Curricula.find_by_id(params[:id])
     file_path = "#{Rails.root}/repos/#{curriculum.creator.username}/#{curriculum.cur_name}/working/#{curriculum.cur_name}.zip"
     ::GitFunctionality::Archive.new.archive_folder(curriculum)
     send_file(file_path,
