@@ -59,7 +59,7 @@
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Settings", curricula_edit_path(:id => @curriculum.id), title:"Click this to edit your curricula", rel:"tooltip", class: "btn btn-success" %>
+      <%= link_to "Settings", curricula_settings_path(:id => @curriculum.id), title:"Click this to edit your curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
       <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, @curriculum.id) %>
