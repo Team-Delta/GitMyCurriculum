@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe EditCurriculaController do
+describe Curricula::SettingsController do
 
-  describe "GET 'edit'" do
+  describe "GET 'show'" do
     it 'returns http success' do
       cur = create(:curricula)
       user = create(:user)
       sign_in user
-      get 'edit', id: cur.id
+      get 'show', id: cur.id
       response.should be_success
     end
   end

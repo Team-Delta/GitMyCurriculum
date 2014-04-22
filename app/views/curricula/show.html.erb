@@ -1,22 +1,4 @@
 <div class="row col-md-offset-1">
-  <div class="btn-group col-md-2">
-
-    <button class = 'btn btn-success dropdown-toggle' data-toggle = 'dropdown'>
-      Choose Branch
-      <span class = 'caret'></span>
-    </button>
-
-    <ul class = 'dropdown-menu'>
-      <% for b in @branches %>
-        <li>
-          <%= link_to switch_branch_curricula_path(:id => @curriculum.id, :branch => b.name),title:"Click this to choose your branch", rel:"tooltip",  :remote => true do %>
-            <%= b.name %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-
-  </div>​
 
   <ol id="breadcrumb" class="breadcrumb col-md-8">
     <% @path.each do |p| %>
@@ -77,7 +59,7 @@
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Edit Curriculum", curricula_edit_path(:id => @curriculum.id), title:"Click this to edit your curricula", rel:"tooltip", class: "btn btn-success" %>
+      <%= link_to "Settings", curricula_edit_path(:id => @curriculum.id), title:"Click this to edit your curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
       <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, @curriculum.id) %>
@@ -102,11 +84,12 @@
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Upload", upload_curricula_exchange_path(:curricula_id => @curriculum.id), title:"Click this to upload your changes to the curricula", rel:"tooltip", class: "btn btn-success" %>
+
+      <%= link_to "Upload", curricula_show_upload_path(:id => @curriculum.id), title:"Click this to upload your changes to the curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
     <div class="row" style="padding: 10px;">
-      <%= link_to "Download", download_curricula_exchange_path(:curricula_id => @curriculum.id), title:"Click this to download the curricula", rel:"tooltip", class: "btn btn-success" %>
+      <%= link_to "Download", curricula_download_path(:id => @curriculum.id), title:"Click this to download the curricula", rel:"tooltip", class: "btn btn-success" %>
     </div>
 
   </div>

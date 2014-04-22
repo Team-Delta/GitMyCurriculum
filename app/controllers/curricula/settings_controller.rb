@@ -1,8 +1,8 @@
 # edits curricula
-class EditCurriculaController < ApplicationController
+class Curricula::SettingsController < ApplicationController
   include NotificationManager
   # updates the information of a curriculum
-  def edit
+  def show
     @curricula = Curricula.find(params[:id])
     @contributors = UserCurricula.get_contributors @curricula
     if request.post?
