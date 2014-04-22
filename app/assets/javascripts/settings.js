@@ -5,7 +5,7 @@ $(function(){
   });
   $("#user").keyup(function() {
     if ($("#user").val().length > 3) {
-      $.get("/edit_curricula/search_results", $("#user").serialize());
+      $.get("/curricula/settings/search", $("#user").serialize());
     }
     if ($("#user").val().length <= 3) {
       $("#users").html("");
