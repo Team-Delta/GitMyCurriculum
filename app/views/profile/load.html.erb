@@ -62,9 +62,12 @@
         <div class="panel panel-default">
           <div class="panel-heading" style="padding-bottom: 20px;">
             <%= @user.username %>
+            <%if can? :update, @user%>
             <%if @user.id==current_user.id%>
               <%= link_to "Edit Profile", edit_user_registration_path, class:"btn btn-default pull-right", title:"Click this to edit your profile", rel:"tooltip" %> 
             <%end%>
+            <%end%>
+
           </div>
 
           <div class="panel-body">

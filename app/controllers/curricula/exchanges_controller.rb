@@ -2,6 +2,7 @@
 class Curricula::ExchangesController < ApplicationController
   def upload
     @curriculum = Curricula.find_by_id(params[:id])
+     authorize! :update, @curriculum
     if request.post?
       uploaded_io = params[:zip]
       # begin
