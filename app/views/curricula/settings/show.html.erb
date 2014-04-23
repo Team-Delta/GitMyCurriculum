@@ -7,10 +7,10 @@
       <h4> Edit Description </h4>
       <%= f.text_area :cur_description, type:"text", value:@curricula.cur_description, class:"form-control", title:"Edit curricula description here", rel:"tooltip", :autofocus => true %>
       <br>
-
-      <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding", title:"Click this to submit your changes", rel:"tooltip"%>
-   
-    <% end %>
+      <% if can? :update, @curricula %>
+         <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding", title:"Click this to submit your changes", rel:"tooltip"%>
+      <%end%>
+    <%end%>
   </div>
 
 
