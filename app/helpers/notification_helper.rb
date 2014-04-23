@@ -45,10 +45,22 @@ module NotificationHelper
       content_tag(:p,
                   "#{link_to_author(n.author)} has saved to stream #{n.stream} on #{link_to_curriculum_with_owner(n.curricula)}<br>#{link_to_commit(n.commit_id, n.curricula)} #{n.message}".html_safe,
                   class: 'bg-info text-primary')
+    when 1
+      content_tag(:p,
+                  "#{link_to_author(n.author)} has submitted a join request for #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
+                  class: 'bg-info text-primary')
     when 3
       content_tag(:p,
                   "#{link_to_author(n.author)} has forked #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
                   class: 'bg-info text-primary')
+    when 5
+      content_tag(:p,
+                  "#{link_to_author(n.author)}'s join request has been approved #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
+                  class: 'bg-success text-primary')
+    when 6
+      content_tag(:p,
+                  "#{link_to_author(n.author)}'s join request has been denied #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
+                  class: 'bg-danger text-primary')
     when 7
       content_tag(:p,
                   "#{link_to_author(n.author)} has deleted a save on #{link_to_curriculum(n.curricula, n.author)}".html_safe,

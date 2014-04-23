@@ -1,5 +1,6 @@
 class Curricula::PullRequestController < ApplicationController
   include CommentManager
+  include NotificationManager
 
   def show_requests
     @curriculum = Curricula.find_by_id(params[:id])
@@ -20,9 +21,11 @@ class Curricula::PullRequestController < ApplicationController
     if params[:accept]
       ::GitFunctionality::MergeRequests.new.merge @join_request
       @join_request.status = true
+      create_notification_for(5, @join_request.creator, @join_request.curricula)
     elsif params[:deny]
       ::GitFunctionality::MergeRequests.new.clean_up @join_request
       @join_request.status = false
+      create_notification_for(6, @join_request.creator, @join_request.curricula)
     end
     @join_request.closed = true
     @join_request.save

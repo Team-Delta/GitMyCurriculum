@@ -1,5 +1,6 @@
 # controller for exchanging files between client and server
 class Curricula::ExchangesController < ApplicationController
+  include NotificationManager
   def upload
     @curriculum = Curricula.find_by_id(params[:id])
      authorize! :update, @curriculum
@@ -26,6 +27,7 @@ class Curricula::ExchangesController < ApplicationController
         flash[:success] = 'File uploaded successfully'
         ::GitFunctionality::MergeRequests.new.create_branch(@curriculum, current_user.username)
         ::GitFunctionality::MergeRequests.new.create_join_request(@curriculum, current_user, "stuff")
+        create_notification_for(1, current_user, @curriculum)
       else
         flash[:error] = 'The uploaded file must be a zip'
       end
