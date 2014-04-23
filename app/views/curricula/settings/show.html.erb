@@ -5,10 +5,10 @@
       <h2> Edit <%=@curricula.cur_name%></h2>
       <br>
       <h4> Edit Description </h4>
-      <%= f.text_area :cur_description, type:"text", value:@curricula.cur_description, class:"form-control", :autofocus => true %>
+      <%= f.text_area :cur_description, type:"text", value:@curricula.cur_description, class:"form-control", title:"Edit curricula description here", rel:"tooltip", :autofocus => true %>
       <br>
 
-      <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding"%>
+      <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding", title:"Click this to submit your changes", rel:"tooltip"%>
    
     <% end %>
   </div>
@@ -18,8 +18,9 @@
 
 
   <div class="col-md-4">
+
     <%= form_for :curricula, :url => curricula_contributors_path, :id=>"users_search", :role =>"add", :method => :get, :remote => true do |f|%>
-      <div class="input-group">
+      <div class="input-group" title="Click the plus button to add contributor">
         <%= text_field_tag :user, params[:user], class:"form-control", placeholder:"Add User", :autocomplete => 'off', :autofocus => true %>
         <%=hidden_field_tag :curriculum, @curricula.id%>
         <%=hidden_field_tag :task, 'add'%>
@@ -41,7 +42,7 @@
           <div class="list-group-item">No Contributors</div>
         <%else%>
           <%@contributors.each do |c| %>
-            <div class="list-group-item" >
+            <div class="list-group-item" title="Click the minus sign to remove the contributor">
               <h4><%=c.user.username%><%= link_to curricula_contributors_path(:user => c.user.username, :curriculum => @curricula.id, class: "list-group-item-heading", :task =>'remove'), :remote => true do %>
                   <h5 class="glyphicon glyphicon-minus pull-right" id="remove_<%= c.user.username %>"></h5>
                 <% end %> 
