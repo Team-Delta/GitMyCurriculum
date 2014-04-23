@@ -25,8 +25,25 @@
         </div>
 
         <div class="panel-body">
-          Conversation content here
+
+          <% for c in @comments %>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <%= c.creator.username %> commented on <%= c.updated_at.month %> <%= c.updated_at.day %> <%= c.updated_at.year %> 
+              </div>
+              <div class="panel-body">
+                <%= c.message %>
+              </div>
+            </div>
+          <% end %>
+
+          <%= form_for :comment, :url => curricula_comment_path(:id => @join_request.id), :role => "form", :method => :post do |f| %>
+            <%= f.text_area :message, type:"text", value: "Leave a comment.", class:"form-control", :autofocus => true %>
+            <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding"%>
+          <% end %>
+
         </div>
+
       </div>
     </div>
 
