@@ -17,38 +17,40 @@ GitMyCurriculum::Application.routes.draw do
   get 'profile/load'
   get 'dashboard/show'
 
+  # Curricula area
+
   resources :curricula do
 
     member do
-      get 'show/:id/:branch' => 'curricula#switch_branch', as: :switch_branch
-      get ':branch/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
-      get ':branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
-      get 'fork/:id' => 'curricula#fork', as: :fork
-    end
-
-    scope module: :curricula do
-
-      resource :exchange do
-        member do
-          get 'upload'
-          post 'upload'
-          get 'download'
-        end
-      end
-
-      get 'show' => 'history#show', as: :history
-      get 'compare/:commit' => 'history#compare', as: :compare
-      get 'revert/:commit' => 'history#revert', as: :revert
-
+      get ':id/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
+      get ':id/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
+      get 'fork' => 'curricula#fork', as: :fork
     end
 
   end
 
-  get 'edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :curricula_edit
-  post '/edit_curricula/edit/:id', to: 'edit_curricula#edit', as: :edit_curriculum
+  namespace :curricula do
 
-  get 'edit_curricula/update_contributors' => 'edit_curricula#update_contributors', as: :update_contributors
-  get 'edit_curricula/search_results' => 'edit_curricula#search_results', as: :search_results
+    get ':id/settings', to: 'settings#show', as: :settings
+    post ':id/settings', to: 'settings#show', as: :settings_post
+
+    get 'settings/contributors' => 'settings#update_contributors', as: :contributors
+    get 'settings/search' => 'settings#search_results', as: :settings_search
+
+    get ':id/requests/' => 'pull_request#show_requests', as: :requests
+    get 'join/:id' => 'pull_request#pull_request', as: :join_request
+    get 'merge/:id' => 'pull_request#merge_request', as: :merge
+    post 'comment' => 'pull_request#comment', as: :comment
+
+    get ':id/download' => 'exchanges#download', as: :download
+    get ':id/upload' => 'exchanges#upload', as: :show_upload
+    post ':id/upload' => 'exchanges#upload', as: :post_upload
+
+    get ':id/history' => 'history#show', as: :history
+    get ':id/compare/:commit' => 'history#compare', as: :compare
+    get ':id/revert/:commit' => 'history#revert', as: :revert
+
+  end
 
   get 'splash/load'
 

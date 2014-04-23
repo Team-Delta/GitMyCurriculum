@@ -1,0 +1,56 @@
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-1">
+    <%= form_for :edit_curriculum, :url => curricula_settings_post_path, :role => "form", :method => :post do |f| %>
+      <h2> Edit <%=@curricula.cur_name%></h2>
+      <br>
+      <h4> Edit Description </h4>
+      <%= f.text_area :cur_description, type:"text", value:@curricula.cur_description, class:"form-control", title:"Edit curricula description here", rel:"tooltip", :autofocus => true %>
+      <br>
+      <% if can? :update, @curricula %>
+         <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding", title:"Click this to submit your changes", rel:"tooltip"%>
+      <%end%>
+    <%end%>
+  </div>
+
+
+  <div class="col-md-2"></div>
+
+
+  <div class="col-md-4">
+    <%= form_for :curricula, :url => curricula_contributors_path, :id=>"users_search", :role =>"add", :method => :get, :remote => true do |f|%>
+      <div class="input-group" title="Click the plus button to add contributor">
+        <%= text_field_tag :user, params[:user], class:"form-control", placeholder:"Add User", :autocomplete => 'off', :autofocus => true %>
+        <%=hidden_field_tag :curriculum, @curricula.id%>
+        <%=hidden_field_tag :task, 'add'%>
+        <span class="input-group-btn">
+          <%= button_tag "+", class:"btn btn-default" %>
+        </span>
+      </div>
+    <%end%>
+
+    <div class="panel panel-default" id="users"></div>
+
+    <h3>
+      <center>Curriculum Contributors</center>
+    </h3>
+
+    <div class="panel panel-default">
+      <div class="list-group" id="contributor_list">
+        <%if @contributors.blank?%>
+          <div class="list-group-item">No Contributors</div>
+        <%else%>
+          <%@contributors.each do |c| %>
+            <div class="list-group-item" title="Click the minus sign to remove the contributor">
+              <h4><%=c.user.username%><%= link_to curricula_contributors_path(:user => c.user.username, :curriculum => @curricula.id, class: "list-group-item-heading", :task =>'remove'), :remote => true do %>
+                  <h5 class="glyphicon glyphicon-minus pull-right" id="remove_<%= c.user.username %>"></h5>
+                <% end %> 
+              </h4>
+            </div>
+          <% end %>
+        <%end%>
+      </div>
+    </div>
+
+  </div>
+</div>   

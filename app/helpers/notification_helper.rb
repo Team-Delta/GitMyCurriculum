@@ -20,7 +20,7 @@ module NotificationHelper
   # +commit+:: id of commit to link to
   # +curriculum+:: curriculum object that commit is on
   def link_to_commit(commit, curriculum)
-    link_to commit, curricula_compare_path(curricula_id: curriculum.id, commit: commit), class: 'no-link'
+    link_to commit, curricula_compare_path(id: curriculum.id, commit: commit), class: 'no-link'
   end
 
   # create link to a curriculum including the creator of the curriculum

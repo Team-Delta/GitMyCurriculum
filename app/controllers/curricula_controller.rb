@@ -5,38 +5,28 @@ class CurriculaController < ApplicationController
   def show
     @curriculum = Curricula.find_by_id(params[:id])
     @git = ::GitFunctionality::Repo.new.get_bare_repo @curriculum
-    @git_working = ::GitFunctionality::Repo.new.get_working_repo @curriculum
-    @git_working.pull
-    @branches = @git.branches
     path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
     path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }
     @path = []
     @path.push << path_properties << path_properties2
 
-    begin
-      commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
-      @branch = 'master'
+    commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/master")
+    @branch = 'master'
 
-      tree = @git.gtree(commit[0..-2])
+    tree = @git.gtree(commit[0..-2])
 
-      @child_trees = tree.trees
-      @child_blobs = tree.blobs
-    rescue => e
-      logger.error e.message
-      flash[:error] = 'It appears that your project does not have any commits. You have no branches or objects to display.'
-      @branch = 'master'
-    end
+    @child_trees = tree.trees
+    @child_blobs = tree.blobs
   end
 
   def grab_tree_folder
     @counter = 0
     @curriculum = Curricula.find_by_id(params[:id])
     @git = ::GitFunctionality::Repo.new.get_bare_repo(@curriculum)
-    @branch = params[:branch]
     tree = @git.gtree(params[:tree])
     @child_trees = tree.trees
     @child_blobs = tree.blobs
-    path_properties = { name: "#{params[:name]}", path: open_folder_curricula_path(id: @curriculum.id, branch: @branch, tree: params[:tree], path: params[:path], name: params[:name]) }
+    path_properties = { name: "#{params[:name]}", path: open_folder_curricula_path(id: @curriculum.id, tree: params[:tree], path: params[:path], name: params[:name]) }
     @path = params[:path]
     @path.append(path_properties)
     respond_to do |format|
@@ -79,7 +69,6 @@ class CurriculaController < ApplicationController
   # generates a fork of a curriculum
   def fork
     @forked = Curricula.find_by_id(params[:id])
-    @creator = @forked.creator
 
     @fork = Curricula.new
     @fork.attributes = { cur_name: @forked.cur_name, cur_description: @forked.cur_description,
@@ -93,24 +82,6 @@ class CurriculaController < ApplicationController
 
     flash[:success] = 'Successfully forked curriculum' if @fork.save
     redirect_to dashboard_show_path
-  end
-
-  def switch_branch
-    @counter = 0
-    @curriculum = Curricula.find_by_id(params[:id])
-    @git = get_bare_repo @curriculum
-    @branch = params[:branch]
-    commit = File.read("repos/#{@curriculum.creator.username}/#{@curriculum.cur_name}/.git/refs/heads/#{params[:branch]}")
-    tree = @git.gtree(commit[0..-2])
-    @child_trees = tree.trees
-    @child_blobs = tree.blobs
-    path_properties = { name: "#{@curriculum.creator.username}", path: profile_load_path(id: @curriculum.creator.username) }
-    path_properties2 = { name: "#{@curriculum.cur_name}", path: curricula_path(id: @curriculum.id) }
-    @path = []
-    @path.push << path_properties << path_properties2
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

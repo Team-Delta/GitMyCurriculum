@@ -1,0 +1,86 @@
+<div class="container">
+  <ul class="nav nav-pills nav-justified">
+    <li class="<%= if params[:tab] == 'conversation' then 'active'  else '' end%>">
+      <a href="#conversation" data-toggle="tab">
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Conversation
+      </a>
+    </li>
+    <li class="<%= if params[:tab] == 'changes' then 'active'  else '' end%>">
+      <a href="#changes" data-toggle="tab">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Changes
+      </a>
+    </li>
+  </ul><!--creating tabs-->
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <hr class="hr-margins">
+
+    <div class="<%= if (params[:tab] == 'conversation' || !params[:tab])then 'tab-pane active'  else 'tab-pane' end%>" id="conversation">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding-bottom: 20px;">
+          Conversation Garbage here
+        </div>
+
+        <div class="panel-body">
+
+          <% for c in @comments %>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <%= c.creator.username %> commented on <%= c.updated_at.month %> <%= c.updated_at.day %> <%= c.updated_at.year %> 
+              </div>
+              <div class="panel-body">
+                <%= c.message %>
+              </div>
+            </div>
+          <% end %>
+
+          <%= form_for :comment, :url => curricula_comment_path(:id => @join_request.id), :role => "form", :method => :post do |f| %>
+            <%= f.text_area :message, type:"text", value: "Leave a comment.", class:"form-control", :autofocus => true %>
+            <%= submit_tag "Submit",  id: "submit", class:"btn btn-primary btn-no-padding"%>
+          <% end %>
+
+        </div>
+
+      </div>
+    </div>
+
+   <div class="<%= if params[:tab] == 'changes' then 'tab-pane active'  else 'tab-pane' end%>" id="changes">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="padding-bottom: 20px;">
+          Changes
+        </div>
+        <div class="panel-heading" style="padding-bottom 20px;">
+          <div class="container">
+            <% @array.each do |a| %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= a.path %>
+                </div>
+                <div class="panel-body">
+                  <%= @source = '' %>
+                  <%= @dest = '' %>
+                  <% unless a.blob(:src).nil? %>
+                    <% @source = a.blob(:src).contents %>
+                  <% end %>
+                  <% unless a.blob(:dst).nil? %>
+                    <% @dest = a.blob(:dst).contents %>
+                  <% end %>
+                  <%= Diffy::Diff.new(@source, @dest).to_s(:html).html_safe %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--end of tab panes-->
+</div>
+
+<div class="col-md-3 col-md-offset-4">
+  <%= link_to "Accept", curricula_merge_path(:id => @join_request.id, :accept => true), class:"btn btn-success" %>
+
+  <%= link_to "Decline", curricula_merge_path(:id => @join_request.id, :accept => false), class:"btn btn-danger pull-right" %>
+</div>

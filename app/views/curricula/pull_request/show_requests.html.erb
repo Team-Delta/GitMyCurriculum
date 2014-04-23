@@ -1,0 +1,30 @@
+<div class="container">
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Join Requests for <%= @curriculum.cur_name %>: </div>
+    <ul class="list-group">
+      <% for r in @requests %>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-6">
+              <%= link_to curricula_join_request_path(:id => r.id) do %>
+                <h4>
+                  <%= r.message %>
+                </h4>
+              <% end %>
+            </div>
+          </div>
+          Requested By: 
+          <strong>
+            <%= r.creator.username %>
+          </strong> 
+          on 
+          <strong>
+            <%= r.updated_at.strftime("%m-%d-%y") %>
+          </strong>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>

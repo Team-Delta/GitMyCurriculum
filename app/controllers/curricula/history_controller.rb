@@ -1,10 +1,10 @@
 # controller for viewing commit history, comparing and deleting commits on a curricula
 class Curricula::HistoryController < ApplicationController
   include NotificationManager
-  
+
   # shows a commit history for the curricula
   def show
-    @curriculum = Curricula.find_by_id(params[:curricula_id])
+    @curriculum = Curricula.find_by_id(params[:id])
     @git = ::GitFunctionality::Repo.new.get_bare_repo(@curriculum)
     @commits = @git.log
   end

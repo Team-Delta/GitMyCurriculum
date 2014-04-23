@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'edit_curricula' do
+feature 'settings' do
 
   background do
     create(:user)
@@ -18,14 +18,14 @@ feature 'edit_curricula' do
 
     visit dashboard_show_path
     click_link 'project'
-    click_link 'Edit Curriculum'
+    click_link 'Settings'
     page.should have_css('#edit_curriculum_cur_description')
 
     fill_in 'edit_curriculum_cur_description', with: 'this is a thing'
     click_button 'submit'
 
     click_link 'project'
-    click_link 'Edit Curriculum'
+    click_link 'Settings'
     page.should have_css('#edit_curriculum_cur_description', text: 'this is a thing')
 
   end
@@ -34,7 +34,7 @@ feature 'edit_curricula' do
 
     visit dashboard_show_path
     click_link 'project'
-    click_link 'Edit Curriculum'
+    click_link 'Settings'
     page.should have_css('#edit_curriculum_cur_description')
 
     fill_in 'user', with: 'tcav'
@@ -51,7 +51,7 @@ feature 'edit_curricula' do
 
     visit dashboard_show_path
     click_link 'project'
-    click_link 'Edit Curriculum'
+    click_link 'Settings'
     page.should have_css('#edit_curriculum_cur_description')
 
     fill_in 'user', with: 'bamm'

@@ -1,15 +1,14 @@
 # edits curricula
-class EditCurriculaController < ApplicationController
+class Curricula::SettingsController < ApplicationController
   include NotificationManager
   # updates the information of a curriculum
-  def edit
+  def show
     @curricula = Curricula.find(params[:id])
     @contributors = UserCurricula.get_contributors @curricula
     authorize! :update, @curricula
     if request.post?
       @curricula.update_attributes(curricula_params)
-      flash[:success] = 'Curriculum Update Successfully'
-      redirect_to dashboard_dashboard_main_path
+      redirect_to dashboard_show_path
     end
   end
 
@@ -42,3 +41,4 @@ class EditCurriculaController < ApplicationController
     params.require(:edit_curriculum).permit(:cur_name, :cur_description, :creator_id, :path)
   end
 end
+
