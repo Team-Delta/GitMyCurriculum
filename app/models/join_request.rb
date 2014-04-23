@@ -16,5 +16,8 @@ class JoinRequest < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
   class << self
+    def get_pull_requests_for(curriculum)
+      where('join_requests.curriculum_id = ?', curriculum)
+    end
   end
 end
