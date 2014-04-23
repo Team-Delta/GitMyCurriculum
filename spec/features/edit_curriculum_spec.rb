@@ -12,7 +12,6 @@ feature 'Edit a curriculum' do
     expect(page).to have_content('Successfully created curriculum')
   end
 
-
   def sign_in_with(email, password)
     visit splash_load_path
     fill_in 'email or username', with: email
@@ -27,7 +26,7 @@ feature 'Edit a curriculum' do
     click_button 'Create'
   end
 
-  def edit_curriculum_with()
+  def edit_curriculum_with
     visit edit_curricula_path
     click_button 'Submit'
     expect(page).to have_content ('Notifications: ')

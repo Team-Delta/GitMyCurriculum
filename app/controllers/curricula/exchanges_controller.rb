@@ -3,7 +3,7 @@ class Curricula::ExchangesController < ApplicationController
   include NotificationManager
   def upload
     @curriculum = Curricula.find_by_id(params[:id])
-     authorize! :update, @curriculum
+    authorize! :update, @curriculum
     if request.post?
       uploaded_io = params[:zip]
       # begin
@@ -26,7 +26,7 @@ class Curricula::ExchangesController < ApplicationController
         end
         flash[:success] = 'File uploaded successfully'
         ::GitFunctionality::MergeRequests.new.create_branch(@curriculum, current_user.username)
-        ::GitFunctionality::MergeRequests.new.create_join_request(@curriculum, current_user, "stuff")
+        ::GitFunctionality::MergeRequests.new.create_join_request(@curriculum, current_user, 'stuff')
         create_notification_for(1, current_user, @curriculum)
       else
         flash[:error] = 'The uploaded file must be a zip'

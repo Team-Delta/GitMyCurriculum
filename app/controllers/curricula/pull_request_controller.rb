@@ -43,7 +43,7 @@ class Curricula::PullRequestController < ApplicationController
 
     puts params[:message]
 
-    redirect_to curricula_join_request_path(:id => join_request.id)
+    redirect_to curricula_join_request_path(id: join_request.id)
   end
 
   private
