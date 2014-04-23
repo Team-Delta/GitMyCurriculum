@@ -45,12 +45,12 @@ module NotificationHelper
       content_tag(:p,
                   "#{link_to_author(n.author)} has saved to stream #{n.stream} on #{link_to_curriculum_with_owner(n.curricula)}<br>#{link_to_commit(n.commit_id, n.curricula)} #{n.message}".html_safe,
                   class: 'bg-info text-primary')
-      
+
     when n.notification_type == 3
       content_tag(:p,
                   "#{link_to_author(n.author)} has forked #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
                   class: 'bg-info text-primary')
-    
+
     when n.notification_type == 7
       content_tag(:p,
                   "#{link_to_author(n.author)} has deleted a save on #{link_to_curriculum(n.curricula, n.author)}".html_safe,
@@ -59,7 +59,7 @@ module NotificationHelper
       content_tag(:p,
                   "#{link_to_author(n.author)} has been added as a contributor to #{link_to_curriculum_with_owner(n.curricula)}".html_safe,
                   class: 'bg-info text-primary')
-    when n.notification_type > 9 
+    when n.notification_type > 9
     end
   end
 
@@ -77,7 +77,7 @@ module NotificationHelper
       content_tag(:p,
                   "#{link_to_author(n.author)}'s join request has been denied #{link_to_curriculum(n.curricula, n.curricula.creator)}".html_safe,
                   class: 'bg-danger text-primary')
-      
+
     end
   end
 end
