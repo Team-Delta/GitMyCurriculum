@@ -60,6 +60,7 @@ module NotificationHelper
                   "#{link_to_author(n.author)} has been added as a contributor to #{link_to_curriculum_with_owner(n.curricula)}".html_safe,
                   class: 'bg-info text-primary')
     when n.notification_type > 9
+      construct_join_message_for(n)
     end
   end
 
