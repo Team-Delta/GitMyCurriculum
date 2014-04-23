@@ -22,8 +22,8 @@ GitMyCurriculum::Application.routes.draw do
   resources :curricula do
 
     member do
-      get ':branch/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
-      get ':branch/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
+      get ':id/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
+      get ':id/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
       get 'fork' => 'curricula#fork', as: :fork
     end
 
@@ -37,9 +37,9 @@ GitMyCurriculum::Application.routes.draw do
     get 'settings/contributors' => 'settings#update_contributors', as: :contributors
     get 'settings/search' => 'settings#search_results', as: :settings_search
 
-    get 'show_requests/:curriculum_id' => 'pull_request#show_requests', as: :requests
-    get 'pull_request/:join_request_id' => 'pull_request#pull_request', as: :pull_request
-    get 'merge_request/:join_request_id' => 'pull_request#merge_request', as: :merge
+    get ':id/show_requests/' => 'pull_request#show_requests', as: :requests
+    get 'join_request/:id' => 'pull_request#pull_request', as: :join_request
+    get 'merge_request/:id' => 'pull_request#merge_request', as: :merge
 
     get ':id/download' => 'exchanges#download', as: :download
     get ':id/upload' => 'exchanges#upload', as: :show_upload

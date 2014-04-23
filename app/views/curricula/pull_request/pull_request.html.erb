@@ -36,9 +36,34 @@
           Changes
         </div>
         <div class="panel-heading" style="padding-bottom 20px;">
-          Changes content here
+          <div class="container">
+            <% @array.each do |a| %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= a.path %>
+                </div>
+                <div class="panel-body">
+                  <%= @source = '' %>
+                  <%= @dest = '' %>
+                  <% unless a.blob(:src).nil? %>
+                    <% @source = a.blob(:src).contents %>
+                  <% end %>
+                  <% unless a.blob(:dst).nil? %>
+                    <% @dest = a.blob(:dst).contents %>
+                  <% end %>
+                  <%= Diffy::Diff.new(@source, @dest).to_s(:html).html_safe %>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div> <!--end of tab panes-->
+</div>
+
+<div class="col-md-3 col-md-offset-4">
+  <%= link_to "Accept", curricula_merge_path(:id => @join_request.id, :accept => true), class:"btn btn-success" %>
+
+  <%= link_to "Decline", curricula_merge_path(:id => @join_request.id, :accept => false), class:"btn btn-danger pull-right" %>
 </div>

@@ -36,6 +36,9 @@ gem 'diffy'
 # passing data to javascript
 gem 'gon'
 
+# Unzipping files
+gem 'rubyzip'
+
 group :development do
     # automated test running on development machines
     gem 'guard-rspec'
