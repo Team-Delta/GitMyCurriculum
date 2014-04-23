@@ -12,6 +12,7 @@ require 'os'
 
 # User authentication
 gem 'devise'
+gem "cancan"
 
 # Use mysql as the database for Active Record
 gem 'mysql2'
