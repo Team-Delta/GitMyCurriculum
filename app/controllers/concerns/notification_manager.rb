@@ -10,7 +10,7 @@ module NotificationManager
   def create_notification_for(type, author, curriculum, branch = nil, commit = nil)
     @notification = Notification.new
     @notification.attributes = { notification_type: type, author: author, curricula: curriculum }
-    if !commit.nil?
+    if commit.nil?
       time = Time.new
       @notification.attributes = { created_at: time.strftime('%y-%m-%d') }
     else
