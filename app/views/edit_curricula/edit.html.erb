@@ -20,7 +20,7 @@
   <div class="col-md-4">
     <%= form_for :curricula, :url => update_contributors_path, :id=>"users_search", :role =>"add", :method => :get, :remote => true do |f|%>
       <div class="input-group">
-        <%= text_field_tag :user, params[:user], class:"form-control", placeholder:"Add User", :autocomplete => 'off', :autofocus => true %>
+        <%= text_field_tag :user, params[:user], class:"form-control", placeholder:"Add User", :autocomplete => 'on', :autofocus => true %>
         <%=hidden_field_tag :curriculum, @curricula.id%>
         <%=hidden_field_tag :task, 'add'%>
         <span class="input-group-btn">
@@ -53,4 +53,4 @@
     </div>
 
   </div>
-</div>
+</div>   

@@ -23,6 +23,15 @@ module NotificationHelper
     link_to commit, curricula_compare_path(curricula_id: curriculum.id, commit: commit), class: 'no-link'
   end
 
+  # create link to a curriculum including the creator of the curriculum
+  #
+  # +curriculum+:: curriculum object being linked to
+  # +author+:: user object that is a contributor of repo
+  # +owner+:: owner of the repo
+  def link_to_curriculum_with_owner(curriculum)
+    link_to "#{curriculum.creator.username}/#{curriculum.cur_name}", curricula_path(id: curriculum.id), class: 'no-link'
+  end
+
   # creates a message for a given type of notification
   #
   # +n+:: notification object
@@ -34,7 +43,7 @@ module NotificationHelper
     case n.notification_type
     when 0
       content_tag(:p,
-                  "#{link_to_author(n.author)} has saved to stream #{n.stream} on #{link_to_curriculum(n.curricula, n.author)}<br>#{link_to_commit(n.commit_id, n.curricula)} #{n.message}".html_safe,
+                  "#{link_to_author(n.author)} has saved to stream #{n.stream} on #{link_to_curriculum_with_owner(n.curricula)}<br>#{link_to_commit(n.commit_id, n.curricula)} #{n.message}".html_safe,
                   class: 'bg-info text-primary')
     when 3
       content_tag(:p,
@@ -46,7 +55,7 @@ module NotificationHelper
                   class: 'bg-danger text-danger')
     when 8
       content_tag(:p,
-                  "#{link_to_author(n.author)} has been added as a contributor to #{link_to_curriculum(n.curricula, n.author)}".html_safe,
+                  "#{link_to_author(n.author)} has been added as a contributor to #{link_to_curriculum_with_owner(n.curricula)}".html_safe,
                   class: 'bg-info text-primary')
     end
   end
