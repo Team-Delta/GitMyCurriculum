@@ -37,9 +37,10 @@ GitMyCurriculum::Application.routes.draw do
     get 'settings/contributors' => 'settings#update_contributors', as: :contributors
     get 'settings/search' => 'settings#search_results', as: :settings_search
 
-    get ':id/show_requests/' => 'pull_request#show_requests', as: :requests
-    get 'join_request/:id' => 'pull_request#pull_request', as: :join_request
-    get 'merge_request/:id' => 'pull_request#merge_request', as: :merge
+    get ':id/requests/' => 'pull_request#show_requests', as: :requests
+    get 'join/:id' => 'pull_request#pull_request', as: :join_request
+    get 'merge/:id' => 'pull_request#merge_request', as: :merge
+    post 'comment' => 'pull_request#comment', as: :comment
 
     get ':id/download' => 'exchanges#download', as: :download
     get ':id/upload' => 'exchanges#upload', as: :show_upload

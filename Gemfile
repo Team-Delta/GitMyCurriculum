@@ -7,9 +7,6 @@ gem 'rails', '4.0.2'
 # Faster debug for Rails
 # gem 'debugger'
 
-# Easy solution for os dependant dependancies
-require 'os'
-
 # User authentication
 gem 'devise'
 gem "cancan"
@@ -49,15 +46,6 @@ group :development do
 
     # used for development seeding of database
     gem 'seed-fu', github: 'mbleigh/seed-fu'
-
-    # Easy solution for os dependant dependancies
-    require 'os'
-
-    if OS.mac? then
-        # notifications for guard on a mac
-        puts 'OSX detected'
-        gem 'growl_notify'
-    end
 
     # looks for n + 1 queries
     gem 'bullet'
