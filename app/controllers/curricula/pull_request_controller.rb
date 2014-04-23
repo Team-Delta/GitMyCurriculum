@@ -21,11 +21,11 @@ class Curricula::PullRequestController < ApplicationController
     if params[:accept]
       ::GitFunctionality::MergeRequests.new.merge @join_request
       @join_request.status = true
-      create_notification_for(5, @join_request.creator, @join_request.curricula)
+      create_notification_for(11, @join_request.creator, @join_request.curricula)
     elsif params[:deny]
       ::GitFunctionality::MergeRequests.new.clean_up @join_request
       @join_request.status = false
-      create_notification_for(6, @join_request.creator, @join_request.curricula)
+      create_notification_for(12, @join_request.creator, @join_request.curricula)
     end
     @join_request.closed = true
     @join_request.save

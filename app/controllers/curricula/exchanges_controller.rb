@@ -27,7 +27,7 @@ class Curricula::ExchangesController < ApplicationController
         flash[:success] = 'File uploaded successfully'
         ::GitFunctionality::MergeRequests.new.create_branch(@curriculum, current_user.username)
         ::GitFunctionality::MergeRequests.new.create_join_request(@curriculum, current_user, 'stuff')
-        create_notification_for(1, current_user, @curriculum)
+        create_notification_for(10, current_user, @curriculum)
       else
         flash[:error] = 'The uploaded file must be a zip'
       end
