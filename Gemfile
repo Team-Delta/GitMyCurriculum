@@ -67,7 +67,7 @@ end
 group :test, :development do
 
   # Ruby and Rails formatter. To install on sublime run package control and search rubocop and install it as well.
-  gem 'rubocop'
+  gem 'rubocop', '~>0.20.1'
 
   # Simulates the user in test cases
   gem 'capybara'
