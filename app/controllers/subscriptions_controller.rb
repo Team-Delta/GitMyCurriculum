@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
       @to_follow = @curricula.cur_name
     end
 
-    set_relation(params[:sub_status], @curricula, @user) if validate_login(@to_follow, params[:sub_status])
+    set_relation(params[:sub_status], @curricula, @user) if validate_login(@to_follow)
 
     redirect_to_place(params[:redirect], params[:username], params[:query], params[:tab], params[:cur_id])
   end
@@ -36,7 +36,7 @@ class SubscriptionsController < ApplicationController
   # validates user's login state when attempting to follow or unfollow a user
   # +name+:: of the user attempting to subscribe
   # +function+:: either "follow" or "unfollow"
-  def validate_login(name, function)
+  def validate_login(name)
     if current_user
       @boolean = true
     else

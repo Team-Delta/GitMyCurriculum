@@ -112,7 +112,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up for inactive accounts. You need to overwrite
   # this method in your own RegistrationsController.
-  def after_inactive_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(_resource)
     respond_to?(:root_path) ? root_path : '/'
   end
 
