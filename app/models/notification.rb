@@ -11,12 +11,12 @@
 class Notification < ActiveRecord::Base
   # Notification Types
   N_SAVE = 0             # equiv to add commit push
-  N_REQUEST = 1          # equiv to merge request
+  N_REQUEST = 10          # equiv to merge request
   N_JOIN = 2             # equiv to merge
   N_FORK = 3             # forking a repo
   N_COMMENT = 4          # comment on repo
-  N_REQUEST_APPROVE = 5  # if a request gets approved
-  N_REQUEST_DENY = 6     # if a request gets denied
+  N_REQUEST_APPROVE = 11  # if a request gets approved
+  N_REQUEST_DENY = 12     # if a request gets denied
   N_SAVE_DELETED = 7     # if a commit gets deleted
   N_ADDED_CONTRIBUTOR = 8# if a contributor is added
 

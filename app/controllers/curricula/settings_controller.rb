@@ -42,4 +42,3 @@ class Curricula::SettingsController < ApplicationController
     params.require(:edit_curriculum).permit(:cur_name, :cur_description, :creator_id, :path)
   end
 end
-
