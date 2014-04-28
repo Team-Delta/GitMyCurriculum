@@ -8,6 +8,7 @@ class Curricula::SettingsController < ApplicationController
     authorize! :update, @curricula
     if request.post?
       @curricula.update_attributes(curricula_params)
+      flash[:success] = 'Successfully updated curricula' if @curricula.save
       redirect_to dashboard_show_path
     end
   end

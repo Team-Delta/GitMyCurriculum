@@ -16,10 +16,13 @@ module GitFunctionality
       work.merge(join_request.source_stream)
       work.branch(join_request.source_stream).delete
       work.push
+      work.fetch
+      work.pull
     end
 
     def create_branch(curriculum, name)
       working_repo = ::GitFunctionality::Repo.new.get_working_repo(curriculum)
+      working_repo.checkout('master')
       working_repo.branch(name).checkout
     end
 
