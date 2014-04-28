@@ -26,9 +26,9 @@ feature 'Upload no zip' do
     click_button 'Create'
   end
 
-  def fake_upload_with()
-   visit curricula_show_upload
-   click_button 'upload'
+  def fake_upload_with
+    visit curricula_show_upload
+    click_button 'upload'
     expect(page).to have_content ('File could not be uploaded.')
   end
 end
