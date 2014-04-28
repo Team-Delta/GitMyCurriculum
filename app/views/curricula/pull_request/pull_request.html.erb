@@ -41,14 +41,10 @@
    <div class="<%= if params[:tab] == 'changes' then 'tab-pane active'  else 'tab-pane' end%>" id="changes">
       <h4>
           <strong><%= @join_request.message %></strong>
-            <button type="button" class="btn btn-success" style="margin-left: 750px;">Accept
-              <% link_to curricula_merge_path(:id => @join_request.id, :accept => true) %>
-            </button>
+      <%= link_to "Accept", curricula_merge_path(:id => @join_request.id, :accept => true), class: "btn btn-success", style: "margin-left: 750px;" %>
+      <%= link_to "Decline", curricula_merge_path(:id => @join_request.id, :accept => false), class: "btn btn-danger" %>
+    </h4>
 
-            <button type="button" class="btn btn-danger">Decline
-              <% link_to curricula_merge_path(:id => @join_request.id, :accept => false) %>
-            </button>
-      </h4>
       <% @array.each do |a| %>
         <div class="panel panel-info">
           <div class="panel-heading">

@@ -22,8 +22,8 @@ GitMyCurriculum::Application.routes.draw do
   resources :curricula do
 
     member do
-      get ':id/:tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
-      get ':id/:name/:blob' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
+      get 'tree/:name' => 'curricula#grab_tree_folder', as: :open_folder
+      get 'blob/:name' => 'curricula#grab_file_contents', as: :open_file, :name => /(\w+)(\D+)(\w)/
       get 'fork' => 'curricula#fork', as: :fork
     end
 
