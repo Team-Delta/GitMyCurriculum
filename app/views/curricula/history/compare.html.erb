@@ -1,0 +1,20 @@
+<div class="container">
+  <% @array.each do |a| %>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <%= a.path %>
+      </div>
+      <div class="panel-body">
+        <%= @source = '' %>
+        <%= @dest = '' %>
+        <% unless a.blob(:src).nil? %>
+          <% @source = a.blob(:src).contents %>
+        <% end %>
+        <% unless a.blob(:dst).nil? %>
+          <% @dest = a.blob(:dst).contents %>
+        <% end %>
+        <%= Diffy::Diff.new(@source, @dest).to_s(:html).html_safe %>
+      </div>
+    </div>
+  <% end %>
+</div>

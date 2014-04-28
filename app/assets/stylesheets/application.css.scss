@@ -1,0 +1,55 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+@import "bootstrap";
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-signin > .form-signin-heading {
+  margin-bottom: 10px;
+}
+.form-signin > .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.form-signin > .form-control:focus {
+  z-index: 2;
+}
+
+.btn.btn-primary.btn-no-padding {
+  padding: 5px 30px;
+  margin-bottom:5px;
+}
+
+.no-link-white {
+  color: #FFFFFF !important;
+  text-decoration: none;
+}
+
+#nav-search {
+  margin-bottom:0px;
+}

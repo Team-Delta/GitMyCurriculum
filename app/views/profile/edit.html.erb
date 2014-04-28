@@ -1,0 +1,11 @@
+<div class="container">
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :class => "form", :method => :put ) do |f| %>
+     <%= f.label :description %>
+     <%= f.text_field :description %>
+
+     <%= f.label :occupation %>
+     <%= f.text_field :occupation %>
+
+     <%= f.submit "Submit", title:"Click this to submit changes to your profile", rel:"tooltip", class:"btn btn-primary btn-no-padding"%>
+  <% end %>
+</div>

@@ -1,0 +1,62 @@
+= Git My Curriculum
+{<img src="https://codeclimate.com/github/Team-Delta/GitMyCurriculum.png" />}[https://codeclimate.com/github/Team-Delta/GitMyCurriculum]
+{<img src="https://travis-ci.org/Team-Delta/GitMyCurriculum.png?branch=develop" alt="Build Status" />}[https://travis-ci.org/Team-Delta/GitMyCurriculum]
+{<img src="https://coveralls.io/repos/Team-Delta/GitMyCurriculum/badge.png?branch=develop" alt="Coverage Status" />}[https://coveralls.io/r/Team-Delta/GitMyCurriculum?branch=develop]
+
+Curriculum management for the average academic that leverages git.
+
+== Installation
+
+1. start with a linux os
+2. <code>sudo apt-get install curl</code>
+3. install ruby and rails with rvm <code>sudo \curl -sSL https://get.rvm.io | bash -s stable --rails</code>
+4. add the os gem <code>gem install os</code>
+5. sudo apt-get install mysql-server
+6. <code>sudo apt-get install openjdk-7-jre</code>
+7. <code>sudo apt-get install nodejs</code>
+8. run bundler <code>bundle install</code>
+
+=== Ruby version:
+This project is running ruby 2.1.0
+
+=== System Dependancies & Development Environment
+Sunspot: used for searching
+
+Devise: used for authentication
+
+=== Configuration:
+FactoryGirl: used for data fixtures in test cases
+
+Seed_fu: used for data fixtures in development
+
+RSpec: unit tests
+
+Capybara: integration tests
+
+Guard: continuous testing on development machine
+
+Debugger: faster debugging for rails
+
+=== Database Creation & Loading:
+<code>ln -s /run/mysqld/mysqld.sock /tmp/mysql.sock</code>
+
+<code>rake db:create</code>
+
+<code>rake db:migrate</code>
+
+<code>rake db:seed_fu</code> (development)
+
+=== Run Develop Server
+<code>rails server --debugger</code>
+
+=== How to run the test suite:
+<code>rake test_setup:run_all</code> (test script that runs all things for test suite)
+
+=== Code Line Policies:
+See wiki/pages/code line policies
+
+=== Git Flow:
+See wiki/pages/git flow
+
+Please feel free to use a different markup language if you do not plan to run
+<code>rake doc:app</code>.

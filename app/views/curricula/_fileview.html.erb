@@ -1,0 +1,25 @@
+<div class="panel-heading" title="This shows your curriculum">
+  <div class="panel-title">
+    <%= @name %>
+    <div id ="span-b">
+      <%= @blob.contents.squish.split.size %> <b> words</b>
+      <div class="divider"></div>
+      <b> File Size</b>: <%= @blob.size %>bytes
+    </div>
+  </div>
+</div>
+
+<div class="panel-body">
+  <table class="table" id="file-table">
+    <tbody>
+      <col width = "5%">
+      <col width = "95%">
+      <% @blob.contents_array.each_with_index do |value, index| %>
+        <tr>
+          <td id="index-cell"><%= index + 1 %></td>
+          <td id="value-cell"><%= value %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

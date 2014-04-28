@@ -1,0 +1,17 @@
+LineLength:
+  Max: 200
+
+AllCops:
+  Exclude:
+    - db/**
+    - config/**
+    - spec/**
+    - app/controllers/application_controller.rb
+    - phantomjs/**
+    - app/controllers/curricula/**
+
+MethodLength:
+  Max: 30
+
+ClassLength:
+  Max: 135  

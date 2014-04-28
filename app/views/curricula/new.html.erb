@@ -1,0 +1,17 @@
+<div class="container">
+  <%= form_for :curricula, :url => '/curricula', :role => "form", :class => "form", :method => :post do |f| %>
+
+    <div class="form-group">
+      <%= f.text_field :cur_name, type:"text", placeholder:"name", class:"form-control", :autofocus => true %>
+    </div>  
+
+    <div class="form-group">
+      <%= f.text_area :cur_description, type:"text", placeholder:"description", class:"form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Create", class:"btn btn-primary btn-no-padding", title:"Click this to create your new curriculum", rel:"tooltip" %>
+    </div>
+
+  <% end %>
+<div class="container">

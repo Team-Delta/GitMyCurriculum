@@ -1,0 +1,37 @@
+<div class="container">
+
+  <div class="panel panel-info">
+    <div class="panel-heading">Change History For: <%= @curriculum.cur_name %></div>
+    <ul class="list-group">
+      <% for c in @commits %>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-6">
+              <%= link_to curricula_compare_path(:id => @curriculum.id, :commit => c), title:"Click this to compare your save to the previous one", rel:"tooltip" do %>
+                <h4>
+                  <%= c.message %>
+                </h4>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <%= link_to "Delete Save", curricula_revert_path(:id => @curriculum.id, :commit => c.sha), class:"btn btn-danger pull-right", title:"Click this to delete your save", rel:"tooltip"%>
+            </div>
+          </div>
+          Authored By: 
+          <strong>
+            <%= c.author.name %>
+          </strong> 
+          on 
+          <strong>
+            <%= c.author.date.strftime("%m-%d-%y") %>
+          </strong>
+          <div class="pull-right">
+            Change ID: 
+            <%= c %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

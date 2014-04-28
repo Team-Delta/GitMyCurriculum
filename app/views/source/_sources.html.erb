@@ -1,0 +1,7 @@
+<% unless @sources.blank? %>
+  <% @sources.each do |s| %>
+    <div class="list-group-item">
+      <a class="list-group-item-heading" href=<%= s.link %>><%= s.source_tag %></a>
+    </div>
+  <% end %>
+<% end %>

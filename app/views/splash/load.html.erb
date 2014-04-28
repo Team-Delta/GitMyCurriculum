@@ -1,0 +1,69 @@
+<main>
+  <div id="splash-top-row" class="row">
+
+    <div id ="buffer" class="row">
+
+    </div>
+
+    <div class="col-md-6 col-md-offset-1">
+      <h1 class="text-color-white">
+        Welcome to GitMyCurriculum!
+        <br>
+      </h1>
+    </div>
+
+    <div class="col-md-4">
+      <%= form_for(resource, :html => {:class => "form-signin"}, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+        <div>
+          <%= f.text_field :login, type:"text", placeholder:"email or username", class:"form-control", :autofocus => true %>
+        </div>  
+
+        <div>
+          <%= f.password_field :password, type:"password", placeholder:"password", class:"form-control" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div id= "remember-me" class="pull-right"><%= f.check_box :remember_me %> <%= f.label :remember_me, class:"text-color-white" %></div>
+        <% end -%>
+
+        <div>
+          <%= f.submit "Sign In", class:"btn btn-primary btn-no-padding" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="media col-md-5 col-md-offset-1">
+      <div class="media-body">
+        <h2 class="media-heading">
+          What is GitMyCurriculum?
+        </h2>
+        <h4> 
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </h4>
+      </div>
+    </div>
+    <div class="media col-md-4">
+      <span class="glyphicon glyphicon-book"></span> 
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="media col-md-2 col-md-offset-4">
+      <span class="glyphicon glyphicon-book pull-right"></span> 
+    </div>
+    <div class="media col-md-5">
+      <div class="media-body pull-right">
+        <h2 class="media-heading">
+          Why pick us?
+        </h2>
+        <h4> 
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </h4>
+      </div>
+    </div>
+  </div>
+</main>

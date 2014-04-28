@@ -1,0 +1,36 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+#breadcrumb {
+    background-color: #fff;
+}
+
+#brlink {
+    color: #f70;
+}
+
+.btn-success {
+  width: 150px;
+}
+
+#file-table {
+
+}
+
+#index-cell{
+  border-top: none;
+  border-right: 1px solid #E5E5E5;
+  border-spacing: 0;
+  padding: 0;
+  padding-left: 10px;
+}
+
+#value-cell{
+  border-top: none;
+  border-spacing: 0;
+  padding: 0;
+  padding-left: 10px;
+ /* font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;*/
+}

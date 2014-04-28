@@ -1,0 +1,51 @@
+<div class="well well-sm col-md-2 col-md-offset-1 bs-docs-sidebar" title="Select which results you want to see here">
+
+  <ul class="nav nav-pills no-outline nav-stacked">
+    <li class="active">
+      <a href="#allSearch" data-toggle="tab">
+        All Results
+        <span class="badge badge-success pull-right">
+          <%= @number_of_user_matches + @number_of_curriculum_matches %>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="#userSearch" data-toggle="tab">
+        Users
+        <span class="badge badge-success pull-right">
+          <%= @number_of_user_matches %>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href="#currSearch" data-toggle="tab">
+        Curriculum
+        <span class="badge badge-success pull-right">
+          <%= @number_of_curriculum_matches %>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div id="Search Results" class="col-md-7">
+  <% if @number_of_user_matches==0 && @number_of_curriculum_matches==0 %>
+    <h3> No results found for: <%=params[:query]%></h3> <br>
+  <% else %>
+    <h2>Showing results for: <%=params[:query]%></h2> <br>
+    <ul>
+      <div id="searchTabContent" class="tab-content">    
+
+        <div class="tab-pane fade in active" id="allSearch">
+          <%= render :partial => "aresult" %>
+        </div>
+        <div class="tab-pane fade" id="userSearch">
+          <%= render :partial => "uresult" %>
+        </div>
+        <div class="tab-pane fade" id="currSearch">
+          <%= render :partial => "cresult" %>
+        </div>
+      </div>
+    </ul>
+  <% end %>
+</div>

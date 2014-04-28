@@ -1,0 +1,10 @@
+.no-link {
+  color: inherit;
+  font-weight: bold;
+}
+
+.no-link:hover {
+  color: inherit;
+  font-weight: bold;
+  cursor:pointer;
+}

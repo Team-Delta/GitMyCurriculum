@@ -1,0 +1,33 @@
+<% if @number_of_curriculum_matches == 0 %> 
+  <strong> No Matching Curriculums Found</strong>
+  <br>
+<% else %>
+  <% for c in @curricula %>
+    <div class="media">
+      <a class="pull-left" href='#'>
+        <span class="glyphicon glyphicon-book glyphicon-2x"></span>
+      </a>
+
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%=link_to("#{c.creator.username}/#{c.cur_name}", curricula_path(:id => c.id))%>
+        </h4>
+        <%= c.cur_description %>
+
+        <% if current_user && c.creator_id!=current_user.id%>
+          <% @followed_curricula = FollowingCurricula.joins(:curricula).where('user_id=? AND curricula_id=?', current_user.id, c.id) %>
+          <% if !@followed_curricula.blank? %>
+            <button class="btn btn-danger btn-no-padding pull-right" >
+              <%= link_to "Unfollow", subscriptions_subscription_path(:cur_id => c.id, :query => params[:query], :sub_status => 'curricula_unfollow', :redirect => 'search'), :class => "no-link-white" %>
+            </button>
+          <% else %>
+            <button class="btn btn-primary btn-no-padding pull-right" >
+              <%= link_to "Follow", subscriptions_subscription_path(:cur_id => c.id, :query => params[:query], :sub_status => 'curricula_follow', :redirect => 'search'), :class => "no-link-white" %>
+            </button>
+          <% end %>
+        <% end %> 
+      </div>
+    </div>
+    <hr>
+  <% end %>
+<% end %>
