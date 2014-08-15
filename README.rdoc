@@ -2,6 +2,7 @@
 {<img src="https://codeclimate.com/github/Team-Delta/GitMyCurriculum.png" />}[https://codeclimate.com/github/Team-Delta/GitMyCurriculum]
 {<img src="https://travis-ci.org/Team-Delta/GitMyCurriculum.png?branch=develop" alt="Build Status" />}[https://travis-ci.org/Team-Delta/GitMyCurriculum]
 {<img src="https://coveralls.io/repos/Team-Delta/GitMyCurriculum/badge.png?branch=develop" alt="Coverage Status" />}[https://coveralls.io/r/Team-Delta/GitMyCurriculum?branch=develop]
+{<img src="http://inch-ci.org/github/Team-Delta/GitMyCurriculum.svg?branch=master" alt="Inline docs" />}[http://inch-ci.org/github/Team-Delta/GitMyCurriculum/branch/master]
 
 Curriculum management for the average academic that leverages git.
 
