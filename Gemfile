@@ -70,13 +70,13 @@ group :test, :development do
   gem 'rubocop', '~>0.20.1'
 
   # Simulates the user in test cases
-  gem 'capybara'
+  gem 'capybara', '~> 2.2.1'
 
   # used for test case database
   gem 'factory_girl_rails'
 
   # testing framework for rails
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.14.2'
 
   # Search with Sunspot Solr
   gem 'sunspot_test'
